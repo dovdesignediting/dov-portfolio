@@ -20,6 +20,7 @@
         .page { display: none; }
         .page.active { display: block; animation: fadeIn 0.6s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .cat-btn { white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; min-width: 80px; }
     </style>
 </head>
 <body>
@@ -42,48 +43,28 @@
         <section class="h-screen flex items-center justify-center relative">
             <div class="absolute inset-0 bg-black/60 z-10"></div>
             <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000')] bg-cover bg-center"></div>
-            
             <div class="relative z-20 text-center px-6">
                 <h1 class="text-4xl md:text-7xl font-bold mb-6 serif" data-he="סטודיו העיצובים של דוב" data-en="Dov's Design Studio">סטודיו העיצובים של דוב</h1>
                 <p class="text-zinc-400 text-lg mb-10 max-w-xl mx-auto font-light" data-he="מיתוג יוקרתי ועיצוב שמותיר חותם" data-en="Luxury branding and design that leaves a mark">מיתוג יוקרתי ועיצוב שמותיר חותם</p>
                 <div class="flex flex-col md:flex-row gap-4 justify-center">
-                    <button onclick="showPage('gallery')" class="px-12 py-4 bg-amber-500 text-black font-bold uppercase tracking-widest text-sm hover:bg-amber-400" data-he="צפה בעבודות" data-en="VIEW WORKS">צפה בעבודות</button>
+                    <button onclick="showPage('gallery')" class="px-12 py-4 bg-amber-500 text-black font-bold uppercase tracking-widest text-sm" data-he="צפה בעבודות" data-en="VIEW WORKS">צפה בעבודות</button>
                     <a href="#contact-section" class="px-12 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-sm hover:border-amber-500" data-he="דבר איתי" data-en="LET'S TALK">דבר איתי</a>
                 </div>
             </div>
         </section>
 
         <section id="contact-section" class="py-24 bg-zinc-950 px-6">
-            <div class="container mx-auto max-w-4xl">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-5xl font-bold mb-4 serif" data-he="בואו ניצור משהו גדול" data-en="Let's Create Greatness">בואו ניצור משהו גדול</h2>
-                    <div class="w-20 h-1 bg-amber-500 mx-auto"></div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div class="space-y-8">
-                        <div>
-                            <h4 class="text-amber-500 font-bold uppercase text-xs tracking-widest mb-2">EMAIL</h4>
-                            <p class="text-xl">dovdesignediting@gmail.com</p>
-                        </div>
-                        <div>
-                            <h4 class="text-amber-500 font-bold uppercase text-xs tracking-widest mb-2">SOCIAL</h4>
-                            <div class="flex gap-4 text-zinc-400 font-bold text-xs">
-                                <span class="hover:text-white cursor-pointer uppercase tracking-widest">Instagram</span>
-                                <span class="hover:text-white cursor-pointer uppercase tracking-widest">Behance</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <form action="https://formspree.io/f/mvzzqrnz" method="POST" class="space-y-4">
-                        <input type="text" name="name" required placeholder="שם מלא / Name" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm">
-                        <input type="email" name="email" required placeholder="אימייל / Email" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm">
-                        <textarea name="message" required rows="4" placeholder="איך אני יכול לעזור? / How can I help?" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm resize-none"></textarea>
-                        <button type="submit" class="w-full py-4 bg-amber-500 text-black font-bold uppercase tracking-[0.2em] text-xs hover:bg-amber-400">
-                            <span data-he="שלח הודעה" data-en="SEND MESSAGE">שלח הודעה</span>
-                        </button>
-                    </form>
-                </div>
+            <div class="container mx-auto max-w-4xl text-center">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 serif" data-he="בואו ניצור משהו גדול" data-en="Let's Create Greatness">בואו ניצור משהו גדול</h2>
+                <div class="w-20 h-1 bg-amber-500 mx-auto mb-16"></div>
+                <form action="https://formspree.io/f/mvzzqrnz" method="POST" class="max-w-xl mx-auto space-y-4">
+                    <input type="text" name="name" required placeholder="שם מלא / Name" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm">
+                    <input type="email" name="email" required placeholder="אימייל / Email" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm">
+                    <textarea name="message" required rows="4" placeholder="איך אני יכול לעזור? / How can I help?" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm resize-none"></textarea>
+                    <button type="submit" class="w-full py-4 bg-amber-500 text-black font-bold uppercase tracking-[0.2em] text-xs">
+                        <span data-he="שלח הודעה" data-en="SEND MESSAGE">שלח הודעה</span>
+                    </button>
+                </form>
             </div>
         </section>
     </main>
@@ -92,16 +73,15 @@
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold mb-10 serif uppercase tracking-widest" data-he="העבודות שלי" data-en="MY WORKS">העבודות שלי</h2>
             
-            <div class="flex flex-wrap justify-center gap-2 mb-12" id="filters">
-                <button onclick="filterWorks('all')" class="cat-btn px-4 py-1 text-[10px] border border-amber-500 bg-amber-500 text-black font-bold uppercase">All</button>
-                <button onclick="filterWorks('business_cards')" class="cat-btn px-4 py-1 text-[10px] border border-zinc-800 text-zinc-500 uppercase" data-he="כרטיסי ביקור" data-en="CARDS">CARDS</button>
-                <button onclick="filterWorks('branding')" class="cat-btn px-4 py-1 text-[10px] border border-zinc-800 text-zinc-500 uppercase" data-he="מותגים" data-en="BRANDING">BRANDING</button>
-                <button onclick="filterWorks('posts')" class="cat-btn px-4 py-1 text-[10px] border border-zinc-800 text-zinc-500 uppercase" data-he="פוסטים" data-en="POSTS">POSTS</button>
-                <button onclick="filterWorks('ads')" class="cat-btn px-4 py-1 text-[10px] border border-zinc-800 text-zinc-500 uppercase" data-he="מודעות" data-en="ADS">ADS</button>
+            <div class="flex flex-wrap justify-center gap-3 mb-12" id="filters">
+                <button onclick="filterWorks('all')" class="cat-btn px-4 py-2 text-[10px] border border-amber-500 bg-amber-500 text-black font-bold uppercase">All</button>
+                <button onclick="filterWorks('business_cards')" class="cat-btn px-4 py-2 text-[10px] border border-zinc-800 text-zinc-500 uppercase" data-he="כרטיסי ביקור" data-en="CARDS">כרטיסי ביקור</button>
+                <button onclick="filterWorks('branding')" class="cat-btn px-4 py-2 text-[10px] border border-zinc-800 text-zinc-500 uppercase" data-he="מותגים" data-en="BRANDING">מותגים</button>
+                <button onclick="filterWorks('posts')" class="cat-btn px-4 py-2 text-[10px] border border-zinc-800 text-zinc-500 uppercase" data-he="פוסטים" data-en="POSTS">פוסטים</button>
+                <button onclick="filterWorks('ads')" class="cat-btn px-4 py-2 text-[10px] border border-zinc-800 text-zinc-500 uppercase" data-he="מודעות" data-en="ADS">מודעות</button>
             </div>
 
             <div id="gallery-grid" class="masonry-grid"></div>
-
             <button onclick="showPage('home')" class="mt-20 text-zinc-600 text-[10px] tracking-widest uppercase hover:text-amber-500">← חזרה לבית</button>
         </div>
     </main>
@@ -113,11 +93,16 @@
         
         <div id="admin-panel" class="hidden mt-8 max-w-sm mx-auto p-4 border border-zinc-800">
             <input id="new-url" type="text" placeholder="קישור ישיר לתמונה" class="w-full bg-zinc-900 p-2 text-xs mb-2 outline-none text-white">
-            <select id="new-cat" class="w-full bg-zinc-900 p-2 text-xs mb-4 text-white">
+            <select id="new-cat" class="w-full bg-zinc-900 p-2 text-xs mb-2 text-white">
                 <option value="business_cards">כרטיסי ביקור</option>
                 <option value="branding">מותגים</option>
                 <option value="posts">פוסטים</option>
                 <option value="ads">מודעות</option>
+            </select>
+            <select id="new-lang" class="w-full bg-zinc-900 p-2 text-xs mb-4 text-white">
+                <option value="both">מוצג בשתי השפות</option>
+                <option value="he">רק בעברית</option>
+                <option value="en">רק באנגלית</option>
             </select>
             <button onclick="addWork()" class="w-full py-2 bg-green-600 text-xs font-bold uppercase">הוסף תמונה</button>
         </div>
@@ -125,7 +110,24 @@
 
     <script>
         let currentLang = 'he';
-        let works = JSON.parse(localStorage.getItem('dov_db')) || [];
+        let currentFilter = 'all';
+
+        const defaultWorks = [
+            {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png', cat: 'ads', lang: 'both'},
+            {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png', cat: 'ads', lang: 'both'},
+            {url: 'https://i.postimg.cc/QxRKrSXB/1755407066547.png', cat: 'ads', lang: 'both'},
+            {url: 'https://i.postimg.cc/YqJLw8pL/Picsart-25-05-18-15-30-03-939.jpg', cat: 'posts', lang: 'both'},
+            {url: 'https://i.postimg.cc/wTtRPndv/1756004839008.png', cat: 'branding', lang: 'both'},
+            {url: 'https://i.postimg.cc/05XJVPh1/IMG-20251228-WA0014.jpg', cat: 'branding', lang: 'both'},
+            {url: 'https://i.postimg.cc/BZ71m4kd/Picsart-26-01-07-17-32-32-551.png', cat: 'branding', lang: 'both'},
+            {url: 'https://i.postimg.cc/NGCrdBSJ/a-modern-circular-logo-design-featuring-1eu-ovz-QBqb3k9EI98s-QQ-Kk-JG34m2Tm-GH4v-RIZu-Agpg.jpg', cat: 'branding', lang: 'both'},
+            {url: 'https://i.postimg.cc/J4yHgSWB/1752378346316.jpg', cat: 'branding', lang: 'both'},
+            {url: 'https://i.postimg.cc/y8XCnYW8/Picsart-26-01-20-05-54-51-529.jpg', cat: 'business_cards', lang: 'he'},
+            {url: 'https://i.postimg.cc/7ZMrXYbY/Picsart-26-01-20-05-51-57-093.png', cat: 'business_cards', lang: 'en'},
+            {url: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png', cat: 'branding', lang: 'both'}
+        ];
+        
+        let works = JSON.parse(localStorage.getItem('dov_db_v2')) || defaultWorks;
         let isAdmin = false;
 
         function showPage(p) {
@@ -133,8 +135,7 @@
             document.getElementById(p + '-page').classList.add('active');
             const h = document.getElementById('main-header');
             h.classList.toggle('bg-black/80', p === 'gallery');
-            h.classList.toggle('backdrop-blur-md', p === 'gallery');
-            if(p === 'gallery') renderGallery();
+            if(p === 'gallery') renderGallery(currentFilter);
             window.scrollTo(0,0);
         }
 
@@ -143,52 +144,62 @@
             document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
             document.getElementById('lang-toggle').innerText = currentLang === 'he' ? 'EN' : 'עב';
             document.querySelectorAll('[data-he]').forEach(el => el.innerText = el.getAttribute('data-' + currentLang));
-            renderGallery();
+            renderGallery(currentFilter);
         }
 
         function renderGallery(f = 'all') {
+            currentFilter = f;
             const g = document.getElementById('gallery-grid');
             g.innerHTML = '';
-            const list = f === 'all' ? works : works.filter(w => w.cat === f);
+            
+            const list = works.filter(w => {
+                const categoryMatch = (f === 'all' || w.cat === f);
+                const languageMatch = (w.lang === 'both' || w.lang === currentLang);
+                return categoryMatch && languageMatch;
+            });
+
             list.forEach((w, i) => {
                 g.innerHTML += `<div class="masonry-item relative group">
-                    <img src="${w.url}" class="w-full h-auto border border-zinc-800">
+                    <img src="${w.url}" class="w-full h-auto border border-zinc-800 shadow-md hover:border-amber-500 transition-all duration-300">
                     ${isAdmin ? `<button onclick="del(${i})" class="absolute top-1 right-1 bg-red-600 text-[8px] p-1">X</button>` : ''}
                 </div>`;
             });
         }
 
         function filterWorks(c) {
+            document.querySelectorAll('.cat-btn').forEach(b => {
+                b.classList.remove('bg-amber-500', 'text-black', 'border-amber-500');
+                b.classList.add('text-zinc-500', 'border-zinc-800');
+            });
+            event.target.classList.remove('text-zinc-500', 'border-zinc-800');
+            event.target.classList.add('bg-amber-500', 'text-black', 'border-amber-500');
             renderGallery(c);
-            document.querySelectorAll('.cat-btn').forEach(b => b.className = 'cat-btn px-4 py-1 text-[10px] border border-zinc-800 text-zinc-500 uppercase');
-            event.target.className = 'cat-btn px-4 py-1 text-[10px] border border-amber-500 bg-amber-500 text-black font-bold uppercase';
         }
 
         function toggleAdmin() {
             isAdmin = !isAdmin;
             document.getElementById('admin-panel').classList.toggle('hidden');
-            renderGallery();
+            renderGallery(currentFilter);
         }
 
         function addWork() {
             const u = document.getElementById('new-url').value;
             const c = document.getElementById('new-cat').value;
+            const l = document.getElementById('new-lang').value;
             if(!u) return;
-            works.unshift({url: u, cat: c});
-            localStorage.setItem('dov_db', JSON.stringify(works));
+            works.unshift({url: u, cat: c, lang: l});
+            localStorage.setItem('dov_db_v2', JSON.stringify(works));
             document.getElementById('new-url').value = '';
-            renderGallery();
+            renderGallery(currentFilter);
         }
 
         function del(i) {
             if(confirm("למחוק?")) {
                 works.splice(i, 1);
-                localStorage.setItem('dov_db', JSON.stringify(works));
-                renderGallery();
+                localStorage.setItem('dov_db_v2', JSON.stringify(works));
+                renderGallery(currentFilter);
             }
         }
-
-        if(works.length === 0) works = [{url: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png', cat: 'branding'}];
     </script>
 </body>
 </html>
