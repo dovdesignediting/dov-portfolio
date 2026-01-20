@@ -19,7 +19,6 @@
             scroll-behavior: smooth;
             -webkit-user-select: none;
             user-select: none;
-            /* ביטול הסימן הכחול בלחיצה בנייד */
             -webkit-tap-highlight-color: transparent;
         }
         .serif { font-family: 'Playfair Display', serif; }
@@ -40,19 +39,20 @@
             z-index: 5; background: rgba(0,0,0,0);
         }
 
-        /* Lightbox - חלון תצוגה מוגדלת */
+        /* Lightbox - תצוגה מוגדלת */
         #lightbox {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.97);
             z-index: 100;
             align-items: center;
             justify-content: center;
             flex-direction: column;
+            backdrop-filter: blur(5px);
         }
         #lightbox.active { display: flex; }
-        #lightbox-img { max-width: 90%; max-height: 80vh; border: 1px solid #333; }
+        #lightbox-img { max-width: 90%; max-height: 80vh; border: 1px solid #333; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
 
         .nav-btn {
             position: absolute;
@@ -65,11 +65,12 @@
             font-size: 24px;
             border-radius: 5px;
             transition: 0.3s;
+            z-index: 110;
         }
         .nav-btn:hover { background: #f59e0b; color: black; }
         .prev { left: 10px; }
         .next { right: 10px; }
-        .close-lb { top: 20px; right: 20px; position: absolute; font-size: 30px; cursor: pointer; }
+        .close-lb { top: 20px; right: 20px; position: absolute; font-size: 35px; cursor: pointer; color: white; z-index: 120; }
 
         .page { display: none; }
         .page.active { display: block; animation: fadeIn 0.6s ease; }
@@ -82,7 +83,7 @@
     <div id="lightbox">
         <span class="close-lb" onclick="closeLightbox()">&times;</span>
         <div class="nav-btn prev" onclick="changeImg(-1)">&#10094;</div>
-        <img id="lightbox-img" src="" alt="Dov's Work">
+        <img id="lightbox-img" src="" alt="Dov's Work" ondragstart="return false;">
         <div class="nav-btn next" onclick="changeImg(1)">&#10095;</div>
     </div>
 
@@ -113,18 +114,21 @@
                 </div>
             </div>
         </section>
-        
+
         <section id="contact-section" class="py-24 bg-zinc-950 px-6">
             <div class="container mx-auto max-w-4xl text-center">
                 <h2 class="text-3xl md:text-5xl font-bold mb-4 serif" data-he="בואו ניצור משהו גדול" data-en="Let's Create Greatness">בואו ניצור משהו גדול</h2>
                 <div class="w-20 h-1 bg-amber-500 mx-auto mb-16"></div>
-                <form action="https://formspree.io/f/mvzzqrnz" method="POST" class="max-w-xl mx-auto space-y-4">
-                    <input type="text" name="name" required placeholder="שם מלא / Name" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm">
-                    <input type="email" name="email" required placeholder="אימייל / Email" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm">
-                    <textarea name="message" required rows="4" placeholder="איך אני יכול לעזור? / How can I help?" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm resize-none"></textarea>
-                    <button type="submit" class="w-full py-4 bg-amber-500 text-black font-bold uppercase tracking-[0.2em] text-xs">
+                
+                <form id="contact-form" action="https://formspree.io/f/mvzzqrnz" method="POST" class="max-w-xl mx-auto space-y-4">
+                    <input type="text" name="name" required placeholder="שם מלא / Name" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white">
+                    <input type="email" name="_replyto" required placeholder="אימייל / Email" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white">
+                    <textarea name="message" required rows="4" placeholder="איך אני יכול לעזור? / How can I help?" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white resize-none"></textarea>
+                    
+                    <button type="submit" id="submit-btn" class="w-full py-4 bg-amber-500 text-black font-bold uppercase tracking-[0.2em] text-xs transition-all hover:bg-amber-400">
                         <span data-he="שלח הודעה" data-en="SEND MESSAGE">שלח הודעה</span>
                     </button>
+                    <p id="form-status" class="mt-4 text-xs font-bold"></p>
                 </form>
             </div>
         </section>
@@ -206,7 +210,9 @@
             currentLang = currentLang === 'he' ? 'en' : 'he';
             document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
             document.getElementById('lang-toggle').innerText = currentLang === 'he' ? 'EN' : 'עב';
-            document.querySelectorAll('[data-he]').forEach(el => el.innerText = el.getAttribute('data-' + currentLang));
+            document.querySelectorAll('[data-he]').forEach(el => {
+                el.innerText = el.getAttribute('data-' + currentLang);
+            });
             renderGallery(currentFilter);
         }
 
@@ -222,22 +228,22 @@
             });
 
             filteredWorks.forEach((w, i) => {
-                g.innerHTML += `<div class="masonry-item relative group" onclick="openLightbox(${i})">
+                g.innerHTML += `
+                <div class="masonry-item relative group" onclick="openLightbox(${i})">
                     <div class="img-overlay"></div>
-                    <img src="${w.url}" ondragstart="return false;" class="w-full h-auto border border-zinc-800 shadow-md">
+                    <img src="${w.url}" ondragstart="return false;" class="w-full h-auto border border-zinc-800 shadow-md hover:border-amber-500 transition-all">
                     ${isAdmin ? `<button onclick="event.stopPropagation(); del(${i})" class="absolute top-1 right-1 z-20 bg-red-600 text-[8px] p-1">X</button>` : ''}
                 </div>`;
             });
         }
 
-        /* Lightbox Functions */
         function openLightbox(index) {
             currentIndex = index;
             const lb = document.getElementById('lightbox');
             const lbImg = document.getElementById('lightbox-img');
             lbImg.src = filteredWorks[currentIndex].url;
             lb.classList.add('active');
-            document.body.style.overflow = 'hidden'; // מניעת גלילה ברקע
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
@@ -252,7 +258,6 @@
             document.getElementById('lightbox-img').src = filteredWorks[currentIndex].url;
         }
 
-        // סגירה בלחיצה על הרקע
         document.getElementById('lightbox').addEventListener('click', function(e) {
             if (e.target === this) closeLightbox();
         });
@@ -262,10 +267,44 @@
                 b.classList.remove('bg-amber-500', 'text-black', 'border-amber-500');
                 b.classList.add('text-zinc-500', 'border-zinc-800');
             });
-            event.target.classList.remove('text-zinc-500', 'border-zinc-800');
-            event.target.classList.add('bg-amber-500', 'text-black', 'border-amber-500');
+            event.currentTarget.classList.remove('text-zinc-500', 'border-zinc-800');
+            event.currentTarget.classList.add('bg-amber-500', 'text-black', 'border-amber-500');
             renderGallery(c);
         }
+
+        /* סקריפט שליחת טופס ללא ריענון */
+        const form = document.getElementById("contact-form");
+        const status = document.getElementById("form-status");
+
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const data = new FormData(event.target);
+            const btn = document.getElementById("submit-btn");
+            
+            btn.innerText = "שולח... / Sending...";
+            btn.disabled = true;
+
+            fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    status.innerHTML = "ההודעה נשלחה בהצלחה! / Message sent successfully!";
+                    status.className = "mt-4 text-xs font-bold text-green-500";
+                    form.reset();
+                } else {
+                    status.innerHTML = "אופס! הייתה בעיה בשליחה / Oops! Problem sending";
+                    status.className = "mt-4 text-xs font-bold text-red-500";
+                }
+            }).catch(error => {
+                status.innerHTML = "בעיית תקשורת / Communication error";
+                status.className = "mt-4 text-xs font-bold text-red-500";
+            }).finally(() => {
+                btn.innerText = "שלח הודעה / SEND MESSAGE";
+                btn.disabled = false;
+            });
+        });
 
         function toggleAdmin() {
             isAdmin = !isAdmin;
