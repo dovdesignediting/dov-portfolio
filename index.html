@@ -33,13 +33,7 @@
             cursor: pointer;
         }
 
-        .img-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 5; background: rgba(0,0,0,0);
-        }
-
-        /* Lightbox - תצוגה מוגדלת */
+        /* Lightbox */
         #lightbox {
             display: none;
             position: fixed;
@@ -76,6 +70,48 @@
         .page.active { display: block; animation: fadeIn 0.6s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .cat-btn { white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; min-width: 80px; }
+
+        /* --- עיצוב הבאנר הנגלל --- */
+        .scrolling-banner {
+            width: 100%;
+            height: 220px;
+            background-size: contain;
+            background-repeat: repeat-x;
+            background-position: center;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 30;
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .scrolling-banner:hover {
+            animation-play-state: paused !important;
+            transform: scale(1.03);
+        }
+
+        #banner-he {
+            background-image: url('https://i.postimg.cc/SKdWvXvD/Picsart-26-01-15-07-34-38-017.png');
+            animation: scroll-bg-rtl 45s linear infinite;
+        }
+
+        #banner-en {
+            background-image: url('https://i.postimg.cc/3wYX1jnw/1768446446562.png');
+            animation: scroll-bg-ltr 45s linear infinite;
+        }
+
+        @keyframes scroll-bg-rtl {
+            from { background-position: 0 center; }
+            to { background-position: 1500px center; }
+        }
+
+        @keyframes scroll-bg-ltr {
+            from { background-position: 0 center; }
+            to { background-position: -1500px center; }
+        }
+
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -102,16 +138,21 @@
     </header>
 
     <main id="home-page" class="page active">
-        <section class="h-screen flex items-center justify-center relative">
+        <section class="min-h-screen flex flex-col items-center justify-center relative pt-32 pb-16">
             <div class="absolute inset-0 bg-black/60 z-10"></div>
             <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000')] bg-cover bg-center"></div>
-            <div class="relative z-20 text-center px-6">
+            
+            <div class="relative z-20 text-center px-6 w-full">
                 <h1 class="text-4xl md:text-7xl font-bold mb-6 serif" data-he="סטודיו העיצובים של דוב" data-en="Dov's Design Studio">סטודיו העיצובים של דוב</h1>
                 <p class="text-zinc-400 text-lg mb-10 max-w-xl mx-auto font-light" data-he="מיתוג יוקרתי ועיצוב שמותיר חותם" data-en="Luxury branding and design that leaves a mark">מיתוג יוקרתי ועיצוב שמותיר חותם</p>
-                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                
+                <div class="flex flex-col md:flex-row gap-4 justify-center mb-12">
                     <button onclick="showPage('gallery')" class="px-12 py-4 bg-amber-500 text-black font-bold uppercase tracking-widest text-sm" data-he="צפה בעבודות" data-en="VIEW WORKS">צפה בעבודות</button>
                     <a href="#contact-section" class="px-12 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-sm hover:border-amber-500" data-he="דבר איתי" data-en="LET'S TALK">דבר איתי</a>
                 </div>
+
+                <div class="scrolling-banner" id="banner-he" title="גע לעצירה"></div>
+                <div class="scrolling-banner hidden" id="banner-en" title="Touch to pause"></div>
             </div>
         </section>
 
@@ -120,7 +161,7 @@
                 <h2 class="text-3xl md:text-5xl font-bold mb-4 serif" data-he="בואו ניצור משהו גדול" data-en="Let's Create Greatness">בואו ניצור משהו גדול</h2>
                 <div class="w-20 h-1 bg-amber-500 mx-auto mb-16"></div>
                 
-                <form id="contact-form" action="https://formspree.io/f/mvzzqrnz" method="POST" class="max-w-xl mx-auto space-y-4">
+                <form id="contact-form" action="https://formspree.io/f/mvzzqrnz" method="POST" class="max-w-xl mx-auto space-y-4 text-right">
                     <input type="text" name="name" required placeholder="שם מלא / Name" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white">
                     <input type="email" name="_replyto" required placeholder="אימייל / Email" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white">
                     <textarea name="message" required rows="4" placeholder="איך אני יכול לעזור? / How can I help?" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white resize-none"></textarea>
@@ -128,7 +169,7 @@
                     <button type="submit" id="submit-btn" class="w-full py-4 bg-amber-500 text-black font-bold uppercase tracking-[0.2em] text-xs transition-all hover:bg-amber-400">
                         <span data-he="שלח הודעה" data-en="SEND MESSAGE">שלח הודעה</span>
                     </button>
-                    <p id="form-status" class="mt-4 text-xs font-bold"></p>
+                    <p id="form-status" class="mt-4 text-xs font-bold text-center"></p>
                 </form>
             </div>
         </section>
@@ -147,7 +188,11 @@
             </div>
 
             <div id="gallery-grid" class="masonry-grid"></div>
-            <button onclick="showPage('home')" class="mt-20 text-zinc-600 text-[10px] tracking-widest uppercase hover:text-amber-500">← חזרה לבית</button>
+            
+            <button onclick="showPage('home')" class="mt-16 px-10 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-xs transition-all hover:bg-amber-500 hover:text-black hover:border-amber-500">
+                ← חזרה לבית
+            </button>
+
         </div>
     </main>
 
@@ -194,7 +239,7 @@
             {url: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png', cat: 'branding', lang: 'both'}
         ];
         
-        let works = JSON.parse(localStorage.getItem('dov_db_v2')) || defaultWorks;
+        let works = JSON.parse(localStorage.getItem('dov_db_v3')) || defaultWorks;
         let isAdmin = false;
 
         function showPage(p) {
@@ -213,36 +258,29 @@
             document.querySelectorAll('[data-he]').forEach(el => {
                 el.innerText = el.getAttribute('data-' + currentLang);
             });
+            document.getElementById('banner-he').classList.toggle('hidden', currentLang !== 'he');
+            document.getElementById('banner-en').classList.toggle('hidden', currentLang !== 'en');
             renderGallery(currentFilter);
         }
 
         function renderGallery(f = 'all') {
             currentFilter = f;
             const g = document.getElementById('gallery-grid');
+            if(!g) return;
             g.innerHTML = '';
-            
-            filteredWorks = works.filter(w => {
-                const categoryMatch = (f === 'all' || w.cat === f);
-                const languageMatch = (w.lang === 'both' || w.lang === currentLang);
-                return categoryMatch && languageMatch;
-            });
-
+            filteredWorks = works.filter(w => (f === 'all' || w.cat === f) && (w.lang === 'both' || w.lang === currentLang));
             filteredWorks.forEach((w, i) => {
-                g.innerHTML += `
-                <div class="masonry-item relative group" onclick="openLightbox(${i})">
-                    <div class="img-overlay"></div>
-                    <img src="${w.url}" ondragstart="return false;" class="w-full h-auto border border-zinc-800 shadow-md hover:border-amber-500 transition-all">
-                    ${isAdmin ? `<button onclick="event.stopPropagation(); del(${i})" class="absolute top-1 right-1 z-20 bg-red-600 text-[8px] p-1">X</button>` : ''}
+                g.innerHTML += `<div class="masonry-item relative group" onclick="openLightbox(${i})">
+                    <img src="${w.url}" class="w-full h-auto border border-zinc-800 shadow-md hover:border-amber-500 transition-all">
+                    ${isAdmin ? `<button onclick="event.stopPropagation(); del(${i})" class="absolute top-1 right-1 bg-red-600 text-[8px] p-1">X</button>` : ''}
                 </div>`;
             });
         }
 
         function openLightbox(index) {
             currentIndex = index;
-            const lb = document.getElementById('lightbox');
-            const lbImg = document.getElementById('lightbox-img');
-            lbImg.src = filteredWorks[currentIndex].url;
-            lb.classList.add('active');
+            document.getElementById('lightbox-img').src = filteredWorks[currentIndex].url;
+            document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
@@ -252,84 +290,29 @@
         }
 
         function changeImg(step) {
-            currentIndex += step;
-            if (currentIndex >= filteredWorks.length) currentIndex = 0;
-            if (currentIndex < 0) currentIndex = filteredWorks.length - 1;
+            currentIndex = (currentIndex + step + filteredWorks.length) % filteredWorks.length;
             document.getElementById('lightbox-img').src = filteredWorks[currentIndex].url;
         }
 
-        document.getElementById('lightbox').addEventListener('click', function(e) {
-            if (e.target === this) closeLightbox();
-        });
+        document.getElementById('lightbox').addEventListener('click', e => e.target.id === 'lightbox' && closeLightbox());
 
         function filterWorks(c) {
-            document.querySelectorAll('.cat-btn').forEach(b => {
-                b.classList.remove('bg-amber-500', 'text-black', 'border-amber-500');
-                b.classList.add('text-zinc-500', 'border-zinc-800');
-            });
-            event.currentTarget.classList.remove('text-zinc-500', 'border-zinc-800');
-            event.currentTarget.classList.add('bg-amber-500', 'text-black', 'border-amber-500');
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.replace('bg-amber-500', 'text-zinc-500'));
+            event.currentTarget.classList.replace('text-zinc-500', 'bg-amber-500');
             renderGallery(c);
         }
 
-        /* סקריפט שליחת טופס ללא ריענון */
-        const form = document.getElementById("contact-form");
-        const status = document.getElementById("form-status");
-
-        form.addEventListener("submit", async function(event) {
-            event.preventDefault();
-            const data = new FormData(event.target);
-            const btn = document.getElementById("submit-btn");
-            
-            btn.innerText = "שולח... / Sending...";
-            btn.disabled = true;
-
-            fetch(event.target.action, {
-                method: form.method,
-                body: data,
-                headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                if (response.ok) {
-                    status.innerHTML = "ההודעה נשלחה בהצלחה! / Message sent successfully!";
-                    status.className = "mt-4 text-xs font-bold text-green-500";
-                    form.reset();
-                } else {
-                    status.innerHTML = "אופס! הייתה בעיה בשליחה / Oops! Problem sending";
-                    status.className = "mt-4 text-xs font-bold text-red-500";
-                }
-            }).catch(error => {
-                status.innerHTML = "בעיית תקשורת / Communication error";
-                status.className = "mt-4 text-xs font-bold text-red-500";
-            }).finally(() => {
-                btn.innerText = "שלח הודעה / SEND MESSAGE";
-                btn.disabled = false;
-            });
-        });
-
-        function toggleAdmin() {
-            isAdmin = !isAdmin;
-            document.getElementById('admin-panel').classList.toggle('hidden');
-            renderGallery(currentFilter);
-        }
+        function toggleAdmin() { isAdmin = !isAdmin; document.getElementById('admin-panel').classList.toggle('hidden'); renderGallery(currentFilter); }
 
         function addWork() {
             const u = document.getElementById('new-url').value;
-            const c = document.getElementById('new-cat').value;
-            const l = document.getElementById('new-lang').value;
             if(!u) return;
-            works.unshift({url: u, cat: c, lang: l});
-            localStorage.setItem('dov_db_v2', JSON.stringify(works));
-            document.getElementById('new-url').value = '';
+            works.unshift({url: u, cat: document.getElementById('new-cat').value, lang: document.getElementById('new-lang').value});
+            localStorage.setItem('dov_db_v3', JSON.stringify(works));
             renderGallery(currentFilter);
         }
 
-        function del(i) {
-            if(confirm("למחוק?")) {
-                works.splice(i, 1);
-                localStorage.setItem('dov_db_v2', JSON.stringify(works));
-                renderGallery(currentFilter);
-            }
-        }
+        function del(i) { if(confirm("למחוק?")) { works.splice(i, 1); localStorage.setItem('dov_db_v3', JSON.stringify(works)); renderGallery(currentFilter); } }
     </script>
 </body>
 </html>
