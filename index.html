@@ -19,10 +19,11 @@
             scroll-behavior: smooth;
             -webkit-user-select: none;
             user-select: none;
-            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         .serif { font-family: 'Playfair Display', serif; }
         .brand-logo { height: 45px; width: auto; object-fit: contain; }
+        
         .masonry-grid { columns: 2; gap: 10px; }
         @media (min-width: 768px) { .masonry-grid { columns: 3; } }
         
@@ -46,60 +47,57 @@
             backdrop-filter: blur(5px);
         }
         #lightbox.active { display: flex; }
-        #lightbox-img { max-width: 90%; max-height: 80vh; border: 1px solid #333; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
-
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.05);
-            color: white;
-            padding: 20px 15px;
-            cursor: pointer;
-            font-size: 24px;
-            border-radius: 5px;
-            transition: 0.3s;
-            z-index: 110;
-        }
-        .nav-btn:hover { background: #f59e0b; color: black; }
-        .prev { left: 10px; }
-        .next { right: 10px; }
-        .close-lb { top: 20px; right: 20px; position: absolute; font-size: 35px; cursor: pointer; color: white; z-index: 120; }
+        #lightbox-img { max-width: 90%; max-height: 80vh; border: 1px solid #333; }
 
         .page { display: none; }
         .page.active { display: block; animation: fadeIn 0.6s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .cat-btn { white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; min-width: 80px; }
 
-        /* --- עיצוב הבאנר הנגלל --- */
+        /* --- באנר נגלל משופר עם אזור לחיצה מאוחד --- */
+        .banner-wrapper {
+            width: 100%;
+            margin-top: 2.5rem;
+            margin-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer; /* סימן שהכל לחיץ */
+            -webkit-tap-highlight-color: transparent;
+        }
+
         .scrolling-banner {
             width: 100%;
-            height: 220px;
+            height: 280px;
             background-size: contain;
             background-repeat: repeat-x;
             background-position: center;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
             position: relative;
             z-index: 30;
             filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
-            cursor: pointer;
-            transition: transform 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .scrolling-banner:hover {
-            animation-play-state: paused !important;
-            transform: scale(1.03);
+        /* אפקט לחיצה על כל האזור */
+        .banner-wrapper:active .scrolling-banner {
+            transform: scale(0.97);
+        }
+
+        .banner-wrapper.is-full .scrolling-banner {
+            animation: none !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+            transform: scale(1.08);
+            height: 320px;
         }
 
         #banner-he {
             background-image: url('https://i.postimg.cc/SKdWvXvD/Picsart-26-01-15-07-34-38-017.png');
-            animation: scroll-bg-rtl 45s linear infinite;
+            animation: scroll-bg-rtl 40s linear infinite;
         }
 
         #banner-en {
             background-image: url('https://i.postimg.cc/3wYX1jnw/1768446446562.png');
-            animation: scroll-bg-ltr 45s linear infinite;
+            animation: scroll-bg-ltr 40s linear infinite;
         }
 
         @keyframes scroll-bg-rtl {
@@ -112,15 +110,29 @@
             to { background-position: -1500px center; }
         }
 
+        .banner-hint {
+            font-size: 12px;
+            color: #000;
+            background-color: #f59e0b;
+            padding: 6px 20px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+            transition: background-color 0.3s;
+        }
+
+        .banner-wrapper.is-full .banner-hint {
+            background-color: #fafafa;
+        }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
     <div id="lightbox">
-        <span class="close-lb" onclick="closeLightbox()">&times;</span>
-        <div class="nav-btn prev" onclick="changeImg(-1)">&#10094;</div>
-        <img id="lightbox-img" src="" alt="Dov's Work" ondragstart="return false;">
-        <div class="nav-btn next" onclick="changeImg(1)">&#10095;</div>
+        <span class="close-lb" onclick="closeLightbox()" style="position: absolute; top: 20px; right: 20px; font-size: 40px; color: white; cursor: pointer;">&times;</span>
+        <img id="lightbox-img" src="" alt="Dov's Work">
     </div>
 
     <header id="main-header" class="fixed top-0 left-0 right-0 z-50 py-6 px-6 bg-transparent transition-all">
@@ -138,21 +150,24 @@
     </header>
 
     <main id="home-page" class="page active">
-        <section class="min-h-screen flex flex-col items-center justify-center relative pt-32 pb-16">
+        <section class="min-h-screen flex flex-col items-center justify-center relative pt-32 pb-16 text-center">
             <div class="absolute inset-0 bg-black/60 z-10"></div>
             <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000')] bg-cover bg-center"></div>
             
-            <div class="relative z-20 text-center px-6 w-full">
+            <div class="relative z-20 px-6 w-full">
                 <h1 class="text-4xl md:text-7xl font-bold mb-6 serif" data-he="סטודיו העיצובים של דוב" data-en="Dov's Design Studio">סטודיו העיצובים של דוב</h1>
                 <p class="text-zinc-400 text-lg mb-10 max-w-xl mx-auto font-light" data-he="מיתוג יוקרתי ועיצוב שמותיר חותם" data-en="Luxury branding and design that leaves a mark">מיתוג יוקרתי ועיצוב שמותיר חותם</p>
                 
-                <div class="flex flex-col md:flex-row gap-4 justify-center mb-12">
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
                     <button onclick="showPage('gallery')" class="px-12 py-4 bg-amber-500 text-black font-bold uppercase tracking-widest text-sm" data-he="צפה בעבודות" data-en="VIEW WORKS">צפה בעבודות</button>
                     <a href="#contact-section" class="px-12 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-sm hover:border-amber-500" data-he="דבר איתי" data-en="LET'S TALK">דבר איתי</a>
                 </div>
 
-                <div class="scrolling-banner" id="banner-he" title="גע לעצירה"></div>
-                <div class="scrolling-banner hidden" id="banner-en" title="Touch to pause"></div>
+                <div class="banner-wrapper" onclick="this.classList.toggle('is-full')">
+                    <p class="banner-hint" data-he="לחצו לצפייה מלאה / המשיכו לגלול" data-en="Click for full view / Keep scrolling">לחצו לצפייה מלאה / המשיכו לגלול</p>
+                    <div class="scrolling-banner" id="banner-he"></div>
+                    <div class="scrolling-banner hidden" id="banner-en"></div>
+                </div>
             </div>
         </section>
 
@@ -160,16 +175,13 @@
             <div class="container mx-auto max-w-4xl text-center">
                 <h2 class="text-3xl md:text-5xl font-bold mb-4 serif" data-he="בואו ניצור משהו גדול" data-en="Let's Create Greatness">בואו ניצור משהו גדול</h2>
                 <div class="w-20 h-1 bg-amber-500 mx-auto mb-16"></div>
-                
                 <form id="contact-form" action="https://formspree.io/f/mvzzqrnz" method="POST" class="max-w-xl mx-auto space-y-4 text-right">
                     <input type="text" name="name" required placeholder="שם מלא / Name" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white">
                     <input type="email" name="_replyto" required placeholder="אימייל / Email" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white">
                     <textarea name="message" required rows="4" placeholder="איך אני יכול לעזור? / How can I help?" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white resize-none"></textarea>
-                    
-                    <button type="submit" id="submit-btn" class="w-full py-4 bg-amber-500 text-black font-bold uppercase tracking-[0.2em] text-xs transition-all hover:bg-amber-400">
+                    <button type="submit" class="w-full py-4 bg-amber-500 text-black font-bold uppercase tracking-[0.2em] text-xs transition-all hover:bg-amber-400">
                         <span data-he="שלח הודעה" data-en="SEND MESSAGE">שלח הודעה</span>
                     </button>
-                    <p id="form-status" class="mt-4 text-xs font-bold text-center"></p>
                 </form>
             </div>
         </section>
@@ -178,76 +190,25 @@
     <main id="gallery-page" class="page pt-32 pb-20">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold mb-10 serif uppercase tracking-widest" data-he="העבודות שלי" data-en="MY WORKS">העבודות שלי</h2>
-            
-            <div class="flex flex-wrap justify-center gap-3 mb-12" id="filters">
-                <button onclick="filterWorks('all')" class="cat-btn px-4 py-2 text-[10px] border border-amber-500 bg-amber-500 text-black font-bold uppercase">All</button>
-                <button onclick="filterWorks('business_cards')" class="cat-btn px-4 py-2 text-[10px] border border-zinc-800 text-zinc-500 uppercase" data-he="כרטיסי ביקור" data-en="CARDS">כרטיסי ביקור</button>
-                <button onclick="filterWorks('branding')" class="cat-btn px-4 py-2 text-[10px] border border-zinc-800 text-zinc-500 uppercase" data-he="מותגים" data-en="BRANDING">מותגים</button>
-                <button onclick="filterWorks('posts')" class="cat-btn px-4 py-2 text-[10px] border border-zinc-800 text-zinc-500 uppercase" data-he="פוסטים" data-en="POSTS">פוסטים</button>
-                <button onclick="filterWorks('ads')" class="cat-btn px-4 py-2 text-[10px] border border-zinc-800 text-zinc-500 uppercase" data-he="מודעות" data-en="ADS">מודעות</button>
-            </div>
-
             <div id="gallery-grid" class="masonry-grid"></div>
-            
             <button onclick="showPage('home')" class="mt-16 px-10 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-xs transition-all hover:bg-amber-500 hover:text-black hover:border-amber-500">
                 ← חזרה לבית
             </button>
-
         </div>
     </main>
 
     <footer class="py-12 border-t border-zinc-900 text-center bg-black">
-        <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" alt="Logo" class="h-10 mx-auto mb-4 opacity-40">
-        <p class="text-[9px] text-zinc-700 tracking-[0.4em] select-none uppercase" ondblclick="toggleAdmin()">© DOV DESIGN STUDIO | 2026</p>
-        <p class="text-[10px] text-zinc-500 mt-2 font-bold tracking-widest">יחי המלך המשיח!</p>
-        
-        <div id="admin-panel" class="hidden mt-8 max-w-sm mx-auto p-4 border border-zinc-800">
-            <input id="new-url" type="text" placeholder="קישור ישיר לתמונה" class="w-full bg-zinc-900 p-2 text-xs mb-2 outline-none text-white">
-            <select id="new-cat" class="w-full bg-zinc-900 p-2 text-xs mb-2 text-white">
-                <option value="business_cards">כרטיסי ביקור</option>
-                <option value="branding">מותגים</option>
-                <option value="posts">פוסטים</option>
-                <option value="ads">מודעות</option>
-            </select>
-            <select id="new-lang" class="w-full bg-zinc-900 p-2 text-xs mb-4 text-white">
-                <option value="both">מוצג בשתי השפות</option>
-                <option value="he">רק בעברית</option>
-                <option value="en">רק באנגלית</option>
-            </select>
-            <button onclick="addWork()" class="w-full py-2 bg-green-600 text-xs font-bold uppercase">הוסף תמונה</button>
-        </div>
+        <p class="text-[10px] text-zinc-500 mb-2 font-bold tracking-widest">יחי המלך המשיח!</p>
+        <p class="text-[9px] text-zinc-700 uppercase">© DOV DESIGN STUDIO | 2026</p>
     </footer>
 
     <script>
         let currentLang = 'he';
-        let currentFilter = 'all';
-        let currentIndex = 0;
-        let filteredWorks = [];
-
-        const defaultWorks = [
-            {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png', cat: 'ads', lang: 'both'},
-            {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png', cat: 'ads', lang: 'both'},
-            {url: 'https://i.postimg.cc/QxRKrSXB/1755407066547.png', cat: 'ads', lang: 'both'},
-            {url: 'https://i.postimg.cc/YqJLw8pL/Picsart-25-05-18-15-30-03-939.jpg', cat: 'posts', lang: 'both'},
-            {url: 'https://i.postimg.cc/wTtRPndv/1756004839008.png', cat: 'branding', lang: 'both'},
-            {url: 'https://i.postimg.cc/05XJVPh1/IMG-20251228-WA0014.jpg', cat: 'branding', lang: 'both'},
-            {url: 'https://i.postimg.cc/BZ71m4kd/Picsart-26-01-07-17-32-32-551.png', cat: 'branding', lang: 'both'},
-            {url: 'https://i.postimg.cc/NGCrdBSJ/a-modern-circular-logo-design-featuring-1eu-ovz-QBqb3k9EI98s-QQ-Kk-JG34m2Tm-GH4v-RIZu-Agpg.jpg', cat: 'branding', lang: 'both'},
-            {url: 'https://i.postimg.cc/J4yHgSWB/1752378346316.jpg', cat: 'branding', lang: 'both'},
-            {url: 'https://i.postimg.cc/y8XCnYW8/Picsart-26-01-20-05-54-51-529.jpg', cat: 'business_cards', lang: 'he'},
-            {url: 'https://i.postimg.cc/7ZMrXYbY/Picsart-26-01-20-05-51-57-093.png', cat: 'business_cards', lang: 'en'},
-            {url: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png', cat: 'branding', lang: 'both'}
-        ];
-        
-        let works = JSON.parse(localStorage.getItem('dov_db_v3')) || defaultWorks;
-        let isAdmin = false;
 
         function showPage(p) {
             document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
             document.getElementById(p + '-page').classList.add('active');
-            const h = document.getElementById('main-header');
-            h.classList.toggle('bg-black/80', p === 'gallery');
-            if(p === 'gallery') renderGallery(currentFilter);
+            if(p === 'gallery') renderGallery();
             window.scrollTo(0,0);
         }
 
@@ -260,26 +221,27 @@
             });
             document.getElementById('banner-he').classList.toggle('hidden', currentLang !== 'he');
             document.getElementById('banner-en').classList.toggle('hidden', currentLang !== 'en');
-            renderGallery(currentFilter);
         }
 
-        function renderGallery(f = 'all') {
-            currentFilter = f;
+        const works = [
+            {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png'},
+            {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png'},
+            {url: 'https://i.postimg.cc/QxRKrSXB/1755407066547.png'}
+        ];
+
+        function renderGallery() {
             const g = document.getElementById('gallery-grid');
             if(!g) return;
             g.innerHTML = '';
-            filteredWorks = works.filter(w => (f === 'all' || w.cat === f) && (w.lang === 'both' || w.lang === currentLang));
-            filteredWorks.forEach((w, i) => {
-                g.innerHTML += `<div class="masonry-item relative group" onclick="openLightbox(${i})">
-                    <img src="${w.url}" class="w-full h-auto border border-zinc-800 shadow-md hover:border-amber-500 transition-all">
-                    ${isAdmin ? `<button onclick="event.stopPropagation(); del(${i})" class="absolute top-1 right-1 bg-red-600 text-[8px] p-1">X</button>` : ''}
+            works.forEach((w) => {
+                g.innerHTML += `<div class="masonry-item" onclick="openLightbox('${w.url}')">
+                    <img src="${w.url}" class="w-full h-auto border border-zinc-800 shadow-md">
                 </div>`;
             });
         }
 
-        function openLightbox(index) {
-            currentIndex = index;
-            document.getElementById('lightbox-img').src = filteredWorks[currentIndex].url;
+        function openLightbox(url) {
+            document.getElementById('lightbox-img').src = url;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -289,30 +251,9 @@
             document.body.style.overflow = 'auto';
         }
 
-        function changeImg(step) {
-            currentIndex = (currentIndex + step + filteredWorks.length) % filteredWorks.length;
-            document.getElementById('lightbox-img').src = filteredWorks[currentIndex].url;
-        }
-
-        document.getElementById('lightbox').addEventListener('click', e => e.target.id === 'lightbox' && closeLightbox());
-
-        function filterWorks(c) {
-            document.querySelectorAll('.cat-btn').forEach(b => b.classList.replace('bg-amber-500', 'text-zinc-500'));
-            event.currentTarget.classList.replace('text-zinc-500', 'bg-amber-500');
-            renderGallery(c);
-        }
-
-        function toggleAdmin() { isAdmin = !isAdmin; document.getElementById('admin-panel').classList.toggle('hidden'); renderGallery(currentFilter); }
-
-        function addWork() {
-            const u = document.getElementById('new-url').value;
-            if(!u) return;
-            works.unshift({url: u, cat: document.getElementById('new-cat').value, lang: document.getElementById('new-lang').value});
-            localStorage.setItem('dov_db_v3', JSON.stringify(works));
-            renderGallery(currentFilter);
-        }
-
-        function del(i) { if(confirm("למחוק?")) { works.splice(i, 1); localStorage.setItem('dov_db_v3', JSON.stringify(works)); renderGallery(currentFilter); } }
+        document.getElementById('lightbox').addEventListener('click', e => {
+            if(e.target.id === 'lightbox') closeLightbox();
+        });
     </script>
 </body>
 </html>
