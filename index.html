@@ -168,8 +168,8 @@
                 <p class="text-zinc-400 text-lg mb-10 max-w-xl mx-auto font-light" data-he="מיתוג יוקרתי ועיצוב שמותיר חותם" data-en="Luxury branding and design that leaves a mark">מיתוג יוקרתי ועיצוב שמותיר חותם</p>
                 
                 <div class="flex flex-col md:flex-row gap-4 justify-center mb-12">
-                    <button onclick="showPage('gallery')" class="px-12 py-4 bg-amber-500 text-black font-bold uppercase text-sm" data-he="צפה בעבודות" data-en="VIEW WORKS">צפה בעבודות</button>
-                    <a href="#contact-section" class="px-12 py-4 border border-zinc-500 text-white font-bold uppercase text-sm hover:border-amber-500" data-he="דבר איתי" data-en="LET'S TALK">דבר איתי</a>
+                    <button onclick="showPage('gallery')" class="px-12 py-4 bg-amber-500 text-black font-bold uppercase tracking-widest text-sm hover:bg-amber-400 transition" data-he="צפה בעבודות" data-en="VIEW WORKS">צפה בעבודות</button>
+                    <a href="#contact-section" class="px-12 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-sm hover:border-amber-500 hover:text-amber-500 transition" data-he="דבר איתי" data-en="LET'S TALK">דבר איתי</a>
                 </div>
 
                 <div id="wrapper-he" class="banner-wrapper" onclick="this.classList.toggle('is-full')">
@@ -214,9 +214,11 @@
 
             <div id="gallery-grid" class="masonry-grid"></div>
             
-            <button onclick="showPage('home')" class="mt-16 px-10 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-xs transition-all hover:bg-amber-500 hover:text-black hover:border-amber-500">
-                ← חזרה לבית
-            </button>
+            <div class="text-center mt-12">
+                <button onclick="showPage('home')" class="px-10 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-xs transition-all hover:bg-amber-500 hover:text-black hover:border-amber-500">
+                    ← חזרה לבית
+                </button>
+            </div>
         </div>
     </main>
 
@@ -229,7 +231,7 @@
         let currentLang = 'he';
         let currentFilter = 'all';
 
-        // --- רשימת העבודות המלאה (10 תמונות) ---
+        // --- רשימת העבודות המלאה ---
         const works = [
             {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png', cat: 'ads'},
             {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png', cat: 'ads'},
@@ -247,7 +249,6 @@
             document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
             document.getElementById(p + '-page').classList.add('active');
             
-            // אם עברנו לגלריה, נטען מחדש את התמונות כדי לוודא שהכל מוצג
             if(p === 'gallery') {
                 renderGallery(); 
             }
@@ -257,7 +258,7 @@
         function filterWorks(cat) {
             currentFilter = cat;
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active'); // הכפתור הנוכחי הופך לצהוב
+            event.target.classList.add('active'); 
             renderGallery();
         }
 
@@ -287,7 +288,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // סגירה בלחיצה על הרקע השחור
         document.getElementById('lightbox').addEventListener('click', e => {
             if(e.target.id === 'lightbox') closeLightbox();
         });
@@ -297,7 +297,7 @@
             document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
             document.getElementById('lang-toggle').innerText = currentLang === 'he' ? 'EN' : 'עב';
             
-            // תרגום כל האלמנטים
+            // תרגום האלמנטים
             document.querySelectorAll('[data-he]').forEach(el => {
                 el.innerText = el.getAttribute('data-' + currentLang);
             });
@@ -307,7 +307,7 @@
             document.getElementById('wrapper-en').classList.toggle('hidden', currentLang !== 'en');
         }
 
-        // טעינה ראשונית של הגלריה
+        // טעינה ראשונית
         renderGallery();
     </script>
 </body>
