@@ -25,7 +25,10 @@
         .brand-logo { height: 45px; width: auto; object-fit: contain; }
         
         /* גריד גמיש לגלריה */
-        .masonry-grid { columns: 2; gap: 10px; }
+        .masonry-grid { 
+            columns: 2; 
+            column-gap: 10px; 
+        }
         @media (min-width: 768px) { .masonry-grid { columns: 3; } }
         
         .masonry-item { 
@@ -34,8 +37,11 @@
             position: relative;
             cursor: pointer;
             transition: transform 0.3s;
+            overflow: hidden;
+            border-radius: 4px;
         }
         .masonry-item:hover { transform: scale(1.02); }
+        .masonry-item img { width: 100%; display: block; }
 
         /* Lightbox */
         #lightbox {
@@ -120,12 +126,14 @@
             font-weight: bold;
             border: 1px solid #27272a;
             color: #71717a;
+            background: #000;
             transition: all 0.3s;
+            border-radius: 4px;
         }
         .cat-btn.active {
             border-color: #f59e0b;
-            color: #f59e0b;
-            background: rgba(245, 158, 11, 0.05);
+            color: #000;
+            background: #f59e0b;
         }
     </style>
 </head>
@@ -136,30 +144,32 @@
         <img id="lightbox-img" src="">
     </div>
 
-    <header class="fixed top-0 left-0 right-0 z-50 py-6 px-6 bg-transparent">
+    <header class="fixed top-0 left-0 right-0 z-50 py-6 px-6 bg-transparent transition-all" id="header">
         <div class="container mx-auto flex items-center justify-between">
             <button onclick="showPage('home')">
                 <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="brand-logo">
             </button>
             <nav class="hidden md:flex gap-8 text-[10px] uppercase font-bold tracking-widest">
-                <button onclick="showPage('home')" data-he="בית" data-en="HOME">בית</button>
-                <button onclick="showPage('gallery')" data-he="עבודות" data-en="WORKS">עבודות</button>
-                <a href="#contact-section" data-he="צור קשר" data-en="CONTACT">צור קשר</a>
+                <button onclick="showPage('home')" data-he="בית" data-en="HOME" class="hover:text-amber-500 transition">בית</button>
+                <button onclick="showPage('gallery')" data-he="עבודות" data-en="WORKS" class="hover:text-amber-500 transition">עבודות</button>
+                <a href="#contact-section" data-he="צור קשר" data-en="CONTACT" class="hover:text-amber-500 transition">צור קשר</a>
             </nav>
-            <button id="lang-toggle" onclick="toggleLang()" class="px-3 py-1 border border-amber-500 text-amber-500 text-xs font-bold">EN</button>
+            <button id="lang-toggle" onclick="toggleLang()" class="px-3 py-1 border border-amber-500 rounded text-amber-500 text-xs font-bold hover:bg-amber-500 hover:text-black transition">EN</button>
         </div>
     </header>
 
     <main id="home-page" class="page active">
-        <section class="min-h-screen flex flex-col items-center justify-center relative pt-32 text-center">
+        <section class="min-h-screen flex flex-col items-center justify-center relative pt-32 pb-16 text-center">
             <div class="absolute inset-0 bg-black/60 z-10"></div>
-            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000')] bg-cover"></div>
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000')] bg-cover bg-center"></div>
             
             <div class="relative z-20 px-6 w-full">
                 <h1 class="text-4xl md:text-7xl font-bold mb-6 serif" data-he="סטודיו העיצובים של דוב" data-en="Dov's Design Studio">סטודיו העיצובים של דוב</h1>
+                <p class="text-zinc-400 text-lg mb-10 max-w-xl mx-auto font-light" data-he="מיתוג יוקרתי ועיצוב שמותיר חותם" data-en="Luxury branding and design that leaves a mark">מיתוג יוקרתי ועיצוב שמותיר חותם</p>
                 
                 <div class="flex flex-col md:flex-row gap-4 justify-center mb-12">
                     <button onclick="showPage('gallery')" class="px-12 py-4 bg-amber-500 text-black font-bold uppercase text-sm" data-he="צפה בעבודות" data-en="VIEW WORKS">צפה בעבודות</button>
+                    <a href="#contact-section" class="px-12 py-4 border border-zinc-500 text-white font-bold uppercase text-sm hover:border-amber-500" data-he="דבר איתי" data-en="LET'S TALK">דבר איתי</a>
                 </div>
 
                 <div id="wrapper-he" class="banner-wrapper" onclick="this.classList.toggle('is-full')">
@@ -171,6 +181,21 @@
                     <p class="banner-hint">CLICK FOR FULL VIEW / KEEP SCROLLING</p>
                     <div class="scrolling-banner" id="banner-en"></div>
                 </div>
+            </div>
+        </section>
+
+        <section id="contact-section" class="py-24 bg-zinc-950 px-6">
+            <div class="container mx-auto max-w-4xl text-center">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 serif" data-he="בואו ניצור משהו גדול" data-en="Let's Create Greatness">בואו ניצור משהו גדול</h2>
+                <div class="w-20 h-1 bg-amber-500 mx-auto mb-16"></div>
+                <form id="contact-form" action="https://formspree.io/f/mvzzqrnz" method="POST" class="max-w-xl mx-auto space-y-4 text-right">
+                    <input type="text" name="name" required placeholder="שם מלא / Name" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white">
+                    <input type="email" name="_replyto" required placeholder="אימייל / Email" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white">
+                    <textarea name="message" required rows="4" placeholder="איך אני יכול לעזור? / How can I help?" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white resize-none"></textarea>
+                    <button type="submit" class="w-full py-4 bg-amber-500 text-black font-bold uppercase tracking-[0.2em] text-xs transition-all hover:bg-amber-400">
+                        <span data-he="שלח הודעה" data-en="SEND MESSAGE">שלח הודעה</span>
+                    </button>
+                </form>
             </div>
         </section>
     </main>
@@ -188,18 +213,23 @@
             </div>
 
             <div id="gallery-grid" class="masonry-grid"></div>
+            
+            <button onclick="showPage('home')" class="mt-16 px-10 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-xs transition-all hover:bg-amber-500 hover:text-black hover:border-amber-500">
+                ← חזרה לבית
+            </button>
         </div>
     </main>
 
     <footer class="py-12 text-center bg-black border-t border-zinc-900">
         <p class="text-[10px] text-zinc-500 font-bold tracking-widest">יחי המלך המשיח!</p>
+        <p class="text-[9px] text-zinc-700 uppercase mt-2">© DOV DESIGN STUDIO | 2026</p>
     </footer>
 
     <script>
         let currentLang = 'he';
         let currentFilter = 'all';
 
-        // רשימת העבודות המלאה
+        // --- רשימת העבודות המלאה (10 תמונות) ---
         const works = [
             {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png', cat: 'ads'},
             {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png', cat: 'ads'},
@@ -207,31 +237,41 @@
             {url: 'https://i.postimg.cc/YqJLw8pL/Picsart-25-05-18-15-30-03-939.jpg', cat: 'posts'},
             {url: 'https://i.postimg.cc/wTtRPndv/1756004839008.png', cat: 'branding'},
             {url: 'https://i.postimg.cc/05XJVPh1/IMG-20251228-WA0014.jpg', cat: 'branding'},
-            {url: 'https://i.postimg.cc/y8XCnYW8/Picsart-26-01-20-05-54-51-529.jpg', cat: 'business_cards'}
+            {url: 'https://i.postimg.cc/BZ71m4kd/Picsart-26-01-07-17-32-32-551.png', cat: 'branding'},
+            {url: 'https://i.postimg.cc/y8XCnYW8/Picsart-26-01-20-05-54-51-529.jpg', cat: 'business_cards'},
+            {url: 'https://i.postimg.cc/7ZMrXYbY/Picsart-26-01-20-05-51-57-093.png', cat: 'business_cards'},
+            {url: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png', cat: 'branding'}
         ];
 
         function showPage(p) {
             document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
             document.getElementById(p + '-page').classList.add('active');
-            if(p === 'gallery') renderGallery();
+            
+            // אם עברנו לגלריה, נטען מחדש את התמונות כדי לוודא שהכל מוצג
+            if(p === 'gallery') {
+                renderGallery(); 
+            }
             window.scrollTo(0,0);
         }
 
         function filterWorks(cat) {
             currentFilter = cat;
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            event.target.classList.add('active'); // הכפתור הנוכחי הופך לצהוב
             renderGallery();
         }
 
         function renderGallery() {
             const g = document.getElementById('gallery-grid');
+            if(!g) return;
             g.innerHTML = '';
+            
             const filtered = works.filter(w => currentFilter === 'all' || w.cat === currentFilter);
+            
             filtered.forEach(w => {
                 g.innerHTML += `
                     <div class="masonry-item" onclick="openLightbox('${w.url}')">
-                        <img src="${w.url}" class="w-full h-auto border border-zinc-800">
+                        <img src="${w.url}" class="w-full h-auto border border-zinc-800 shadow-lg hover:border-amber-500 transition-colors">
                     </div>`;
             });
         }
@@ -247,16 +287,28 @@
             document.body.style.overflow = 'auto';
         }
 
+        // סגירה בלחיצה על הרקע השחור
+        document.getElementById('lightbox').addEventListener('click', e => {
+            if(e.target.id === 'lightbox') closeLightbox();
+        });
+
         function toggleLang() {
             currentLang = currentLang === 'he' ? 'en' : 'he';
             document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
             document.getElementById('lang-toggle').innerText = currentLang === 'he' ? 'EN' : 'עב';
+            
+            // תרגום כל האלמנטים
             document.querySelectorAll('[data-he]').forEach(el => {
                 el.innerText = el.getAttribute('data-' + currentLang);
             });
+
+            // החלפת הבאנרים
             document.getElementById('wrapper-he').classList.toggle('hidden', currentLang !== 'he');
             document.getElementById('wrapper-en').classList.toggle('hidden', currentLang !== 'en');
         }
+
+        // טעינה ראשונית של הגלריה
+        renderGallery();
     </script>
 </body>
 </html>
