@@ -24,6 +24,7 @@
         .serif { font-family: 'Playfair Display', serif; }
         .brand-logo { height: 45px; width: auto; object-fit: contain; }
         
+        /* גריד גמיש לגלריה */
         .masonry-grid { columns: 2; gap: 10px; }
         @media (min-width: 768px) { .masonry-grid { columns: 3; } }
         
@@ -32,7 +33,9 @@
             margin-bottom: 10px; 
             position: relative;
             cursor: pointer;
+            transition: transform 0.3s;
         }
+        .masonry-item:hover { transform: scale(1.02); }
 
         /* Lightbox */
         #lightbox {
@@ -53,7 +56,7 @@
         .page.active { display: block; animation: fadeIn 0.6s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- באנר נגלל משופר עם אזור לחיצה מאוחד --- */
+        /* --- באנר נגלל לחיץ --- */
         .banner-wrapper {
             width: 100%;
             margin-top: 2.5rem;
@@ -61,7 +64,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            cursor: pointer; /* סימן שהכל לחיץ */
+            cursor: pointer;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -75,11 +78,6 @@
             z-index: 30;
             filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        /* אפקט לחיצה על כל האזור */
-        .banner-wrapper:active .scrolling-banner {
-            transform: scale(0.97);
         }
 
         .banner-wrapper.is-full .scrolling-banner {
@@ -100,15 +98,8 @@
             animation: scroll-bg-ltr 40s linear infinite;
         }
 
-        @keyframes scroll-bg-rtl {
-            from { background-position: 0 center; }
-            to { background-position: 1500px center; }
-        }
-
-        @keyframes scroll-bg-ltr {
-            from { background-position: 0 center; }
-            to { background-position: -1500px center; }
-        }
+        @keyframes scroll-bg-rtl { from { background-position: 0 center; } to { background-position: 1500px center; } }
+        @keyframes scroll-bg-ltr { from { background-position: 0 center; } to { background-position: -1500px center; } }
 
         .banner-hint {
             font-size: 12px;
@@ -118,71 +109,68 @@
             border-radius: 20px;
             margin-bottom: 12px;
             font-weight: 800;
-            letter-spacing: 0.05em;
             box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-            transition: background-color 0.3s;
         }
 
-        .banner-wrapper.is-full .banner-hint {
-            background-color: #fafafa;
+        /* עיצוב כפתורי קטגוריה */
+        .cat-btn {
+            padding: 8px 16px;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: 1px solid #27272a;
+            color: #71717a;
+            transition: all 0.3s;
+        }
+        .cat-btn.active {
+            border-color: #f59e0b;
+            color: #f59e0b;
+            background: rgba(245, 158, 11, 0.05);
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
     <div id="lightbox">
-        <span class="close-lb" onclick="closeLightbox()" style="position: absolute; top: 20px; right: 20px; font-size: 40px; color: white; cursor: pointer;">&times;</span>
-        <img id="lightbox-img" src="" alt="Dov's Work">
+        <span onclick="closeLightbox()" style="position: absolute; top: 20px; right: 20px; font-size: 40px; color: white; cursor: pointer;">&times;</span>
+        <img id="lightbox-img" src="">
     </div>
 
-    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 py-6 px-6 bg-transparent transition-all">
+    <header class="fixed top-0 left-0 right-0 z-50 py-6 px-6 bg-transparent">
         <div class="container mx-auto flex items-center justify-between">
             <button onclick="showPage('home')">
-                <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" alt="Dov Studio" class="brand-logo">
+                <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="brand-logo">
             </button>
-            <nav class="hidden md:flex gap-8 text-[10px] uppercase tracking-widest font-bold">
-                <button onclick="showPage('home')" class="hover:text-amber-500" data-he="בית" data-en="HOME">בית</button>
-                <button onclick="showPage('gallery')" class="hover:text-amber-500" data-he="עבודות" data-en="WORKS">עבודות</button>
-                <a href="#contact-section" class="hover:text-amber-500" data-he="צור קשר" data-en="CONTACT">צור קשר</a>
+            <nav class="hidden md:flex gap-8 text-[10px] uppercase font-bold tracking-widest">
+                <button onclick="showPage('home')" data-he="בית" data-en="HOME">בית</button>
+                <button onclick="showPage('gallery')" data-he="עבודות" data-en="WORKS">עבודות</button>
+                <a href="#contact-section" data-he="צור קשר" data-en="CONTACT">צור קשר</a>
             </nav>
-            <button id="lang-toggle" onclick="toggleLang()" class="px-3 py-1 border border-amber-500 rounded text-xs font-bold text-amber-500 uppercase">EN</button>
+            <button id="lang-toggle" onclick="toggleLang()" class="px-3 py-1 border border-amber-500 text-amber-500 text-xs font-bold">EN</button>
         </div>
     </header>
 
     <main id="home-page" class="page active">
-        <section class="min-h-screen flex flex-col items-center justify-center relative pt-32 pb-16 text-center">
+        <section class="min-h-screen flex flex-col items-center justify-center relative pt-32 text-center">
             <div class="absolute inset-0 bg-black/60 z-10"></div>
-            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000')] bg-cover bg-center"></div>
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000')] bg-cover"></div>
             
             <div class="relative z-20 px-6 w-full">
                 <h1 class="text-4xl md:text-7xl font-bold mb-6 serif" data-he="סטודיו העיצובים של דוב" data-en="Dov's Design Studio">סטודיו העיצובים של דוב</h1>
-                <p class="text-zinc-400 text-lg mb-10 max-w-xl mx-auto font-light" data-he="מיתוג יוקרתי ועיצוב שמותיר חותם" data-en="Luxury branding and design that leaves a mark">מיתוג יוקרתי ועיצוב שמותיר חותם</p>
                 
-                <div class="flex flex-col md:flex-row gap-4 justify-center">
-                    <button onclick="showPage('gallery')" class="px-12 py-4 bg-amber-500 text-black font-bold uppercase tracking-widest text-sm" data-he="צפה בעבודות" data-en="VIEW WORKS">צפה בעבודות</button>
-                    <a href="#contact-section" class="px-12 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-sm hover:border-amber-500" data-he="דבר איתי" data-en="LET'S TALK">דבר איתי</a>
+                <div class="flex flex-col md:flex-row gap-4 justify-center mb-12">
+                    <button onclick="showPage('gallery')" class="px-12 py-4 bg-amber-500 text-black font-bold uppercase text-sm" data-he="צפה בעבודות" data-en="VIEW WORKS">צפה בעבודות</button>
                 </div>
 
-                <div class="banner-wrapper" onclick="this.classList.toggle('is-full')">
-                    <p class="banner-hint" data-he="לחצו לצפייה מלאה / המשיכו לגלול" data-en="Click for full view / Keep scrolling">לחצו לצפייה מלאה / המשיכו לגלול</p>
+                <div id="wrapper-he" class="banner-wrapper" onclick="this.classList.toggle('is-full')">
+                    <p class="banner-hint">לחצו לצפייה מלאה / המשיכו לגלול</p>
                     <div class="scrolling-banner" id="banner-he"></div>
-                    <div class="scrolling-banner hidden" id="banner-en"></div>
                 </div>
-            </div>
-        </section>
 
-        <section id="contact-section" class="py-24 bg-zinc-950 px-6">
-            <div class="container mx-auto max-w-4xl text-center">
-                <h2 class="text-3xl md:text-5xl font-bold mb-4 serif" data-he="בואו ניצור משהו גדול" data-en="Let's Create Greatness">בואו ניצור משהו גדול</h2>
-                <div class="w-20 h-1 bg-amber-500 mx-auto mb-16"></div>
-                <form id="contact-form" action="https://formspree.io/f/mvzzqrnz" method="POST" class="max-w-xl mx-auto space-y-4 text-right">
-                    <input type="text" name="name" required placeholder="שם מלא / Name" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white">
-                    <input type="email" name="_replyto" required placeholder="אימייל / Email" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white">
-                    <textarea name="message" required rows="4" placeholder="איך אני יכול לעזור? / How can I help?" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white resize-none"></textarea>
-                    <button type="submit" class="w-full py-4 bg-amber-500 text-black font-bold uppercase tracking-[0.2em] text-xs transition-all hover:bg-amber-400">
-                        <span data-he="שלח הודעה" data-en="SEND MESSAGE">שלח הודעה</span>
-                    </button>
-                </form>
+                <div id="wrapper-en" class="banner-wrapper hidden" onclick="this.classList.toggle('is-full')">
+                    <p class="banner-hint">CLICK FOR FULL VIEW / KEEP SCROLLING</p>
+                    <div class="scrolling-banner" id="banner-en"></div>
+                </div>
             </div>
         </section>
     </main>
@@ -190,20 +178,37 @@
     <main id="gallery-page" class="page pt-32 pb-20">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold mb-10 serif uppercase tracking-widest" data-he="העבודות שלי" data-en="MY WORKS">העבודות שלי</h2>
+            
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button onclick="filterWorks('all')" class="cat-btn active" id="btn-all">ALL</button>
+                <button onclick="filterWorks('business_cards')" class="cat-btn" data-he="כרטיסי ביקור" data-en="CARDS">כרטיסי ביקור</button>
+                <button onclick="filterWorks('branding')" class="cat-btn" data-he="מותגים" data-en="BRANDING">מותגים</button>
+                <button onclick="filterWorks('posts')" class="cat-btn" data-he="פוסטים" data-en="POSTS">פוסטים</button>
+                <button onclick="filterWorks('ads')" class="cat-btn" data-he="מודעות" data-en="ADS">מודעות</button>
+            </div>
+
             <div id="gallery-grid" class="masonry-grid"></div>
-            <button onclick="showPage('home')" class="mt-16 px-10 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-xs transition-all hover:bg-amber-500 hover:text-black hover:border-amber-500">
-                ← חזרה לבית
-            </button>
         </div>
     </main>
 
-    <footer class="py-12 border-t border-zinc-900 text-center bg-black">
-        <p class="text-[10px] text-zinc-500 mb-2 font-bold tracking-widest">יחי המלך המשיח!</p>
-        <p class="text-[9px] text-zinc-700 uppercase">© DOV DESIGN STUDIO | 2026</p>
+    <footer class="py-12 text-center bg-black border-t border-zinc-900">
+        <p class="text-[10px] text-zinc-500 font-bold tracking-widest">יחי המלך המשיח!</p>
     </footer>
 
     <script>
         let currentLang = 'he';
+        let currentFilter = 'all';
+
+        // רשימת העבודות המלאה
+        const works = [
+            {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png', cat: 'ads'},
+            {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png', cat: 'ads'},
+            {url: 'https://i.postimg.cc/QxRKrSXB/1755407066547.png', cat: 'ads'},
+            {url: 'https://i.postimg.cc/YqJLw8pL/Picsart-25-05-18-15-30-03-939.jpg', cat: 'posts'},
+            {url: 'https://i.postimg.cc/wTtRPndv/1756004839008.png', cat: 'branding'},
+            {url: 'https://i.postimg.cc/05XJVPh1/IMG-20251228-WA0014.jpg', cat: 'branding'},
+            {url: 'https://i.postimg.cc/y8XCnYW8/Picsart-26-01-20-05-54-51-529.jpg', cat: 'business_cards'}
+        ];
 
         function showPage(p) {
             document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
@@ -212,31 +217,22 @@
             window.scrollTo(0,0);
         }
 
-        function toggleLang() {
-            currentLang = currentLang === 'he' ? 'en' : 'he';
-            document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
-            document.getElementById('lang-toggle').innerText = currentLang === 'he' ? 'EN' : 'עב';
-            document.querySelectorAll('[data-he]').forEach(el => {
-                el.innerText = el.getAttribute('data-' + currentLang);
-            });
-            document.getElementById('banner-he').classList.toggle('hidden', currentLang !== 'he');
-            document.getElementById('banner-en').classList.toggle('hidden', currentLang !== 'en');
+        function filterWorks(cat) {
+            currentFilter = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderGallery();
         }
-
-        const works = [
-            {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png'},
-            {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png'},
-            {url: 'https://i.postimg.cc/QxRKrSXB/1755407066547.png'}
-        ];
 
         function renderGallery() {
             const g = document.getElementById('gallery-grid');
-            if(!g) return;
             g.innerHTML = '';
-            works.forEach((w) => {
-                g.innerHTML += `<div class="masonry-item" onclick="openLightbox('${w.url}')">
-                    <img src="${w.url}" class="w-full h-auto border border-zinc-800 shadow-md">
-                </div>`;
+            const filtered = works.filter(w => currentFilter === 'all' || w.cat === currentFilter);
+            filtered.forEach(w => {
+                g.innerHTML += `
+                    <div class="masonry-item" onclick="openLightbox('${w.url}')">
+                        <img src="${w.url}" class="w-full h-auto border border-zinc-800">
+                    </div>`;
             });
         }
 
@@ -251,9 +247,16 @@
             document.body.style.overflow = 'auto';
         }
 
-        document.getElementById('lightbox').addEventListener('click', e => {
-            if(e.target.id === 'lightbox') closeLightbox();
-        });
+        function toggleLang() {
+            currentLang = currentLang === 'he' ? 'en' : 'he';
+            document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
+            document.getElementById('lang-toggle').innerText = currentLang === 'he' ? 'EN' : 'עב';
+            document.querySelectorAll('[data-he]').forEach(el => {
+                el.innerText = el.getAttribute('data-' + currentLang);
+            });
+            document.getElementById('wrapper-he').classList.toggle('hidden', currentLang !== 'he');
+            document.getElementById('wrapper-en').classList.toggle('hidden', currentLang !== 'en');
+        }
     </script>
 </body>
 </html>
