@@ -25,10 +25,7 @@
         .brand-logo { height: 45px; width: auto; object-fit: contain; }
         
         /* גריד גמיש לגלריה */
-        .masonry-grid { 
-            columns: 2; 
-            column-gap: 10px; 
-        }
+        .masonry-grid { columns: 2; column-gap: 10px; }
         @media (min-width: 768px) { .masonry-grid { columns: 3; } }
         
         .masonry-item { 
@@ -135,6 +132,33 @@
             color: #000;
             background: #f59e0b;
         }
+
+        /* --- כפתור שפה מעוצב --- */
+        .lang-switch-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 6px 14px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .lang-switch-btn:active { transform: scale(0.95); }
+        .lang-switch-btn:hover { border-color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
+        .lang-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+        .lang-text {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .lang-switch-btn:hover .lang-text { color: #f59e0b; }
+
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -149,12 +173,17 @@
             <button onclick="showPage('home')">
                 <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="brand-logo">
             </button>
+            
             <nav class="hidden md:flex gap-8 text-[10px] uppercase font-bold tracking-widest">
                 <button onclick="showPage('home')" data-he="בית" data-en="HOME" class="hover:text-amber-500 transition">בית</button>
                 <button onclick="showPage('gallery')" data-he="עבודות" data-en="WORKS" class="hover:text-amber-500 transition">עבודות</button>
                 <a href="#contact-section" data-he="צור קשר" data-en="CONTACT" class="hover:text-amber-500 transition">צור קשר</a>
             </nav>
-            <button id="lang-toggle" onclick="toggleLang()" class="px-3 py-1 border border-amber-500 rounded text-amber-500 text-xs font-bold hover:bg-amber-500 hover:text-black transition">EN</button>
+
+            <button onclick="toggleLang()" class="lang-switch-btn">
+                <img src="https://i.postimg.cc/Gt8wymfR/Picsart-26-01-31-22-18-21-257.png" class="lang-icon" alt="Translate">
+                <span id="lang-label" class="lang-text">English</span>
+            </button>
         </div>
     </header>
 
@@ -231,7 +260,6 @@
         let currentLang = 'he';
         let currentFilter = 'all';
 
-        // --- רשימת העבודות המלאה ---
         const works = [
             {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png', cat: 'ads'},
             {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png', cat: 'ads'},
@@ -248,10 +276,7 @@
         function showPage(p) {
             document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
             document.getElementById(p + '-page').classList.add('active');
-            
-            if(p === 'gallery') {
-                renderGallery(); 
-            }
+            if(p === 'gallery') renderGallery(); 
             window.scrollTo(0,0);
         }
 
@@ -266,9 +291,7 @@
             const g = document.getElementById('gallery-grid');
             if(!g) return;
             g.innerHTML = '';
-            
             const filtered = works.filter(w => currentFilter === 'all' || w.cat === currentFilter);
-            
             filtered.forEach(w => {
                 g.innerHTML += `
                     <div class="masonry-item" onclick="openLightbox('${w.url}')">
@@ -295,19 +318,18 @@
         function toggleLang() {
             currentLang = currentLang === 'he' ? 'en' : 'he';
             document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
-            document.getElementById('lang-toggle').innerText = currentLang === 'he' ? 'EN' : 'עב';
             
-            // תרגום האלמנטים
+            // עדכון כפתור השפה למילים המלאות
+            document.getElementById('lang-label').innerText = currentLang === 'he' ? 'English' : 'עברית';
+            
             document.querySelectorAll('[data-he]').forEach(el => {
                 el.innerText = el.getAttribute('data-' + currentLang);
             });
 
-            // החלפת הבאנרים
             document.getElementById('wrapper-he').classList.toggle('hidden', currentLang !== 'he');
             document.getElementById('wrapper-en').classList.toggle('hidden', currentLang !== 'en');
         }
 
-        // טעינה ראשונית
         renderGallery();
     </script>
 </body>
