@@ -24,7 +24,6 @@
         .serif { font-family: 'Playfair Display', serif; }
         .brand-logo { height: 45px; width: auto; object-fit: contain; }
         
-        /* גריד גמיש לגלריה */
         .masonry-grid { columns: 2; column-gap: 10px; }
         @media (min-width: 768px) { .masonry-grid { columns: 3; } }
         
@@ -40,7 +39,6 @@
         .masonry-item:hover { transform: scale(1.02); }
         .masonry-item img { width: 100%; display: block; }
 
-        /* Lightbox */
         #lightbox {
             display: none;
             position: fixed;
@@ -59,7 +57,6 @@
         .page.active { display: block; animation: fadeIn 0.6s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- באנר נגלל לחיץ --- */
         .banner-wrapper {
             width: 100%;
             margin-top: 2.5rem;
@@ -115,7 +112,6 @@
             box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
         }
 
-        /* עיצוב כפתורי קטגוריה */
         .cat-btn {
             padding: 8px 16px;
             font-size: 11px;
@@ -133,7 +129,6 @@
             background: #f59e0b;
         }
 
-        /* --- כפתור שפה מעוצב --- */
         .lang-switch-btn {
             display: flex;
             align-items: center;
@@ -219,7 +214,7 @@
                 <div class="w-20 h-1 bg-amber-500 mx-auto mb-16"></div>
                 <form id="contact-form" action="https://formspree.io/f/mvzzqrnz" method="POST" class="max-w-xl mx-auto space-y-4 text-right">
                     <input type="text" name="name" required placeholder="שם מלא / Name" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white">
-                    <input type="email" name="_replyto" required placeholder="אימייל / Email" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white">
+                    <input type="email" name="_replyto" required placeholder="אימייל / Email" class="w-full bg-zinc-900 border border-zinc-900 p-4 outline-none focus:border-amber-500 text-sm text-white">
                     <textarea name="message" required rows="4" placeholder="איך אני יכול לעזור? / How can I help?" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white resize-none"></textarea>
                     <button type="submit" class="w-full py-4 bg-amber-500 text-black font-bold uppercase tracking-[0.2em] text-xs transition-all hover:bg-amber-400">
                         <span data-he="שלח הודעה" data-en="SEND MESSAGE">שלח הודעה</span>
@@ -244,7 +239,7 @@
             <div id="gallery-grid" class="masonry-grid"></div>
             
             <div class="text-center mt-12">
-                <button onclick="showPage('home')" class="px-10 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-xs transition-all hover:bg-amber-500 hover:text-black hover:border-amber-500">
+                <button onclick="showPage('home')" class="px-10 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-xs transition-all hover:bg-amber-500 hover:text-black hover:border-amber-500" data-he="← חזרה לבית" data-en="← BACK TO HOME">
                     ← חזרה לבית
                 </button>
             </div>
@@ -283,7 +278,7 @@
         function filterWorks(cat) {
             currentFilter = cat;
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active'); 
+            if(event) event.target.classList.add('active'); 
             renderGallery();
         }
 
@@ -311,15 +306,10 @@
             document.body.style.overflow = 'auto';
         }
 
-        document.getElementById('lightbox').addEventListener('click', e => {
-            if(e.target.id === 'lightbox') closeLightbox();
-        });
-
         function toggleLang() {
             currentLang = currentLang === 'he' ? 'en' : 'he';
             document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
             
-            // עדכון כפתור השפה למילים המלאות
             document.getElementById('lang-label').innerText = currentLang === 'he' ? 'English' : 'עברית';
             
             document.querySelectorAll('[data-he]').forEach(el => {
@@ -330,7 +320,14 @@
             document.getElementById('wrapper-en').classList.toggle('hidden', currentLang !== 'en');
         }
 
+        // טעינה ראשונית
         renderGallery();
+
+        // בדיקה אוטומטית: אם יש ?lang=en בקישור, האתר יהפוך לאנגלית
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('lang') === 'en') {
+            toggleLang();
+        }
     </script>
 </body>
 </html>
