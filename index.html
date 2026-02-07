@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dov Design Studio</title>
+    <title>Dov Design Studio | Branding & Web</title>
     
     <link rel="icon" type="image/png" href="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png">
 
@@ -188,8 +188,8 @@
             <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000')] bg-cover bg-center"></div>
             
             <div class="relative z-20 px-6 w-full">
-                <h1 class="text-4xl md:text-7xl font-bold mb-6 serif" data-he="סטודיו העיצובים של דוב" data-en="Dov's Design Studio">סטודיו העיצובים של דוב</h1>
-                <p class="text-zinc-400 text-lg mb-10 max-w-xl mx-auto font-light" data-he="מיתוג יוקרתי ועיצוב שמותיר חותם" data-en="Luxury branding and design that leaves a mark">מיתוג יוקרתי ועיצוב שמותיר חותם</p>
+                <h1 class="text-4xl md:text-7xl font-bold mb-6 serif" data-he="עיצוב מותגים ובניית אתרים" data-en="Branding & Web Development">עיצוב מותגים ובניית אתרים</h1>
+                <p class="text-zinc-400 text-lg mb-10 max-w-xl mx-auto font-light" data-he="יוצרים זהות דיגיטלית חזקה לעסק שלכם" data-en="Creating a powerful digital identity for your business">יוצרים זהות דיגיטלית חזקה לעסק שלכם</p>
                 
                 <div class="flex flex-col md:flex-row gap-4 justify-center mb-12">
                     <button onclick="showPage('gallery')" class="px-12 py-4 bg-amber-500 text-black font-bold uppercase tracking-widest text-sm hover:bg-amber-400 transition" data-he="צפה בעבודות" data-en="VIEW WORKS">צפה בעבודות</button>
@@ -230,8 +230,9 @@
             
             <div class="flex flex-wrap justify-center gap-3 mb-12">
                 <button onclick="filterWorks('all')" class="cat-btn active" id="btn-all">ALL</button>
-                <button onclick="filterWorks('business_cards')" class="cat-btn" data-he="כרטיסי ביקור" data-en="CARDS">כרטיסי ביקור</button>
+                <button onclick="filterWorks('websites')" class="cat-btn" data-he="אתרים" data-en="WEBSITES">אתרים</button>
                 <button onclick="filterWorks('branding')" class="cat-btn" data-he="מותגים" data-en="BRANDING">מותגים</button>
+                <button onclick="filterWorks('business_cards')" class="cat-btn" data-he="כרטיסי ביקור" data-en="CARDS">כרטיסי ביקור</button>
                 <button onclick="filterWorks('posts')" class="cat-btn" data-he="פוסטים" data-en="POSTS">פוסטים</button>
                 <button onclick="filterWorks('ads')" class="cat-btn" data-he="מודעות" data-en="ADS">מודעות</button>
             </div>
@@ -256,6 +257,8 @@
         let currentFilter = 'all';
 
         const works = [
+            // כאן תוכל להוסיף תמונות של אתרים שבנית עם הקטגוריה 'websites'
+            {url: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png', cat: 'websites'}, // דוגמה (לוגו שלך כרגע)
             {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png', cat: 'ads'},
             {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png', cat: 'ads'},
             {url: 'https://i.postimg.cc/QxRKrSXB/1755407066547.png', cat: 'ads'},
@@ -264,8 +267,7 @@
             {url: 'https://i.postimg.cc/05XJVPh1/IMG-20251228-WA0014.jpg', cat: 'branding'},
             {url: 'https://i.postimg.cc/BZ71m4kd/Picsart-26-01-07-17-32-32-551.png', cat: 'branding'},
             {url: 'https://i.postimg.cc/y8XCnYW8/Picsart-26-01-20-05-54-51-529.jpg', cat: 'business_cards'},
-            {url: 'https://i.postimg.cc/7ZMrXYbY/Picsart-26-01-20-05-51-57-093.png', cat: 'business_cards'},
-            {url: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png', cat: 'branding'}
+            {url: 'https://i.postimg.cc/7ZMrXYbY/Picsart-26-01-20-05-51-57-093.png', cat: 'business_cards'}
         ];
 
         function showPage(p) {
@@ -320,10 +322,8 @@
             document.getElementById('wrapper-en').classList.toggle('hidden', currentLang !== 'en');
         }
 
-        // טעינה ראשונית
         renderGallery();
 
-        // בדיקה אוטומטית: אם יש ?lang=en בקישור, האתר יהפוך לאנגלית
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('lang') === 'en') {
             toggleLang();
