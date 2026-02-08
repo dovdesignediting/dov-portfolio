@@ -154,7 +154,6 @@
         }
         .lang-switch-btn:hover .lang-text { color: #f59e0b; }
 
-        /* Services Cards */
         .service-card {
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.1);
@@ -218,7 +217,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-                    
                     <div class="service-card group">
                         <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
@@ -234,7 +232,6 @@
                         <h3 class="text-xl font-bold text-white mb-2 group-hover:text-amber-500 transition-colors" data-he="בניית אתרים וקוד" data-en="Web Design & Development">בניית אתרים וקוד</h3>
                         <p class="text-zinc-400 text-sm" data-he="אתרים מעוצבים, מהירים ומותאמים לנייד ששמים את העסק שלך על המפה." data-en="Custom, fast, and mobile-responsive websites that put your business on the map.">אתרים מעוצבים, מהירים ומותאמים לנייד ששמים את העסק שלך על המפה.</p>
                     </div>
-
                 </div>
 
                 <div id="wrapper-he" class="banner-wrapper" onclick="this.classList.toggle('is-full')">
@@ -271,7 +268,6 @@
             
             <div class="flex flex-wrap justify-center gap-3 mb-12">
                 <button onclick="filterWorks('all')" class="cat-btn active" id="btn-all">ALL</button>
-                <button onclick="filterWorks('websites')" class="cat-btn" data-he="אתרים" data-en="WEBSITES">אתרים</button>
                 <button onclick="filterWorks('branding')" class="cat-btn" data-he="מותגים" data-en="BRANDING">מותגים</button>
                 <button onclick="filterWorks('business_cards')" class="cat-btn" data-he="כרטיסי ביקור" data-en="CARDS">כרטיסי ביקור</button>
                 <button onclick="filterWorks('posts')" class="cat-btn" data-he="פוסטים" data-en="POSTS">פוסטים</button>
@@ -298,7 +294,6 @@
         let currentFilter = 'all';
 
         const works = [
-            {url: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png', cat: 'websites'},
             {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png', cat: 'ads'},
             {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png', cat: 'ads'},
             {url: 'https://i.postimg.cc/QxRKrSXB/1755407066547.png', cat: 'ads'},
@@ -351,18 +346,14 @@
         function toggleLang() {
             currentLang = currentLang === 'he' ? 'en' : 'he';
             document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
-            
             document.getElementById('lang-label').innerText = currentLang === 'he' ? 'English' : 'עברית';
-            
             document.querySelectorAll('[data-he]').forEach(el => {
                 el.innerText = el.getAttribute('data-' + currentLang);
             });
-
             document.getElementById('wrapper-he').classList.toggle('hidden', currentLang !== 'he');
             document.getElementById('wrapper-en').classList.toggle('hidden', currentLang !== 'en');
         }
 
-        // הפעלה ראשונית
         renderGallery();
 
         const urlParams = new URLSearchParams(window.location.search);
