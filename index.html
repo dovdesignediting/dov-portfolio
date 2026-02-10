@@ -4,367 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <meta name="google-site-verification" content="307cd60a25a8e12c" />
+    <meta name="google-site-verification" content="google307cd60a25a8e12c" />
 
-    <title>דוב עיצוב ופיתוח | מיתוג ובניית אתרים בברוקלין</title>
-    <meta name="description" content="דוב עיצוב ופיתוח - סטודיו בוטיק בברוקלין למיתוג עסקי, עיצוב גרפי ובניית אתרים מתקדמים. יצירת נוכחות דיגיטלית יוקרתית לעסק שלך.">
-    <meta name="keywords" content="עיצוב גרפי, בניית אתרים, מיתוג, לוגו, ברוקלין, דוב עיצוב, פיתוח אתרים, Dov Design">
-    <meta name="author" content="Dov Design Studio">
+    <title>דוב עיצוב ועריכה | מחירון שירותים ומיתוג</title>
+    <meta name="description" content="סטודיו דוב לעיצוב ועריכה - חבילות מיתוג, כרטיסי ביקור ובניית נוכחות דיגיטלית בברוקלין.">
     
-    <meta property="og:title" content="דוב עיצוב ופיתוח | Dov Design & Development">
-    <meta property="og:description" content="מיתוג מדויק ובניית אתרים שיוצרים נוכחות. סטודיו לעיצוב ופיתוח בברוקלין.">
-    <meta property="og:image" content="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png">
-    <meta property="og:url" content="https://dov-portfolio.vercel.app">
-
     <link rel="icon" type="image/png" href="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png">
-
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Heebo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Heebo:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
-        body { 
-            font-family: 'Heebo', sans-serif; 
-            background-color: #09090b; 
-            color: #fafafa; 
-            overflow-x: hidden; 
-            scroll-behavior: smooth;
-            -webkit-user-select: none;
-            user-select: none;
-            touch-action: manipulation;
-        }
+        body { font-family: 'Heebo', sans-serif; background-color: #09090b; color: #fafafa; scroll-behavior: smooth; }
         .serif { font-family: 'Playfair Display', serif; }
-        .brand-logo { height: 45px; width: auto; object-fit: contain; }
-        
-        .masonry-grid { columns: 2; column-gap: 10px; }
-        @media (min-width: 768px) { .masonry-grid { columns: 3; } }
-        
-        .masonry-item { 
-            break-inside: avoid; 
-            margin-bottom: 10px; 
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s;
-            overflow: hidden;
-            border-radius: 4px;
-        }
-        .masonry-item:hover { transform: scale(1.02); }
-        .masonry-item img { width: 100%; display: block; }
-
-        #lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.97);
-            z-index: 100;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            backdrop-filter: blur(5px);
-        }
-        #lightbox.active { display: flex; }
-        #lightbox-img { max-width: 90%; max-height: 80vh; border: 1px solid #333; }
-
-        .page { display: none; }
-        .page.active { display: block; animation: fadeIn 0.6s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .banner-wrapper {
-            width: 100%;
-            margin-top: 3rem;
-            margin-bottom: 3rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .scrolling-banner {
-            width: 100%;
-            height: 280px;
-            background-size: contain;
-            background-repeat: repeat-x;
-            background-position: center;
-            position: relative;
-            z-index: 30;
-            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .banner-wrapper.is-full .scrolling-banner {
-            animation: none !important;
-            background-repeat: no-repeat !important;
-            background-position: center !important;
-            transform: scale(1.08);
-            height: 320px;
-        }
-
-        #banner-he {
-            background-image: url('https://i.postimg.cc/SKdWvXvD/Picsart-26-01-15-07-34-38-017.png');
-            animation: scroll-bg-rtl 40s linear infinite;
-        }
-
-        #banner-en {
-            background-image: url('https://i.postimg.cc/3wYX1jnw/1768446446562.png');
-            animation: scroll-bg-ltr 40s linear infinite;
-        }
-
-        @keyframes scroll-bg-rtl { from { background-position: 0 center; } to { background-position: 1500px center; } }
-        @keyframes scroll-bg-ltr { from { background-position: 0 center; } to { background-position: -1500px center; } }
-
-        .banner-hint {
-            font-size: 12px;
-            color: #000;
-            background-color: #f59e0b;
-            padding: 6px 20px;
-            border-radius: 20px;
-            margin-bottom: 12px;
-            font-weight: 800;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-        }
-
-        .cat-btn {
-            padding: 8px 16px;
-            font-size: 11px;
-            text-transform: uppercase;
-            font-weight: bold;
-            border: 1px solid #27272a;
-            color: #71717a;
-            background: #000;
-            transition: all 0.3s;
-            border-radius: 4px;
-        }
-        .cat-btn.active {
-            border-color: #f59e0b;
-            color: #000;
-            background: #f59e0b;
-        }
-
-        .lang-switch-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.08);
-            padding: 6px 14px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .lang-switch-btn:active { transform: scale(0.95); }
-        .lang-switch-btn:hover { border-color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
-        .lang-icon {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
-        }
-        .lang-text {
-            font-size: 13px;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .service-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        .service-card:hover {
-            border-color: #f59e0b;
-            transform: translateY(-5px);
-            background: rgba(245, 158, 11, 0.05);
-        }
-        .service-icon {
-            width: 40px;
-            height: 40px;
-            margin: 0 auto 1rem auto;
-            color: #f59e0b;
-        }
-
+        .gold-text { color: #f59e0b; }
+        .service-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 2rem; border-radius: 12px; transition: 0.3s; }
+        .service-card:hover { border-color: #f59e0b; background: rgba(245, 158, 11, 0.05); }
+        .promo-badge { background: #f59e0b; color: black; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <div id="lightbox">
-        <span onclick="closeLightbox()" style="position: absolute; top: 20px; right: 20px; font-size: 40px; color: white; cursor: pointer;">&times;</span>
-        <img id="lightbox-img" src="">
-    </div>
-
-    <header class="fixed top-0 left-0 right-0 z-50 py-6 px-6 bg-transparent transition-all" id="header">
-        <div class="container mx-auto flex items-center justify-between">
-            <button onclick="showPage('home')">
-                <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="brand-logo">
-            </button>
-            
-            <nav class="hidden md:flex gap-8 text-[10px] uppercase font-bold tracking-widest">
-                <button onclick="showPage('home')" data-he="בית" data-en="HOME" class="hover:text-amber-500 transition">בית</button>
-                <button onclick="showPage('gallery')" data-he="עבודות" data-en="WORKS" class="hover:text-amber-500 transition">עבודות</button>
-                <a href="#contact-section" data-he="צור קשר" data-en="CONTACT" class="hover:text-amber-500 transition">צור קשר</a>
-            </nav>
-
-            <button onclick="toggleLang()" class="lang-switch-btn">
-                <img src="https://i.postimg.cc/Gt8wymfR/Picsart-26-01-31-22-18-21-257.png" class="lang-icon" alt="Translate">
-                <span id="lang-label" class="lang-text">English</span>
-            </button>
+    <header class="fixed top-0 w-full z-50 py-4 px-6 bg-black/80 backdrop-blur-md border-b border-white/5">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="h-10 w-auto" alt="Dov Logo">
+            <a href="https://wa.me/18459530976" class="text-xs font-bold uppercase tracking-widest hover:gold-text">WhatsApp: (845) 953-0976</a>
         </div>
     </header>
 
-    <main id="home-page" class="page active">
-        <section class="min-h-screen flex flex-col items-center justify-center relative pt-32 pb-16 text-center">
-            <div class="absolute inset-0 bg-black/60 z-10"></div>
-            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000')] bg-cover bg-center"></div>
+    <section class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 serif">דוב עיצוב ועריכה</h1>
+        <div class="h-1 w-24 bg-amber-500 mb-8"></div>
+        <p class="text-zinc-400 text-lg max-w-2xl mb-12">הופכים קונספט למציאות עם עיצוב מותאם אישית, נראות בולטת וביצוע מהיר.</p>
+        <a href="#pricing" class="px-8 py-4 bg-amber-500 text-black font-bold uppercase tracking-tighter hover:bg-amber-400 transition">צפו בחבילות העיצוב</a>
+    </section>
+
+    <section id="pricing" class="py-24 bg-zinc-950 px-6">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-3xl font-bold mb-16 serif text-center underline decoration-amber-500">חבילות העיצוב שלנו</h2>
             
-            <div class="relative z-20 px-6 w-full max-w-5xl mx-auto">
-                <h1 class="text-4xl md:text-7xl font-bold mb-6 serif" data-he="סטודיו לעיצוב ופיתוח" data-en="Design & Development Studio">סטודיו לעיצוב ופיתוח</h1>
-                <p class="text-zinc-400 text-lg mb-10 max-w-xl mx-auto font-light" data-he="מיתוג מדויק ובניית אתרים שיוצרים נוכחות" data-en="Precise branding and websites that build presence">מיתוג מדויק ובניית אתרים שיוצרים נוכחות</p>
-                
-                <div class="flex flex-col md:flex-row gap-4 justify-center mb-16">
-                    <button onclick="showPage('gallery')" class="px-12 py-4 bg-amber-500 text-black font-bold uppercase tracking-widest text-sm hover:bg-amber-400 transition" data-he="צפה בעבודות" data-en="VIEW WORKS">צפה בעבודות</button>
-                    <a href="#contact-section" class="px-12 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-sm hover:border-amber-500 hover:text-amber-500 transition" data-he="דבר איתי" data-en="LET'S TALK">דבר איתי</a>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-                    <div class="service-card group">
-                        <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-                        </svg>
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-amber-500 transition-colors" data-he="עיצוב גרפי ומיתוג" data-en="Graphic Design & Branding">עיצוב גרפי ומיתוג</h3>
-                        <p class="text-zinc-400 text-sm" data-he="לוגואים, כרטיסי ביקור ופרסום שמשדר יוקרה ומקצועיות." data-en="Logos, business cards, and visuals that radiate luxury and professionalism.">לוגואים, כרטיסי ביקור ופרסום שמשדר יוקרה ומקצועיות.</p>
-                    </div>
-
-                    <div class="service-card group">
-                        <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                        </svg>
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-amber-500 transition-colors" data-he="בניית אתרים וקוד" data-en="Web Design & Development">בניית אתרים וקוד</h3>
-                        <p class="text-zinc-400 text-sm" data-he="אתרים מעוצבים, מהירים ומותאמים לנייד ששמים את העסק שלך על המפה." data-en="Custom, fast, and mobile-responsive websites that put your business on the map.">אתרים מעוצבים, מהירים ומותאמים לנייד ששמים את העסק שלך על המפה.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="service-card flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">חבילת "כרטיס מנצח"</h3>
+                        <p class="text-2xl font-bold gold-text mb-6">$150</p>
+                        <ul class="text-sm text-zinc-400 space-y-3 mb-8">
+                            <li>• עיצוב כרטיס ביקור דו-צדדי נקי</li>
+                            <li>• הכנה למקצועית לדפוס (Bleed)</li>
+                            <li>• 2 סבבי תיקונים להתאמה מושלמת</li>
+                        </ul>
                     </div>
                 </div>
 
-                <div id="wrapper-he" class="banner-wrapper" onclick="this.classList.toggle('is-full')">
-                    <p class="banner-hint">לחצו לצפייה מלאה / המשיכו לגלול</p>
-                    <div class="scrolling-banner" id="banner-he"></div>
+                <div class="service-card flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">חבילת "נוכחות דיגיטלית"</h3>
+                        <p class="text-2xl font-bold gold-text mb-6">$250</p>
+                        <ul class="text-sm text-zinc-400 space-y-3 mb-8">
+                            <li>• עיצוב פלייר/מודעה לוואטסאפ/אינסטגרם</li>
+                            <li>• עיצוב תמונת פרופיל או באנר תואם</li>
+                            <li>• התאמת מיתוג לשפה הוויזואלית שלך</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div id="wrapper-en" class="banner-wrapper hidden" onclick="this.classList.toggle('is-full')">
-                    <p class="banner-hint">CLICK FOR FULL VIEW / KEEP SCROLLING</p>
-                    <div class="scrolling-banner" id="banner-en"></div>
+                <div class="service-card border-amber-500/50 bg-amber-500/5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold">חבילת "הכל כלול"</h3>
+                            <span class="promo-badge">משתלמת</span>
+                        </div>
+                        <p class="text-2xl font-bold gold-text mb-6">$299</p>
+                        <ul class="text-sm text-zinc-300 space-y-3 mb-8 font-medium">
+                            <li>• עיצוב כרטיס ביקור + מודעה (פלייר)</li>
+                            <li>• ייעוץ ויזואלי לבניית קונספט מדויק</li>
+                            <li>• קבלת קבצים פתוחים לשימוש עתידי</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <section id="contact-section" class="py-24 bg-zinc-950 px-6">
-            <div class="container mx-auto max-w-4xl text-center">
-                <h2 class="text-3xl md:text-5xl font-bold mb-4 serif" data-he="בואו ניצור משהו גדול" data-en="Let's Create Greatness">בואו ניצור משהו גדול</h2>
-                <div class="w-20 h-1 bg-amber-500 mx-auto mb-16"></div>
-                <form id="contact-form" action="https://formspree.io/f/mvzzqrnz" method="POST" class="max-w-xl mx-auto space-y-4 text-right">
-                    <input type="text" name="name" required placeholder="שם מלא / Name" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white">
-                    <input type="email" name="_replyto" required placeholder="אימייל / Email" class="w-full bg-zinc-900 border border-zinc-900 p-4 outline-none focus:border-amber-500 text-sm text-white">
-                    <textarea name="message" required rows="4" placeholder="איך אני יכול לעזור? / How can I help?" class="w-full bg-zinc-900 border border-zinc-800 p-4 outline-none focus:border-amber-500 text-sm text-white resize-none"></textarea>
-                    <button type="submit" class="w-full py-4 bg-amber-500 text-black font-bold uppercase tracking-[0.2em] text-xs transition-all hover:bg-amber-400">
-                        <span data-he="שלח הודעה" data-en="SEND MESSAGE">שלח הודעה</span>
-                    </button>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <main id="gallery-page" class="page pt-32 pb-20">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-10 serif uppercase tracking-widest" data-he="העבודות שלי" data-en="MY WORKS">העבודות שלי</h2>
-            
-            <div class="flex flex-wrap justify-center gap-3 mb-12">
-                <button onclick="filterWorks('all')" class="cat-btn active" id="btn-all">ALL</button>
-                <button onclick="filterWorks('branding')" class="cat-btn" data-he="מותגים" data-en="BRANDING">מותגים</button>
-                <button onclick="filterWorks('business_cards')" class="cat-btn" data-he="כרטיסי ביקור" data-en="CARDS">כרטיסי ביקור</button>
-                <button onclick="filterWorks('posts')" class="cat-btn" data-he="פוסטים" data-en="POSTS">פוסטים</button>
-                <button onclick="filterWorks('ads')" class="cat-btn" data-he="מודעות" data-en="ADS">מודעות</button>
-            </div>
-
-            <div id="gallery-grid" class="masonry-grid"></div>
-            
-            <div class="text-center mt-12">
-                <button onclick="showPage('home')" class="px-10 py-4 border border-zinc-500 text-white font-bold uppercase tracking-widest text-xs transition-all hover:bg-amber-500 hover:text-black hover:border-amber-500" data-he="← חזרה לבית" data-en="← BACK TO HOME">
-                    ← חזרה לבית
-                </button>
+            <div class="mt-20 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-8 border border-amber-500/20 rounded-xl bg-zinc-900/50">
+                    <h4 class="text-lg font-bold mb-4 gold-text">מבצע "ראשון של חברים"</h4>
+                    <p class="text-sm text-zinc-400 leading-relaxed">מגיעים ביום ראשון? פרגנו לחבר! על כל חבר שמזמין עבודה ביום ראשון, אתה מקבל 20% הנחה על הפרויקט הבא שלך (או שהוא מקבל על הנוכחי - לבחירתכם!).</p>
+                </div>
+                <div class="p-8 border border-white/10 rounded-xl bg-zinc-900/50">
+                    <h4 class="text-lg font-bold mb-4">ייעוץ ראשוני חינם</h4>
+                    <p class="text-sm text-zinc-400 leading-relaxed">לא בטוחים מה העסק צריך? בואו נדבר. שיחת ייעוץ והתאמה ראשונית ללא כל התחייבות.</p>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="py-12 text-center bg-black border-t border-zinc-900">
-        <p class="text-[10px] text-zinc-500 font-bold tracking-widest">יחי המלך המשיח!</p>
-        <p class="text-[9px] text-zinc-700 uppercase mt-2">© DOV DESIGN STUDIO | 2026</p>
+    <footer class="py-12 text-center border-t border-white/5">
+        <p class="text-sm mb-2 serif">Dov Design & Editing</p>
+        <p class="text-xs text-zinc-500 mb-6">Brooklyn, NY | (845) 953-0976</p>
+        <div class="flex justify-center gap-4 text-[10px] text-zinc-600 uppercase tracking-[0.3em]">
+            <span>Precision</span>
+            <span>Visibility</span>
+            <span>Speed</span>
+        </div>
     </footer>
 
-    <script>
-        let currentLang = 'he';
-        let currentFilter = 'all';
-
-        const works = [
-            {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png', cat: 'ads'},
-            {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png', cat: 'ads'},
-            {url: 'https://i.postimg.cc/QxRKrSXB/1755407066547.png', cat: 'ads'},
-            {url: 'https://i.postimg.cc/YqJLw8pL/Picsart-25-05-18-15-30-03-939.jpg', cat: 'posts'},
-            {url: 'https://i.postimg.cc/wTtRPndv/1756004839008.png', cat: 'branding'},
-            {url: 'https://i.postimg.cc/05XJVPh1/IMG-20251228-WA0014.jpg', cat: 'branding'},
-            {url: 'https://i.postimg.cc/BZ71m4kd/Picsart-26-01-07-17-32-32-551.png', cat: 'branding'},
-            {url: 'https://i.postimg.cc/y8XCnYW8/Picsart-26-01-20-05-54-51-529.jpg', cat: 'business_cards'},
-            {url: 'https://i.postimg.cc/7ZMrXYbY/Picsart-26-01-20-05-51-57-093.png', cat: 'business_cards'}
-        ];
-
-        function showPage(p) {
-            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-            document.getElementById(p + '-page').classList.add('active');
-            if(p === 'gallery') renderGallery(); 
-            window.scrollTo(0,0);
-        }
-
-        function filterWorks(cat) {
-            currentFilter = cat;
-            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-            if(event) event.target.classList.add('active'); 
-            renderGallery();
-        }
-
-        function renderGallery() {
-            const g = document.getElementById('gallery-grid');
-            if(!g) return;
-            g.innerHTML = '';
-            const filtered = works.filter(w => currentFilter === 'all' || w.cat === currentFilter);
-            filtered.forEach(w => {
-                g.innerHTML += `
-                    <div class="masonry-item" onclick="openLightbox('${w.url}')">
-                        <img src="${w.url}" class="w-full h-auto border border-zinc-800 shadow-lg hover:border-amber-500 transition-colors">
-                    </div>`;
-            });
-        }
-
-        function openLightbox(url) {
-            document.getElementById('lightbox-img').src = url;
-            document.getElementById('lightbox').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function toggleLang() {
-            currentLang = currentLang === 'he' ? 'en' : 'he';
-            document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
-            document.getElementById('lang-label').innerText = currentLang === 'he' ? 'English' : 'עברית';
-            document.querySelectorAll('[data-he]').forEach(el => {
-                el.innerText = el.getAttribute('data-' + currentLang);
-            });
-            document.getElementById('wrapper-he').classList.toggle('hidden', currentLang !== 'he');
-            document.getElementById('wrapper-en').classList.toggle('hidden', currentLang !== 'en');
-        }
-
-        renderGallery();
-    </script>
 </body>
 </html>
