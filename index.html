@@ -151,7 +151,6 @@
         }
         .service-card:hover { border-color: #f59e0b; background: rgba(245, 158, 11, 0.03); }
 
-        /* New: Shiny Button Effect */
         .btn-shiny {
             position: relative;
             overflow: hidden;
@@ -257,11 +256,11 @@
             <h2 class="text-5xl font-black mb-12 serif italic tracking-tighter" data-he="תיק עבודות" data-en="PORTFOLIO">תיק עבודות</h2>
             
             <div class="flex flex-wrap justify-center gap-3 mb-16">
-                <button onclick="filterWorks('all')" class="cat-btn active" id="btn-all">ALL</button>
-                <button onclick="filterWorks('branding')" class="cat-btn" data-he="מיתוג" data-en="BRANDING">מיתוג</button>
-                <button onclick="filterWorks('business_cards')" class="cat-btn" data-he="כרטיסי ביקור" data-en="CARDS">כרטיסי ביקור</button>
-                <button onclick="filterWorks('posts')" class="cat-btn" data-he="פוסטים" data-en="POSTS">פוסטים</button>
-                <button onclick="filterWorks('ads')" class="cat-btn" data-he="מודעות" data-en="ADS">מודעות</button>
+                <button onclick="filterWorks('all')" class="cat-btn active" data-category="all">ALL</button>
+                <button onclick="filterWorks('branding')" class="cat-btn" data-category="branding" data-he="מיתוג" data-en="BRANDING">מיתוג</button>
+                <button onclick="filterWorks('business_cards')" class="cat-btn" data-category="business_cards" data-he="כרטיסי ביקור" data-en="CARDS">כרטיסי ביקור</button>
+                <button onclick="filterWorks('posts')" class="cat-btn" data-category="posts" data-he="פוסטים" data-en="POSTS">פוסטים</button>
+                <button onclick="filterWorks('ads')" class="cat-btn" data-category="ads" data-he="מודעות" data-en="ADS">מודעות</button>
             </div>
 
             <div id="gallery-grid" class="masonry-grid"></div>
@@ -283,7 +282,6 @@
         let currentLang = 'he';
         let currentFilter = 'all';
 
-        // All your works correctly categorized
         const works = [
             {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png', cat: 'ads'},
             {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png', cat: 'ads'},
@@ -306,12 +304,16 @@
 
         function filterWorks(cat) {
             currentFilter = cat;
+            
+            // עדכון הכפתור הפעיל לצבע צהוב
             document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if(btn.innerText.toLowerCase() === cat || (cat === 'all' && btn.id === 'btn-all')) {
+                if (btn.getAttribute('data-category') === cat) {
                     btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
                 }
             });
+            
             renderGallery();
         }
 
@@ -353,7 +355,6 @@
             document.getElementById('wrapper-en').classList.toggle('hidden', currentLang !== 'en');
         }
 
-        // Initialize gallery on load
         window.onload = renderGallery;
     </script>
 </body>
