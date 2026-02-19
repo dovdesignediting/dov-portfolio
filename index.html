@@ -151,6 +151,28 @@
         }
         .service-card:hover { border-color: #f59e0b; background: rgba(245, 158, 11, 0.03); }
 
+        /* New: Shiny Button Effect */
+        .btn-shiny {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shiny::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { left: -100%; transition-property: left; }
+            20% { left: 100%; transition-property: left; }
+            100% { left: 100%; transition-property: left; }
+        }
+
     </style>
 </head>
 <body class="notranslate" oncontextmenu="return false;">
@@ -189,7 +211,7 @@
                 <p class="text-zinc-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-light" data-he="סטודיו בוטיק בברוקלין למיתוג פרימיום ובניית אתרי קצה." data-en="Boutique Brooklyn studio for premium branding & high-end web development.">סטודיו בוטיק בברוקלין למיתוג פרימיום ובניית אתרי קצה.</p>
                 
                 <div class="flex flex-col sm:flex-row gap-5 justify-center mb-20">
-                    <button onclick="showPage('gallery')" class="px-12 py-5 bg-amber-500 text-black font-black uppercase tracking-widest text-xs hover:bg-white transition" data-he="צפה בתיק עבודות" data-en="VIEW PORTFOLIO">צפה בתיק עבודות</button>
+                    <button onclick="showPage('gallery')" class="btn-shiny px-12 py-5 bg-amber-500 text-black font-black uppercase tracking-widest text-xs hover:bg-white transition" data-he="צפה בתיק עבודות" data-en="VIEW PORTFOLIO">צפה בתיק עבודות</button>
                     <a href="#contact-section" class="px-12 py-5 border border-white/20 text-white font-black uppercase tracking-widest text-xs hover:border-amber-500 hover:text-amber-500 transition" data-he="בוא נדבר" data-en="GET IN TOUCH">בוא נדבר</a>
                 </div>
 
