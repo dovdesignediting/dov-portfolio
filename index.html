@@ -177,9 +177,9 @@
             animation: shine 3s infinite;
         }
         @keyframes shine {
-            0% { left: -100%; transition-property: left; }
-            20% { left: 100%; transition-property: left; }
-            100% { left: 100%; transition-property: left; }
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
         }
 
         .g-recaptcha {
@@ -194,14 +194,14 @@
 <body class="notranslate" oncontextmenu="return false;">
 
     <div id="lightbox" onclick="closeLightbox()">
-        <span style="position: absolute; top: 30px; right: 30px; font-size: 40px; color: white;">&times;</span>
+        <span style="position: absolute; top: 30px; right: 30px; font-size: 40px; color: white; cursor: pointer;">&times;</span>
         <img id="lightbox-img" src="">
     </div>
 
     <header class="fixed top-0 left-0 right-0 z-50 py-4 px-6 bg-black/80 backdrop-blur-md border-b border-white/5">
         <div class="container mx-auto flex items-center justify-between">
             <button onclick="showPage('home')">
-                <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="brand-logo">
+                <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="brand-logo" alt="Logo">
             </button>
             
             <nav class="hidden md:flex gap-10 text-[10px] uppercase font-black tracking-[0.2em]">
@@ -224,7 +224,7 @@
             <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000')] bg-cover bg-center opacity-40"></div>
             
             <div class="relative z-20 w-full max-w-5xl">
-                <h1 class="text-5xl md:text-8xl font-black mb-6 serif leading-tight" 
+                <h1 id="hero-title" class="text-5xl md:text-8xl font-black mb-6 serif leading-tight" 
                     data-he='דוב עיצוב ופיתוח<span class="tm-symbol">TM</span>' 
                     data-en='DOV DESIGN STUDIO<span class="tm-symbol">TM</span>'>
                     דוב עיצוב ופיתוח<span class="tm-symbol">TM</span>
@@ -252,7 +252,7 @@
                     <div class="scrolling-banner" id="banner-he"></div>
                 </div>
                 <div id="wrapper-en" class="banner-wrapper hidden" onclick="this.classList.toggle('is-full')">
-                    <p class="banner-hint">CLICK FOR FULL VIEW</p>
+                    <p class="banner-hint" data-he="לחצו לצפייה מלאה" data-en="CLICK FOR FULL VIEW">CLICK FOR FULL VIEW</p>
                     <div class="scrolling-banner" id="banner-en"></div>
                 </div>
             </div>
@@ -340,7 +340,8 @@
 
         function showPage(p) {
             document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-            document.getElementById(p + '-page').classList.add('active');
+            const targetPage = document.getElementById(p + '-page');
+            if(targetPage) targetPage.classList.add('active');
             if(p === 'gallery') renderGallery(); 
             window.scrollTo(0,0);
         }
@@ -368,15 +369,12 @@
         }
 
         function openLightbox(url) {
-            document.getElementById('lightbox-img').src = url;
-            document.getElementById('lightbox').classList.add('active');
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = url;
+            lb.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function toggleLang() {
-            currentLang = curren
+            document.getElementById('lightbox').classList.remove('ac
