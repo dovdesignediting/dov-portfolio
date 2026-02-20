@@ -189,6 +189,10 @@
             margin-bottom: 15px;
         }
 
+        /* תפריט מובייל */
+        #mobile-menu {
+            transition: opacity 0.3s ease-in-out;
+        }
     </style>
 </head>
 <body class="notranslate" oncontextmenu="return false;">
@@ -198,17 +202,30 @@
         <img id="lightbox-img" src="">
     </div>
 
+    <div id="mobile-menu" class="fixed inset-0 bg-black/98 z-[60] hidden flex-col items-center justify-center gap-8 text-xl font-black uppercase tracking-widest backdrop-blur-lg">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-white text-5xl">&times;</button>
+        <button onclick="showPage('home'); toggleMobileMenu()" data-he="בית" data-en="HOME" class="hover:text-amber-500 transition">בית</button>
+        <button onclick="scrollToSection('about-section'); toggleMobileMenu()" data-he="אודות" data-en="ABOUT" class="hover:text-amber-500 transition">אודות</button>
+        <button onclick="showPage('gallery'); toggleMobileMenu()" data-he="עבודות" data-en="WORKS" class="hover:text-amber-500 transition">עבודות</button>
+        <button onclick="scrollToSection('contact-section'); toggleMobileMenu()" data-he="צור קשר" data-en="CONTACT" class="hover:text-amber-500 transition">צור קשר</button>
+    </div>
+
     <header class="fixed top-0 left-0 right-0 z-50 py-4 px-6 bg-black/80 backdrop-blur-md border-b border-white/5">
         <div class="container mx-auto flex items-center justify-between">
-            <button onclick="showPage('home')">
-                <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="brand-logo" alt="Logo">
-            </button>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleMobileMenu()" class="md:hidden text-white hover:text-amber-500 transition">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                <button onclick="showPage('home')">
+                    <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="brand-logo" alt="Logo">
+                </button>
+            </div>
             
             <nav class="hidden md:flex gap-10 text-[10px] uppercase font-black tracking-[0.2em]">
                 <button onclick="showPage('home')" data-he="בית" data-en="HOME" class="hover:text-amber-500 transition">בית</button>
-                <a href="#about-section" data-he="אודות" data-en="ABOUT" class="hover:text-amber-500 transition">אודות</a>
+                <button onclick="scrollToSection('about-section')" data-he="אודות" data-en="ABOUT" class="hover:text-amber-500 transition">אודות</button>
                 <button onclick="showPage('gallery')" data-he="עבודות" data-en="WORKS" class="hover:text-amber-500 transition">עבודות</button>
-                <a href="#contact-section" data-he="צור קשר" data-en="CONTACT" class="hover:text-amber-500 transition">צור קשר</a>
+                <button onclick="scrollToSection('contact-section')" data-he="צור קשר" data-en="CONTACT" class="hover:text-amber-500 transition">צור קשר</button>
             </nav>
 
             <button onclick="toggleLang()" class="lang-switch-btn">
@@ -223,7 +240,7 @@
             <div class="absolute inset-0 bg-black/70 z-10"></div>
             <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000')] bg-cover bg-center opacity-40"></div>
             
-            <div class="relative z-20 w-full max-w-5xl">
+            <div class="relative z-20 w-full max-w-5xl mt-10">
                 <h1 id="hero-title" class="text-5xl md:text-8xl font-black mb-6 serif leading-tight" 
                     data-he='דוב עיצוב ופיתוח<span class="tm-symbol">TM</span>' 
                     data-en='DOV DESIGN STUDIO<span class="tm-symbol">TM</span>'>
@@ -233,7 +250,7 @@
                 
                 <div class="flex flex-col sm:flex-row gap-5 justify-center mb-20">
                     <button onclick="showPage('gallery')" class="btn-shiny px-12 py-5 bg-amber-500 text-black font-black uppercase tracking-widest text-xs hover:bg-white transition" data-he="צפה בתיק עבודות" data-en="VIEW PORTFOLIO">צפה בתיק עבודות</button>
-                    <a href="#contact-section" class="px-12 py-5 border border-white/20 text-white font-black uppercase tracking-widest text-xs hover:border-amber-500 hover:text-amber-500 transition" data-he="בוא נדבר" data-en="GET IN TOUCH">בוא נדבר</a>
+                    <button onclick="scrollToSection('contact-section')" class="px-12 py-5 border border-white/20 text-white font-black uppercase tracking-widest text-xs hover:border-amber-500 hover:text-amber-500 transition" data-he="בוא נדבר" data-en="GET IN TOUCH">בוא נדבר</button>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
@@ -276,10 +293,10 @@
             <div class="container mx-auto max-w-3xl text-center">
                 <h2 class="text-4xl md:text-6xl font-black mb-8 serif italic" data-he="בואו נצא לדרך" data-en="Let's Start">בואו נצא לדרך</h2>
                 
-                <form id="contact-form" action="https://formspree.io/f/mvzzqrnz" method="POST" class="space-y-4 text-right">
-                    <input type="text" name="name" required placeholder="שם מלא / Full Name" class="w-full bg-black border border-white/10 p-5 outline-none focus:border-amber-500 text-sm text-white rounded-lg">
-                    <input type="email" name="_replyto" required placeholder="אימייל / Email" class="w-full bg-black border border-white/10 p-5 outline-none focus:border-amber-500 text-sm text-white rounded-lg">
-                    <textarea name="message" required rows="5" placeholder="ספר לי על הפרויקט שלך / Tell me about your project" class="w-full bg-black border border-white/10 p-5 outline-none focus:border-amber-500 text-sm text-white resize-none rounded-lg"></textarea>
+                <form id="contact-form" action="https://formspree.io/f/mvzzqrnz" method="POST" class="space-y-4 text-right transition-all">
+                    <input type="text" name="name" required placeholder="שם מלא / Full Name" data-he="שם מלא" data-en="Full Name" class="w-full bg-black border border-white/10 p-5 outline-none focus:border-amber-500 text-sm text-white rounded-lg">
+                    <input type="email" name="_replyto" required placeholder="אימייל / Email" data-he="אימייל" data-en="Email" class="w-full bg-black border border-white/10 p-5 outline-none focus:border-amber-500 text-sm text-white rounded-lg">
+                    <textarea name="message" required rows="5" placeholder="ספר לי על הפרויקט שלך / Tell me about your project" data-he="ספר לי על הפרויקט שלך" data-en="Tell me about your project" class="w-full bg-black border border-white/10 p-5 outline-none focus:border-amber-500 text-sm text-white resize-none rounded-lg"></textarea>
                     
                     <div class="g-recaptcha" data-sitekey="6LdklHEsAAAAAHRmlsC7lVEPNt3ej5DsyGdQENls" data-theme="dark"></div>
 
@@ -335,46 +352,4 @@
             {url: 'https://i.postimg.cc/BZ71m4kd/Picsart-26-01-07-17-32-32-551.png', cat: 'branding'},
             {url: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png', cat: 'branding'},
             {url: 'https://i.postimg.cc/y8XCnYW8/Picsart-26-01-20-05-54-51-529.jpg', cat: 'business_cards'},
-            {url: 'https://i.postimg.cc/7ZMrXYbY/Picsart-26-01-20-05-51-57-093.png', cat: 'business_cards'}
-        ];
-
-        function showPage(p) {
-            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-            const targetPage = document.getElementById(p + '-page');
-            if(targetPage) targetPage.classList.add('active');
-            if(p === 'gallery') renderGallery(); 
-            window.scrollTo(0,0);
-        }
-
-        function filterWorks(cat) {
-            currentFilter = cat;
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.getAttribute('data-category') === cat);
-            });
-            renderGallery();
-        }
-
-        function renderGallery() {
-            const g = document.getElementById('gallery-grid');
-            if(!g) return;
-            g.innerHTML = '';
-            const filtered = works.filter(w => currentFilter === 'all' || w.cat === currentFilter);
-            filtered.forEach(w => {
-                const item = document.createElement('div');
-                item.className = 'masonry-item';
-                item.onclick = () => openLightbox(w.url);
-                item.innerHTML = `<img src="${w.url}" loading="lazy" alt="Dov Work">`;
-                g.appendChild(item);
-            });
-        }
-
-        function openLightbox(url) {
-            const lb = document.getElementById('lightbox');
-            const img = document.getElementById('lightbox-img');
-            img.src = url;
-            lb.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('ac
+            {url: 'htt
