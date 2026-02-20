@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="szG70hq40iku21n_4eIXSeCS-IdLhfkQf_e9V7XjJhU" />
     <meta name="google" content="notranslate">
     <title>דוב עיצוב ופיתוח | Dov Design Studio</title>
     
@@ -27,7 +28,6 @@
         .serif { font-family: 'Playfair Display', serif; }
         .brand-logo { height: 45px; width: auto; object-fit: contain; }
         
-        /* TM Styling - Small and subtle */
         .tm-symbol {
             font-size: 0.35em;
             vertical-align: super;
@@ -36,7 +36,6 @@
             opacity: 0.8;
         }
 
-        /* Masonry Optimization for Mobile */
         .masonry-grid { columns: 2; column-gap: 12px; }
         @media (min-width: 768px) { .masonry-grid { columns: 3; column-gap: 20px; } }
         
@@ -183,7 +182,6 @@
             100% { left: 100%; transition-property: left; }
         }
 
-        /* reCAPTCHA centering */
         .g-recaptcha {
             display: flex;
             justify-content: center;
@@ -349,15 +347,9 @@
 
         function filterWorks(cat) {
             currentFilter = cat;
-            
             document.querySelectorAll('.cat-btn').forEach(btn => {
-                if (btn.getAttribute('data-category') === cat) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
+                btn.classList.toggle('active', btn.getAttribute('data-category') === cat);
             });
-            
             renderGallery();
         }
 
@@ -382,4 +374,9 @@
         }
 
         function closeLightbox() {
-            document.getElementBy
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function toggleLang() {
+            currentLang = curren
