@@ -8,6 +8,8 @@
     
     <link rel="icon" type="image/png" href="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png">
 
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Heebo:wght@300;400;700&display=swap" rel="stylesheet">
     
@@ -25,6 +27,15 @@
         .serif { font-family: 'Playfair Display', serif; }
         .brand-logo { height: 45px; width: auto; object-fit: contain; }
         
+        /* TM Styling - Small and subtle */
+        .tm-symbol {
+            font-size: 0.35em;
+            vertical-align: super;
+            margin-right: 2px;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+
         /* Masonry Optimization for Mobile */
         .masonry-grid { columns: 2; column-gap: 12px; }
         @media (min-width: 768px) { .masonry-grid { columns: 3; column-gap: 20px; } }
@@ -172,6 +183,14 @@
             100% { left: 100%; transition-property: left; }
         }
 
+        /* reCAPTCHA centering */
+        .g-recaptcha {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
     </style>
 </head>
 <body class="notranslate" oncontextmenu="return false;">
@@ -207,7 +226,11 @@
             <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000')] bg-cover bg-center opacity-40"></div>
             
             <div class="relative z-20 w-full max-w-5xl">
-                <h1 class="text-5xl md:text-8xl font-black mb-6 serif leading-tight" data-he="דוב עיצוב ופיתוח" data-en="DOV DESIGN STUDIO">דוב עיצוב ופיתוח</h1>
+                <h1 class="text-5xl md:text-8xl font-black mb-6 serif leading-tight" 
+                    data-he='דוב עיצוב ופיתוח<span class="tm-symbol">TM</span>' 
+                    data-en='DOV DESIGN STUDIO<span class="tm-symbol">TM</span>'>
+                    דוב עיצוב ופיתוח<span class="tm-symbol">TM</span>
+                </h1>
                 <p class="text-zinc-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-light" data-he="סטודיו בוטיק בברוקלין למיתוג פרימיום ובניית אתרי קצה." data-en="Boutique Brooklyn studio for premium branding & high-end web development.">סטודיו בוטיק בברוקלין למיתוג פרימיום ובניית אתרי קצה.</p>
                 
                 <div class="flex flex-col sm:flex-row gap-5 justify-center mb-20">
@@ -254,10 +277,14 @@
         <section id="contact-section" class="py-24 bg-zinc-950 px-6 border-t border-white/5">
             <div class="container mx-auto max-w-3xl text-center">
                 <h2 class="text-4xl md:text-6xl font-black mb-8 serif italic" data-he="בואו נצא לדרך" data-en="Let's Start">בואו נצא לדרך</h2>
+                
                 <form id="contact-form" action="https://formspree.io/f/mvzzqrnz" method="POST" class="space-y-4 text-right">
                     <input type="text" name="name" required placeholder="שם מלא / Full Name" class="w-full bg-black border border-white/10 p-5 outline-none focus:border-amber-500 text-sm text-white rounded-lg">
                     <input type="email" name="_replyto" required placeholder="אימייל / Email" class="w-full bg-black border border-white/10 p-5 outline-none focus:border-amber-500 text-sm text-white rounded-lg">
                     <textarea name="message" required rows="5" placeholder="ספר לי על הפרויקט שלך / Tell me about your project" class="w-full bg-black border border-white/10 p-5 outline-none focus:border-amber-500 text-sm text-white resize-none rounded-lg"></textarea>
+                    
+                    <div class="g-recaptcha" data-sitekey="6LdklHEsAAAAAHRmlsC7lVEPNt3ej5DsyGdQENls" data-theme="dark"></div>
+
                     <button type="submit" class="w-full py-5 bg-amber-500 text-black font-black uppercase tracking-widest text-xs hover:bg-white transition-all rounded-lg">
                         <span data-he="שלח הודעה" data-en="SEND MESSAGE">שלח הודעה</span>
                     </button>
@@ -290,7 +317,10 @@
 
     <footer class="py-16 text-center bg-black border-t border-white/5">
         <p class="text-amber-500 font-bold italic text-xl mb-4">יחי המלך המשיח!</p>
-        <p class="text-[9px] text-zinc-600 uppercase tracking-[0.4em]">© 2026 DOV DESIGN STUDIO | BROOKLYN, NY</p>
+        <p class="text-[9px] text-zinc-600 uppercase tracking-[0.4em] mb-2">
+            © 2026 DOV DESIGN & DEVELOPMENT<span class="tm-symbol">TM</span> | ALL RIGHTS RESERVED
+        </p>
+        <p class="text-[9px] text-zinc-600 uppercase tracking-[0.4em]">BROOKLYN, NY</p>
     </footer>
 
     <script>
@@ -320,7 +350,6 @@
         function filterWorks(cat) {
             currentFilter = cat;
             
-            // עדכון הכפתור הפעיל לצבע צהוב
             document.querySelectorAll('.cat-btn').forEach(btn => {
                 if (btn.getAttribute('data-category') === cat) {
                     btn.classList.add('active');
@@ -353,24 +382,4 @@
         }
 
         function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function toggleLang() {
-            currentLang = currentLang === 'he' ? 'en' : 'he';
-            document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
-            document.getElementById('lang-label').innerText = currentLang === 'he' ? 'English' : 'עברית';
-            
-            document.querySelectorAll('[data-he]').forEach(el => {
-                el.innerHTML = el.getAttribute('data-' + currentLang);
-            });
-            
-            document.getElementById('wrapper-he').classList.toggle('hidden', currentLang !== 'he');
-            document.getElementById('wrapper-en').classList.toggle('hidden', currentLang !== 'en');
-        }
-
-        window.onload = renderGallery;
-    </script>
-</body>
-</html>
+            document.getElementBy
