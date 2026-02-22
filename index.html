@@ -15,11 +15,11 @@
         .serif { font-family: 'Playfair Display', serif; }
         .brand-logo { height: 45px; width: auto; object-fit: contain; cursor: pointer; }
         .tm-symbol { font-size: 0.35em; vertical-align: super; margin-right: 2px; opacity: 0.8; }
-        .masonry-grid { columns: 2; column-gap: 12px; }
+        .masonry-grid { columns: 2; column-gap: 12px; min-height: 200px; }
         @media (min-width: 768px) { .masonry-grid { columns: 3; column-gap: 20px; } }
-        .masonry-item { break-inside: avoid; margin-bottom: 12px; position: relative; cursor: pointer; transition: 0.3s; overflow: hidden; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+        .masonry-item { break-inside: avoid; margin-bottom: 12px; position: relative; cursor: pointer; transition: 0.3s; overflow: hidden; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); background: #111; }
         .masonry-item:hover { transform: translateY(-5px); border-color: #f59e0b; }
-        .masonry-item img { width: 100%; display: block; }
+        .masonry-item img { width: 100%; height: auto; display: block; }
         #lightbox { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
         #lightbox.active { display: flex; }
         #lightbox-img { max-width: 90%; max-height: 80vh; border-radius: 8px; }
@@ -38,7 +38,6 @@
         .btn-shiny::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent); transform: rotate(45deg); animation: shine 4s infinite; }
         @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
 
-        /* Styles for Budget System */
         #budget-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(15px); padding: 20px; }
         #budget-modal.active { display: flex; }
         .budget-container { width: 100%; max-width: 650px; background: #0c0c0e; border: 1px solid rgba(255,255,255,0.1); border-radius: 32px; padding: 35px; position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
@@ -47,7 +46,6 @@
         .budget-scroll::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 10px; }
         .budget-item { display: flex; justify-content: space-between; align-items: center; padding: 16px; background: rgba(255,255,255,0.03); border: 1px solid transparent; border-radius: 16px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; }
         .budget-item.selected { border-color: #f59e0b; background: rgba(245, 158, 11, 0.08); }
-        .budget-item:hover { background: rgba(255,255,255,0.06); }
         .checkbox-custom { width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.2); border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
         .budget-item.selected .checkbox-custom { background: #f59e0b; border-color: #f59e0b; }
         .budget-item.selected .checkbox-custom::after { content: '✓'; color: #000; font-size: 12px; font-weight: bold; }
@@ -61,10 +59,7 @@
             <button onclick="closeBudgetModal()" class="absolute top-6 right-6 text-zinc-500 hover:text-white text-3xl">&times;</button>
             <h2 class="text-3xl font-black text-amber-500 mb-2 serif italic" data-he="מערכת תקציב" data-en="BUDGET SYSTEM">מערכת תקציב</h2>
             <p class="text-zinc-500 text-sm mb-6" data-he="בנה לעצמך את החבילה המושלמת וקבל הצעת מחיר מיידית." data-en="Build your perfect package and get an instant quote.">בנה לעצמך את החבילה המושלמת וקבל הצעת מחיר מיידית.</p>
-            
-            <div class="budget-scroll" id="services-list">
-                </div>
-
+            <div class="budget-scroll" id="services-list"></div>
             <div class="border-t border-white/10 pt-6 mt-4 flex flex-col sm:flex-row items-center justify-between gap-6">
                 <div>
                     <span class="text-zinc-400 text-xs uppercase tracking-widest block mb-1" data-he="סה''כ מוערך" data-en="ESTIMATED TOTAL">סה"כ מוערך</span>
@@ -112,12 +107,12 @@
                 <button onclick="showPage('gallery')" class="btn-shiny bg-amber-500 text-black px-10 py-4 font-black text-xs uppercase tracking-widest rounded-xl" data-he="צפה בתיק עבודות" data-en="VIEW PORTFOLIO">צפה בתיק עבודות</button>
                 <button onclick="openBudgetModal()" class="border border-white/20 px-10 py-4 font-black text-xs uppercase tracking-widest rounded-xl flex items-center gap-2 justify-center" data-he="🎯 מערכת תקציב" data-en="🎯 BUDGET SYSTEM">🎯 מערכת תקציב</button>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl mb-20">
-                <div class="service-card text-right">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl mb-20 text-right">
+                <div class="service-card">
                     <h3 class="text-2xl font-bold mb-3 serif italic text-amber-500" data-he="עיצוב ומיתוג" data-en="Branding">עיצוב ומיתוג</h3>
                     <p class="text-zinc-400 text-sm" data-he="לוגואים וזהות חזותית שמשדרים עוצמה ויוקרה." data-en="Logos and visual identity that radiate power.">לוגואים וזהות חזותית שמשדרים עוצמה ויוקרה.</p>
                 </div>
-                <div class="service-card text-right">
+                <div class="service-card">
                     <h3 class="text-2xl font-bold mb-3 serif italic text-amber-500" data-he="פיתוח אתרים" data-en="Web Dev">פיתוח אתרים</h3>
                     <p class="text-zinc-400 text-sm" data-he="אתרי Custom Code מהירים ומעוצבים אישית." data-en="Fast, custom-coded and high-end websites.">אתרי Custom Code מהירים ומעוצבים אישית.</p>
                 </div>
@@ -144,6 +139,7 @@
             </div>
         </section>
     </main>
+
     <main id="gallery-page" class="page pt-32 pb-20">
         <div class="container mx-auto px-6 text-center">
             <h2 class="text-5xl font-black mb-12 serif italic" data-he="תיק עבודות" data-en="PORTFOLIO">תיק עבודות</h2>
@@ -156,10 +152,12 @@
             <div id="gallery-grid" class="masonry-grid"></div>
         </div>
     </main>
+
     <footer class="py-20 text-center border-t border-white/5">
         <p class="text-amber-500 font-black italic text-2xl mb-6">יחי המלך המשיח!</p>
         <p class="text-[10px] text-zinc-600 uppercase tracking-[0.5em]">© 2026 DOV DESIGN & DEVELOPMENT™ | ALL RIGHTS RESERVED | BROOKLYN, NY</p>
     </footer>
+
     <script>
         let currentLang = 'he';
         let currentFilter = 'all';
@@ -191,14 +189,8 @@
             {url: 'https://i.postimg.cc/7ZMrXYbY/Picsart-26-01-20-05-51-57-093.png', cat: 'business_cards'}
         ];
 
-        function openBudgetModal() {
-            document.getElementById('budget-modal').classList.add('active');
-            renderBudgetServices();
-        }
-
-        function closeBudgetModal() {
-            document.getElementById('budget-modal').classList.remove('active');
-        }
+        function openBudgetModal() { document.getElementById('budget-modal').classList.add('active'); renderBudgetServices(); }
+        function closeBudgetModal() { document.getElementById('budget-modal').classList.remove('active'); }
 
         function renderBudgetServices() {
             const list = document.getElementById('services-list');
@@ -208,24 +200,14 @@
                 const item = document.createElement('div');
                 item.className = `budget-item ${isSelected ? 'selected' : ''}`;
                 item.onclick = () => toggleService(s.id);
-                item.innerHTML = `
-                    <div class="flex items-center gap-4 text-right">
-                        <div class="checkbox-custom"></div>
-                        <span class="text-sm font-medium">${currentLang === 'he' ? s.he : s.en}</span>
-                    </div>
-                    <span class="font-black text-amber-500">$${s.price}</span>
-                `;
+                item.innerHTML = `<div class="flex items-center gap-4 text-right"><div class="checkbox-custom"></div><span class="text-sm font-medium">${currentLang === 'he' ? s.he : s.en}</span></div><span class="font-black text-amber-500">$${s.price}</span>`;
                 list.appendChild(item);
             });
             updateTotal();
         }
 
         function toggleService(id) {
-            if (selectedServices.includes(id)) {
-                selectedServices = selectedServices.filter(sid => sid !== id);
-            } else {
-                selectedServices.push(id);
-            }
+            selectedServices = selectedServices.includes(id) ? selectedServices.filter(sid => sid !== id) : [...selectedServices, id];
             renderBudgetServices();
         }
 
@@ -233,64 +215,41 @@
             const total = services.filter(s => selectedServices.includes(s.id)).reduce((acc, curr) => acc + curr.price, 0);
             document.getElementById('total-price-display').innerText = `$${total}`;
             const btn = document.getElementById('wa-budget-btn');
-            if (total > 0) {
-                btn.classList.remove('opacity-30', 'pointer-events-none');
-            } else {
-                btn.classList.add('opacity-30', 'pointer-events-none');
-            }
+            total > 0 ? btn.classList.remove('opacity-30', 'pointer-events-none') : btn.classList.add('opacity-30', 'pointer-events-none');
         }
 
         function sendBudgetToWhatsApp() {
             const selectedItems = services.filter(s => selectedServices.includes(s.id));
             const total = selectedItems.reduce((acc, curr) => acc + curr.price, 0);
             const serviceNames = selectedItems.map(s => currentLang === 'he' ? s.he : s.en).join(', ');
-            
-            let message = '';
-            if (currentLang === 'he') {
-                message = `היי דוב, בניתי חבילה במערכת התקציב באתר שלך! בחרתי ב: ${serviceNames}. סה"כ מוערך: $${total}. אשמח שנדבר על זה ונצא לדרך!`;
-            } else {
-                message = `Hi Dov, I've built a package using your budget system! I selected: ${serviceNames}. Estimated total: $${total}. I'd love to discuss this and get started!`;
-            }
-            
-            const waUrl = `https://wa.me/13476834415?text=${encodeURIComponent(message)}`;
-            window.open(waUrl, '_blank');
+            const message = currentLang === 'he' ? `היי דוב, בניתי חבילה באתר! בחרתי: ${serviceNames}. סה"כ: $${total}.` : `Hi Dov, I built a package! Selected: ${serviceNames}. Total: $${total}.`;
+            window.open(`https://wa.me/13476834415?text=${encodeURIComponent(message)}`, '_blank');
         }
 
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
+        function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
 
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const target = document.getElementById(pageId + '-page');
             if(target) target.classList.add('active');
             window.scrollTo(0, 0);
-            if(pageId === 'gallery') renderGallery();
+            if(pageId === 'gallery') setTimeout(renderGallery, 50);
         }
 
         function scrollToSection(id) {
-            if (!document.getElementById('home-page').classList.contains('active')) {
-                showPage('home');
-            }
-            setTimeout(() => {
-                const el = document.getElementById(id);
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }, 200);
+            if (!document.getElementById('home-page').classList.contains('active')) showPage('home');
+            setTimeout(() => { const el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 200);
         }
 
         function toggleLang() {
             currentLang = currentLang === 'he' ? 'en' : 'he';
             document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
-            document.documentElement.lang = currentLang;
             document.getElementById('lang-label').innerText = currentLang === 'he' ? 'English' : 'עברית';
-            
             document.querySelectorAll('[data-he]').forEach(el => {
                 const text = el.getAttribute('data-' + currentLang);
                 if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = text;
                 else el.innerHTML = text;
             });
-
             document.getElementById('wrapper-he').classList.toggle('hidden', currentLang !== 'he');
             document.getElementById('wrapper-en').classList.toggle('hidden', currentLang !== 'en');
             if (document.getElementById('budget-modal').classList.contains('active')) renderBudgetServices();
@@ -314,23 +273,14 @@
                 const div = document.createElement('div');
                 div.className = 'masonry-item';
                 div.onclick = () => openLightbox(w.url);
-                div.innerHTML = `<img src="${w.url}" alt="Dov Design Work">`;
+                div.innerHTML = `<img src="${w.url}" loading="lazy" alt="Work">`;
                 grid.appendChild(div);
             });
         }
 
-        function openLightbox(url) {
-            document.getElementById('lightbox-img').src = url;
-            document.getElementById('lightbox').classList.add('active');
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-        }
-
-        window.onload = () => {
-            if (document.getElementById('gallery-page').classList.contains('active')) renderGallery();
-        };
+        function openLightbox(url) { document.getElementById('lightbox-img').src = url; document.getElementById('lightbox').classList.add('active'); }
+        function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+        window.onload = () => { if (document.getElementById('gallery-page').classList.contains('active')) renderGallery(); };
     </script>
 </body>
 </html>
