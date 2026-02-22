@@ -80,7 +80,7 @@
             <button onclick="scrollToSection('contact-section'); toggleMobileMenu()" data-he="צור קשר" data-en="CONTACT">צור קשר</button>
         </nav>
         <div class="h-px w-24 bg-white/10 my-10"></div>
-        <a href="https://wa.me/13476834415" class="w-full max-w-[280px] py-4 bg-green-600 text-white rounded-2xl font-black flex items-center justify-center gap-3">WhatsApp</a>
+        <a href="https://wa.me/972559646422" class="w-full max-w-[280px] py-4 bg-green-600 text-white rounded-2xl font-black flex items-center justify-center gap-3">WhatsApp</a>
     </div>
     <header class="fixed top-0 inset-x-0 z-50 py-4 px-6 bg-black/80 backdrop-blur-md border-b border-white/5">
         <div class="container mx-auto flex items-center justify-between">
@@ -223,7 +223,7 @@
             const total = selectedItems.reduce((acc, curr) => acc + curr.price, 0);
             const serviceNames = selectedItems.map(s => currentLang === 'he' ? s.he : s.en).join(', ');
             const message = currentLang === 'he' ? `היי דוב, בניתי חבילה באתר! בחרתי: ${serviceNames}. סה"כ: $${total}.` : `Hi Dov, I built a package! Selected: ${serviceNames}. Total: $${total}.`;
-            window.open(`https://wa.me/13476834415?text=${encodeURIComponent(message)}`, '_blank');
+            window.open(`https://wa.me/972559646422?text=${encodeURIComponent(message)}`, '_blank');
         }
 
         function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
