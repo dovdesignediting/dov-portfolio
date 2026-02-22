@@ -6,409 +6,331 @@
     <meta name="google-site-verification" content="szG70hq40iku21n_4eIXSeCS-IdLhfkQf_e9V7XjJhU" />
     <meta name="google" content="notranslate">
     <title>דוב עיצוב ופיתוח | Dov Design Studio</title>
-    
     <link rel="icon" type="image/png" href="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png">
-
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Heebo:wght@300;400;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { 
-            font-family: 'Heebo', sans-serif; 
-            background-color: #09090b; 
-            color: #fafafa; 
-            overflow-x: hidden; 
-            scroll-behavior: smooth;
-            -webkit-user-select: none;
-            user-select: none;
-            touch-action: manipulation;
-        }
+        body { font-family: 'Heebo', sans-serif; background-color: #09090b; color: #fafafa; overflow-x: hidden; scroll-behavior: smooth; -webkit-user-select: none; user-select: none; }
         .serif { font-family: 'Playfair Display', serif; }
-        .brand-logo { height: 45px; width: auto; object-fit: contain; }
-        
-        .tm-symbol {
-            font-size: 0.35em;
-            vertical-align: super;
-            margin-right: 2px;
-            font-weight: 300;
-            opacity: 0.8;
-        }
-
+        .brand-logo { height: 45px; width: auto; object-fit: contain; cursor: pointer; }
+        .tm-symbol { font-size: 0.35em; vertical-align: super; margin-right: 2px; opacity: 0.8; }
         .masonry-grid { columns: 2; column-gap: 12px; }
         @media (min-width: 768px) { .masonry-grid { columns: 3; column-gap: 20px; } }
-        
-        .masonry-item { 
-            break-inside: avoid; 
-            margin-bottom: 12px; 
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            overflow: hidden;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .masonry-item:hover { transform: scale(1.03); border-color: #f59e0b; }
+        .masonry-item { break-inside: avoid; margin-bottom: 12px; position: relative; cursor: pointer; transition: 0.3s; overflow: hidden; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+        .masonry-item:hover { transform: translateY(-5px); border-color: #f59e0b; }
         .masonry-item img { width: 100%; display: block; }
-
-        #lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.98);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            backdrop-filter: blur(10px);
-        }
+        #lightbox { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
         #lightbox.active { display: flex; }
-        #lightbox-img { max-width: 95%; max-height: 85vh; object-fit: contain; border: 1px solid #333; }
-
+        #lightbox-img { max-width: 90%; max-height: 80vh; border-radius: 8px; }
         .page { display: none; }
-        .page.active { display: block; animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .page.active { display: block; animation: fadeIn 0.6s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .banner-wrapper { width: 100%; margin: 3rem 0; display: flex; flex-direction: column; align-items: center; }
+        .scrolling-banner { width: 100%; height: 250px; background-size: contain; background-repeat: repeat-x; animation: scroll-bg 40s linear infinite; }
+        @keyframes scroll-bg { from { background-position: 0 center; } to { background-position: 1500px center; } }
+        .banner-hint { font-size: 10px; background: #f59e0b; color: #000; padding: 4px 12px; border-radius: 20px; margin-bottom: 10px; font-weight: 900; }
+        .cat-btn { padding: 8px 18px; font-size: 10px; font-weight: 900; border: 1px solid #27272a; color: #71717a; border-radius: 50px; transition: 0.3s; }
+        .cat-btn.active { border-color: #f59e0b; color: #000; background: #f59e0b; }
+        .service-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 2rem; border-radius: 24px; transition: 0.3s; }
+        .service-card:hover { border-color: #f59e0b; background: rgba(245, 158, 11, 0.05); }
+        .btn-shiny { position: relative; overflow: hidden; }
+        .btn-shiny::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent); transform: rotate(45deg); animation: shine 4s infinite; }
+        @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
 
-        .banner-wrapper {
-            width: 100%;
-            margin-top: 3rem;
-            margin-bottom: 3rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .scrolling-banner {
-            width: 100%;
-            height: 280px;
-            background-size: contain;
-            background-repeat: repeat-x;
-            background-position: center;
-            position: relative;
-            z-index: 30;
-            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
-            transition: all 0.4s ease;
-        }
-
-        .banner-wrapper.is-full .scrolling-banner {
-            animation: none !important;
-            background-repeat: no-repeat !important;
-            background-position: center !important;
-            transform: scale(1.08);
-            height: 350px;
-        }
-
-        #banner-he {
-            background-image: url('https://i.postimg.cc/SKdWvXvD/Picsart-26-01-15-07-34-38-017.png');
-            animation: scroll-bg-rtl 40s linear infinite;
-        }
-
-        #banner-en {
-            background-image: url('https://i.postimg.cc/3wYX1jnw/1768446446562.png');
-            animation: scroll-bg-ltr 40s linear infinite;
-        }
-
-        @keyframes scroll-bg-rtl { from { background-position: 0 center; } to { background-position: 1500px center; } }
-        @keyframes scroll-bg-ltr { from { background-position: 0 center; } to { background-position: -1500px center; } }
-
-        .banner-hint {
-            font-size: 11px;
-            color: #000;
-            background-color: #f59e0b;
-            padding: 5px 15px;
-            border-radius: 20px;
-            margin-bottom: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-
-        .lang-switch-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 8px 16px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-shiny {
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-shiny::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-        }
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 100%; }
-            100% { left: 100%; }
-        }
-
-        .g-recaptcha {
-            display: flex;
-            justify-content: center;
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
-
-        #budget-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            backdrop-filter: blur(10px);
-            overflow-y: auto;
-        }
-
+        /* Styles for Budget System */
+        #budget-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(15px); padding: 20px; }
         #budget-modal.active { display: flex; }
-
-        .budget-container {
-            width: 100%;
-            max-width: 600px;
-            background: #0a0a0a;
-            border: 1px solid #333;
-            border-radius: 1.5rem;
-            padding: 2rem;
-            position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        .tab-btn {
-            padding: 10px 20px;
-            font-weight: 700;
-            border-bottom: 2px solid transparent;
-            transition: 0.3s;
-            color: #666;
-        }
-        .tab-btn.active {
-            border-color: #f59e0b;
-            color: #f59e0b;
-        }
-
-        .service-card {
-            background: #111;
-            border: 1px solid #222;
-            padding: 1rem;
-            border-radius: 0.75rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .service-card.selected {
-            border-color: #f59e0b;
-            background: rgba(245, 158, 11, 0.05);
-        }
+        .budget-container { width: 100%; max-width: 650px; background: #0c0c0e; border: 1px solid rgba(255,255,255,0.1); border-radius: 32px; padding: 35px; position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+        .budget-scroll { max-height: 400px; overflow-y: auto; padding-right: 10px; margin: 20px 0; }
+        .budget-scroll::-webkit-scrollbar { width: 4px; }
+        .budget-scroll::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 10px; }
+        .budget-item { display: flex; justify-content: space-between; align-items: center; padding: 16px; background: rgba(255,255,255,0.03); border: 1px solid transparent; border-radius: 16px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; }
+        .budget-item.selected { border-color: #f59e0b; background: rgba(245, 158, 11, 0.08); }
+        .budget-item:hover { background: rgba(255,255,255,0.06); }
+        .checkbox-custom { width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.2); border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .budget-item.selected .checkbox-custom { background: #f59e0b; border-color: #f59e0b; }
+        .budget-item.selected .checkbox-custom::after { content: '✓'; color: #000; font-size: 12px; font-weight: bold; }
     </style>
 </head>
 <body class="notranslate" oncontextmenu="return false;">
-
-    <div id="lightbox" onclick="closeLightbox()">
-        <span style="position: absolute; top: 30px; right: 30px; font-size: 40px; color: white; cursor: pointer;">&times;</span>
-        <img id="lightbox-img" src="">
-    </div>
+    <div id="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src=""></div>
 
     <div id="budget-modal">
         <div class="budget-container">
-            <button onclick="closeBudgetModal()" class="absolute top-4 right-4 text-2xl">&times;</button>
-            <h2 class="text-2xl font-black text-amber-500 mb-6 serif text-center" data-he="מערכת תקציב" data-en="BUDGET SYSTEM">מערכת תקציב</h2>
+            <button onclick="closeBudgetModal()" class="absolute top-6 right-6 text-zinc-500 hover:text-white text-3xl">&times;</button>
+            <h2 class="text-3xl font-black text-amber-500 mb-2 serif italic" data-he="מערכת תקציב" data-en="BUDGET SYSTEM">מערכת תקציב</h2>
+            <p class="text-zinc-500 text-sm mb-6" data-he="בנה לעצמך את החבילה המושלמת וקבל הצעת מחיר מיידית." data-en="Build your perfect package and get an instant quote.">בנה לעצמך את החבילה המושלמת וקבל הצעת מחיר מיידית.</p>
             
-            <div class="flex justify-center mb-6 gap-4">
-                <button onclick="switchTab('preset')" id="tab-preset" class="tab-btn active" data-he="תקציב מוגדר" data-en="PRESET BUDGET">תקציב מוגדר</button>
-                <button onclick="switchTab('custom')" id="tab-custom" class="tab-btn" data-he="לפי העין" data-en="CUSTOM LIST">לפי העין</button>
-            </div>
+            <div class="budget-scroll" id="services-list">
+                </div>
 
-            <div id="view-preset" class="space-y-4">
-                <div class="grid grid-cols-2 gap-3">
-                    <button onclick="setBudget(50)" class="p-4 border border-zinc-800 rounded-lg hover:border-amber-500">$50</button>
-                    <button onclick="setBudget(250)" class="p-4 border border-zinc-800 rounded-lg hover:border-amber-500">$250</button>
-                    <button onclick="setBudget(500)" class="p-4 border border-zinc-800 rounded-lg hover:border-amber-500">$500</button>
-                    <button onclick="setBudget(1500)" class="p-4 border border-zinc-800 rounded-lg hover:border-amber-500">$1,500</button>
+            <div class="border-t border-white/10 pt-6 mt-4 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div>
+                    <span class="text-zinc-400 text-xs uppercase tracking-widest block mb-1" data-he="סה''כ מוערך" data-en="ESTIMATED TOTAL">סה"כ מוערך</span>
+                    <span id="total-price-display" class="text-4xl font-black text-white">$0</span>
                 </div>
-                <div class="mt-4 p-4 bg-zinc-900 rounded-lg text-center hidden" id="preset-result">
-                    <p id="preset-text" class="text-sm text-zinc-300"></p>
-                    <a id="preset-wa" href="#" target="_blank" class="inline-block mt-4 bg-green-600 text-white px-6 py-2 rounded-full font-bold">דבר איתי בוואטסאפ</a>
-                </div>
-            </div>
-
-            <div id="view-custom" class="hidden space-y-3">
-                <div id="services-list" class="max-h-60 overflow-y-auto pr-2 space-y-2">
-                    </div>
-                <div class="pt-4 border-t border-zinc-800 flex justify-between items-center">
-                    <span class="text-xl font-bold">סה"כ: <span id="custom-total" class="text-amber-500">$0</span></span>
-                    <a id="custom-wa" href="#" target="_blank" class="bg-green-600 text-white px-6 py-2 rounded-full font-bold opacity-50 pointer-events-none">שלח הצעה</a>
-                </div>
+                <button id="wa-budget-btn" onclick="sendBudgetToWhatsApp()" class="w-full sm:w-auto px-10 py-4 bg-green-600 text-white font-black rounded-2xl flex items-center justify-center gap-3 opacity-30 pointer-events-none transition-all">
+                    <span>WhatsApp</span>
+                </button>
             </div>
         </div>
     </div>
-    <header class="fixed top-0 left-0 right-0 z-50 py-4 px-6 bg-black/80 backdrop-blur-md border-b border-white/5">
+    <div id="mobile-menu" class="fixed inset-0 bg-black/98 z-[60] hidden flex-col items-center justify-center p-8 backdrop-blur-2xl">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-white text-4xl">&times;</button>
+        <nav class="flex flex-col gap-8 text-3xl font-black text-center uppercase tracking-tighter">
+            <button onclick="showPage('home'); toggleMobileMenu()" data-he="בית" data-en="HOME">בית</button>
+            <button onclick="scrollToSection('about-section'); toggleMobileMenu()" data-he="אודות" data-en="ABOUT">אודות</button>
+            <button onclick="showPage('gallery'); toggleMobileMenu()" data-he="עבודות" data-en="WORKS">עבודות</button>
+            <button onclick="scrollToSection('contact-section'); toggleMobileMenu()" data-he="צור קשר" data-en="CONTACT">צור קשר</button>
+        </nav>
+        <div class="h-px w-24 bg-white/10 my-10"></div>
+        <a href="https://wa.me/13476834415" class="w-full max-w-[280px] py-4 bg-green-600 text-white rounded-2xl font-black flex items-center justify-center gap-3">WhatsApp</a>
+    </div>
+    <header class="fixed top-0 inset-x-0 z-50 py-4 px-6 bg-black/80 backdrop-blur-md border-b border-white/5">
         <div class="container mx-auto flex items-center justify-between">
             <div class="flex items-center gap-4">
                 <button onclick="toggleMobileMenu()" class="md:hidden text-white"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg></button>
-                <button onclick="showPage('home')"><img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="brand-logo"></button>
+                <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="brand-logo" onclick="showPage('home')">
             </div>
-            <nav class="hidden md:flex gap-10 text-[10px] uppercase font-black tracking-[0.2em]">
+            <nav class="hidden md:flex gap-8 text-[11px] font-black uppercase tracking-widest">
                 <button onclick="showPage('home')" data-he="בית" data-en="HOME">בית</button>
                 <button onclick="scrollToSection('about-section')" data-he="אודות" data-en="ABOUT">אודות</button>
                 <button onclick="showPage('gallery')" data-he="עבודות" data-en="WORKS">עבודות</button>
                 <button onclick="scrollToSection('contact-section')" data-he="צור קשר" data-en="CONTACT">צור קשר</button>
             </nav>
-            <button onclick="toggleLang()" class="lang-switch-btn">
-                <img src="https://i.postimg.cc/Gt8wymfR/Picsart-26-01-31-22-18-21-257.png" class="w-5 h-5">
-                <span id="lang-label" class="text-xs font-black">English</span>
+            <button onclick="toggleLang()" class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10">
+                <span id="lang-label" class="text-[10px] font-black uppercase">English</span>
             </button>
         </div>
     </header>
-
     <main id="home-page" class="page active">
-        <section class="min-h-screen flex flex-col items-center justify-center relative pt-20 text-center px-6">
-            <div class="absolute inset-0 bg-black/70 z-10"></div>
-            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000')] bg-cover bg-center opacity-40"></div>
-            <div class="relative z-20 w-full max-w-5xl mt-10">
-                <h1 class="text-5xl md:text-8xl font-black mb-6 serif" data-he='דוב עיצוב ופיתוח<span class="tm-symbol">TM</span>' data-en='DOV DESIGN STUDIO<span class="tm-symbol">TM</span>'>דוב עיצוב ופיתוח<span class="tm-symbol">TM</span></h1>
-                <p class="text-zinc-400 text-lg mb-10" data-he="סטודיו בוטיק בברוקלין למיתוג פרימיום ובניית אתרי קצה." data-en="Boutique Brooklyn studio for premium branding & high-end web development.">סטודיו בוטיק בברוקלין למיתוג פרימיום ובניית אתרי קצה.</p>
-                
-                <div class="flex flex-col sm:flex-row gap-5 justify-center mb-8">
-                    <button onclick="showPage('gallery')" class="btn-shiny px-12 py-5 bg-amber-500 text-black font-black uppercase tracking-widest text-xs rounded-sm" data-he="צפה בתיק עבודות" data-en="VIEW PORTFOLIO">צפה בתיק עבודות</button>
-                    <button onclick="openBudgetModal()" class="px-12 py-5 border border-white/20 text-white font-black uppercase tracking-widest text-xs rounded-sm" data-he="🎯 מערכת תקציב" data-en="🎯 BUDGET SYSTEM">🎯 מערכת תקציב</button>
+        <section class="min-h-screen flex flex-col items-center justify-center pt-24 text-center px-6">
+            <h1 class="text-6xl md:text-8xl font-black mb-6 serif tracking-tighter" data-he='דוב עיצוב ופיתוח<span class="tm-symbol">TM</span>' data-en='DOV DESIGN STUDIO<span class="tm-symbol">TM</span>'>דוב עיצוב ופיתוח<span class="tm-symbol">TM</span></h1>
+            <p class="text-zinc-400 text-lg md:text-xl max-w-2xl mb-12" data-he="סטודיו בוטיק בברוקלין למיתוג פרימיום ובניית אתרי קצה." data-en="Boutique Brooklyn studio for premium branding & high-end web development.">סטודיו בוטיק בברוקלין למיתוג פרימיום ובניית אתרי קצה.</p>
+            <div class="flex flex-col sm:flex-row gap-4 mb-10">
+                <button onclick="showPage('gallery')" class="btn-shiny bg-amber-500 text-black px-10 py-4 font-black text-xs uppercase tracking-widest rounded-xl" data-he="צפה בתיק עבודות" data-en="VIEW PORTFOLIO">צפה בתיק עבודות</button>
+                <button onclick="openBudgetModal()" class="border border-white/20 px-10 py-4 font-black text-xs uppercase tracking-widest rounded-xl flex items-center gap-2 justify-center" data-he="🎯 מערכת תקציב" data-en="🎯 BUDGET SYSTEM">🎯 מערכת תקציב</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl mb-20">
+                <div class="service-card text-right">
+                    <h3 class="text-2xl font-bold mb-3 serif italic text-amber-500" data-he="עיצוב ומיתוג" data-en="Branding">עיצוב ומיתוג</h3>
+                    <p class="text-zinc-400 text-sm" data-he="לוגואים וזהות חזותית שמשדרים עוצמה ויוקרה." data-en="Logos and visual identity that radiate power.">לוגואים וזהות חזותית שמשדרים עוצמה ויוקרה.</p>
                 </div>
-
-                <div id="wrapper-he" class="banner-wrapper" onclick="this.classList.toggle('is-full')">
-                    <p class="banner-hint" data-he="לחצו לצפייה מלאה" data-en="CLICK">לחצו לצפייה מלאה</p>
-                    <div class="scrolling-banner" id="banner-he"></div>
+                <div class="service-card text-right">
+                    <h3 class="text-2xl font-bold mb-3 serif italic text-amber-500" data-he="פיתוח אתרים" data-en="Web Dev">פיתוח אתרים</h3>
+                    <p class="text-zinc-400 text-sm" data-he="אתרי Custom Code מהירים ומעוצבים אישית." data-en="Fast, custom-coded and high-end websites.">אתרי Custom Code מהירים ומעוצבים אישית.</p>
                 </div>
             </div>
+            <div id="wrapper-he" class="banner-wrapper"><span class="banner-hint" data-he="לחצו לצפייה מלאה" data-en="FULL VIEW">לחצו לצפייה מלאה</span><div class="scrolling-banner" style="background-image: url('https://i.postimg.cc/SKdWvXvD/Picsart-26-01-15-07-34-38-017.png');"></div></div>
+            <div id="wrapper-en" class="banner-wrapper hidden"><span class="banner-hint">FULL VIEW</span><div class="scrolling-banner" style="background-image: url('https://i.postimg.cc/3wYX1jnw/1768446446562.png');"></div></div>
         </section>
-
-        <section id="contact-section" class="py-24 bg-zinc-950 px-6 border-t border-white/5">
-            <div class="container mx-auto max-w-3xl text-center">
-                <h2 class="text-4xl md:text-6xl font-black mb-8 serif italic" data-he="בואו נצא לדרך" data-en="Let's Start">בואו נצא לדרך</h2>
-                <form id="contact-form" action="https://formspree.io/f/mvzzqrnz" method="POST" class="space-y-4">
-                    <input type="text" name="name" required placeholder="שם מלא" class="w-full bg-black border border-white/10 p-5 rounded-lg">
-                    <input type="email" name="_replyto" required placeholder="אימייל" class="w-full bg-black border border-white/10 p-5 rounded-lg">
-                    <textarea name="message" required rows="4" placeholder="ספר לי על הפרויקט" class="w-full bg-black border border-white/10 p-5 rounded-lg"></textarea>
-                    <div class="g-recaptcha" data-sitekey="6LdklHEsAAAAAHRmlsC7lVEPNt3ej5DsyGdQENls" data-theme="dark"></div>
-                    <button type="submit" class="w-full py-5 bg-amber-500 text-black font-black uppercase tracking-widest text-xs rounded-lg" data-he="שלח הודעה" data-en="SEND">שלח הודעה</button>
+        <section id="about-section" class="py-24 px-6 bg-zinc-950/50 border-y border-white/5">
+            <div class="container mx-auto max-w-4xl text-center">
+                <h2 class="text-4xl md:text-6xl font-black mb-10 serif italic" data-he="אודות" data-en="ABOUT">אודות</h2>
+                <p class="text-zinc-300 text-lg md:text-xl leading-relaxed font-light" data-he="סטודיו 'דוב עיצוב ופיתוח' ממוקם בברוקלין, ניו יורק. אנו מתמחים ביצירת זהות גרפית יוקרתית ובניית אתרים מתקדמים בסטנדרט חסר פשרות. המטרה שלנו היא להפוך את החזון שלך למותג עוצמתי שמוביל את השוק." data-en="Dov Design & Development Studio is based in Brooklyn, NY. We specialize in creating luxury graphic identities and high-end websites with uncompromising standards. Our goal is to transform your vision into a powerful market-leading brand.">סטודיו 'דוב עיצוב ופיתוח' ממוקם בברוקלין, ניו יורק. אנו מתמחים ביצירת זהות גרפית יוקרתית ובניית אתרים מתקדמים בסטנדרט חסר פשרות. המטרה שלנו היא להפוך את החזון שלך למותג עוצמתי שמוביל את השוק.</p>
+            </div>
+        </section>
+        <section id="contact-section" class="py-24 px-6 bg-black">
+            <div class="container mx-auto max-w-2xl text-center">
+                <h2 class="text-4xl font-black mb-12 serif italic" data-he="בואו נתחיל פרויקט" data-en="LET'S START">בואו נתחיל פרויקט</h2>
+                <form action="https://formspree.io/f/mvzzqrnz" method="POST" class="space-y-4">
+                    <input type="text" name="name" required placeholder="שם מלא" data-he="שם מלא" data-en="Full Name" class="w-full bg-zinc-900 border border-white/10 p-5 rounded-2xl outline-none focus:border-amber-500 text-white">
+                    <input type="email" name="email" required placeholder="אימייל" data-he="אימייל" data-en="Email Address" class="w-full bg-zinc-900 border border-white/10 p-5 rounded-2xl outline-none focus:border-amber-500 text-white">
+                    <textarea name="message" rows="4" placeholder="ספר לי על הפרויקט" data-he="ספר לי על הפרויקט" data-en="Tell me about your project" class="w-full bg-zinc-900 border border-white/10 p-5 rounded-2xl outline-none focus:border-amber-500 text-white"></textarea>
+                    <div class="g-recaptcha flex justify-center py-4" data-sitekey="6LdklHEsAAAAAHRmlsC7lVEPNt3ej5DsyGdQENls" data-theme="dark"></div>
+                    <button type="submit" class="w-full py-5 bg-amber-500 text-black font-black uppercase tracking-widest rounded-2xl hover:bg-white transition" data-he="שלח הודעה" data-en="SEND MESSAGE">שלח הודעה</button>
                 </form>
             </div>
         </section>
     </main>
-
     <main id="gallery-page" class="page pt-32 pb-20">
         <div class="container mx-auto px-6 text-center">
             <h2 class="text-5xl font-black mb-12 serif italic" data-he="תיק עבודות" data-en="PORTFOLIO">תיק עבודות</h2>
+            <div class="flex flex-wrap justify-center gap-3 mb-16">
+                <button onclick="filterWorks('all')" class="cat-btn active">ALL</button>
+                <button onclick="filterWorks('branding')" class="cat-btn" data-he="מיתוג" data-en="BRANDING">מיתוג</button>
+                <button onclick="filterWorks('business_cards')" class="cat-btn" data-he="כרטיסי ביקור" data-en="CARDS">כרטיסי ביקור</button>
+                <button onclick="filterWorks('ads')" class="cat-btn" data-he="מודעות" data-en="ADS">מודעות</button>
+            </div>
             <div id="gallery-grid" class="masonry-grid"></div>
-            <button onclick="showPage('home')" class="mt-20 px-12 py-5 border border-white/20 text-white font-black uppercase tracking-widest text-[10px]">BACK HOME</button>
         </div>
     </main>
-
-    <footer class="py-16 text-center bg-black border-t border-white/5">
-        <p class="text-amber-500 font-bold italic text-xl mb-4">יחי המלך המשיח!</p>
-        <p class="text-[9px] text-zinc-600 uppercase tracking-[0.4em]">© 2026 DOV DESIGN & DEVELOPMENT™ | BROOKLYN, NY</p>
+    <footer class="py-20 text-center border-t border-white/5">
+        <p class="text-amber-500 font-black italic text-2xl mb-6">יחי המלך המשיח!</p>
+        <p class="text-[10px] text-zinc-600 uppercase tracking-[0.5em]">© 2026 DOV DESIGN & DEVELOPMENT™ | ALL RIGHTS RESERVED | BROOKLYN, NY</p>
     </footer>
-
     <script>
         let currentLang = 'he';
-        const works = [
-            {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png'},
-            {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png'},
-            {url: 'https://i.postimg.cc/QxRKrSXB/1755407066547.png'},
-            {url: 'https://i.postimg.cc/wTtRPndv/1756004839008.png'},
-            {url: 'https://i.postimg.cc/05XJVPh1/IMG-20251228-WA0014.jpg'},
-            {url: 'https://i.postimg.cc/y8XCnYW8/Picsart-26-01-20-05-54-51-529.jpg'}
-        ];
+        let currentFilter = 'all';
+        let selectedServices = [];
 
         const services = [
-            {id: 1, name: 'מיתוג ולוגו', price: 500},
-            {id: 2, name: 'כרטיס ביקור Pro', price: 150},
-            {id: 3, name: 'נוכחות דיגיטלית', price: 250},
-            {id: 4, name: 'פיתוח אתר בסיסי', price: 500},
-            {id: 5, name: 'SEO מקומי גוגל מפות', price: 250}
+            { id: 'logo', he: 'מיתוג ולוגו Pro', en: 'Pro Branding & Logo', price: 500 },
+            { id: 'card', he: 'כרטיס ביקור יוקרתי', en: 'Luxury Business Card', price: 150 },
+            { id: 'digital', he: 'נוכחות דיגיטלית', en: 'Digital Presence', price: 250 },
+            { id: 'copy', he: 'כתיבת תוכן שיווקי', en: 'Marketing Copywriting', price: 400 },
+            { id: 'web', he: 'פיתוח אתר בסיסי', en: 'Basic Web Dev', price: 500 },
+            { id: 'domain', he: 'אחסון ודומיין (שנה)', en: 'Hosting & Domain (1yr)', price: 200 },
+            { id: 'seo', he: 'אופטימיזציית SEO', en: 'SEO Optimization', price: 350 },
+            { id: 'integration', he: "אינטגרציות צד ג'", en: '3rd Party Integrations', price: 300 },
+            { id: 'training', he: 'הדרכה על המערכת', en: 'System Training', price: 150 },
+            { id: 'maintenance', he: 'חודש תחזוקה ראשון', en: '1st Month Maintenance', price: 250 },
+            { id: 'gmaps', he: 'SEO גוגל מפות', en: 'Google Maps SEO', price: 250 }
         ];
 
-        let selected = [];
+        const works = [
+            {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png', cat: 'ads'},
+            {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png', cat: 'ads'},
+            {url: 'https://i.postimg.cc/QxRKrSXB/1755407066547.png', cat: 'ads'},
+            {url: 'https://i.postimg.cc/wTtRPndv/1756004839008.png', cat: 'branding'},
+            {url: 'https://i.postimg.cc/05XJVPh1/IMG-20251228-WA0014.jpg', cat: 'branding'},
+            {url: 'https://i.postimg.cc/BZ71m4kd/Picsart-26-01-07-17-32-32-551.png', cat: 'branding'},
+            {url: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png', cat: 'branding'},
+            {url: 'https://i.postimg.cc/y8XCnYW8/Picsart-26-01-20-05-54-51-529.jpg', cat: 'business_cards'},
+            {url: 'https://i.postimg.cc/7ZMrXYbY/Picsart-26-01-20-05-51-57-093.png', cat: 'business_cards'}
+        ];
 
-        function openBudgetModal() { document.getElementById('budget-modal').classList.add('active'); renderServices(); }
-        function closeBudgetModal() { document.getElementById('budget-modal').classList.remove('active'); }
-
-        function switchTab(tab) {
-            document.getElementById('tab-preset').classList.toggle('active', tab === 'preset');
-            document.getElementById('tab-custom').classList.toggle('active', tab === 'custom');
-            document.getElementById('view-preset').classList.toggle('hidden', tab !== 'preset');
-            document.getElementById('view-custom').classList.toggle('hidden', tab !== 'custom');
+        function openBudgetModal() {
+            document.getElementById('budget-modal').classList.add('active');
+            renderBudgetServices();
         }
 
-        function setBudget(amount) {
-            const res = document.getElementById('preset-result');
-            res.classList.remove('hidden');
-            document.getElementById('preset-text').innerText = `בתקציב של $${amount} נוכל להרכיב עבורך חבילה מצוינת.`;
-            document.getElementById('preset-wa').href = `https://wa.me/972559646422?text=היי דוב, התקציב שלי הוא $${amount}, אשמח לפרטים.`;
+        function closeBudgetModal() {
+            document.getElementById('budget-modal').classList.remove('active');
         }
 
-        function renderServices() {
+        function renderBudgetServices() {
             const list = document.getElementById('services-list');
-            list.innerHTML = services.map(s => `
-                <div class="service-card ${selected.includes(s.id) ? 'selected' : ''}" onclick="toggleService(${s.id})">
-                    <span>${s.name}</span>
-                    <span class="font-bold text-amber-500">$${s.price}</span>
-                </div>
-            `).join('');
+            list.innerHTML = '';
+            services.forEach(s => {
+                const isSelected = selectedServices.includes(s.id);
+                const item = document.createElement('div');
+                item.className = `budget-item ${isSelected ? 'selected' : ''}`;
+                item.onclick = () => toggleService(s.id);
+                item.innerHTML = `
+                    <div class="flex items-center gap-4 text-right">
+                        <div class="checkbox-custom"></div>
+                        <span class="text-sm font-medium">${currentLang === 'he' ? s.he : s.en}</span>
+                    </div>
+                    <span class="font-black text-amber-500">$${s.price}</span>
+                `;
+                list.appendChild(item);
+            });
             updateTotal();
         }
 
         function toggleService(id) {
-            selected = selected.includes(id) ? selected.filter(i => i !== id) : [...selected, id];
-            renderServices();
+            if (selectedServices.includes(id)) {
+                selectedServices = selectedServices.filter(sid => sid !== id);
+            } else {
+                selectedServices.push(id);
+            }
+            renderBudgetServices();
         }
 
         function updateTotal() {
-            const total = services.filter(s => selected.includes(s.id)).reduce((a, b) => a + b.price, 0);
-            document.getElementById('custom-total').innerText = `$${total}`;
-            const btn = document.getElementById('custom-wa');
-            btn.classList.toggle('opacity-50', total === 0);
-            btn.classList.toggle('pointer-events-none', total === 0);
-            btn.href = `https://wa.me/972559646422?text=היי דוב, בחרתי שירותים בסך $${total}. אשמח להתקדם.`;
+            const total = services.filter(s => selectedServices.includes(s.id)).reduce((acc, curr) => acc + curr.price, 0);
+            document.getElementById('total-price-display').innerText = `$${total}`;
+            const btn = document.getElementById('wa-budget-btn');
+            if (total > 0) {
+                btn.classList.remove('opacity-30', 'pointer-events-none');
+            } else {
+                btn.classList.add('opacity-30', 'pointer-events-none');
+            }
+        }
+
+        function sendBudgetToWhatsApp() {
+            const selectedItems = services.filter(s => selectedServices.includes(s.id));
+            const total = selectedItems.reduce((acc, curr) => acc + curr.price, 0);
+            const serviceNames = selectedItems.map(s => currentLang === 'he' ? s.he : s.en).join(', ');
+            
+            let message = '';
+            if (currentLang === 'he') {
+                message = `היי דוב, בניתי חבילה במערכת התקציב באתר שלך! בחרתי ב: ${serviceNames}. סה"כ מוערך: $${total}. אשמח שנדבר על זה ונצא לדרך!`;
+            } else {
+                message = `Hi Dov, I've built a package using your budget system! I selected: ${serviceNames}. Estimated total: $${total}. I'd love to discuss this and get started!`;
+            }
+            
+            const waUrl = `https://wa.me/13476834415?text=${encodeURIComponent(message)}`;
+            window.open(waUrl, '_blank');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(pageId + '-page');
+            if(target) target.classList.add('active');
+            window.scrollTo(0, 0);
+            if(pageId === 'gallery') renderGallery();
+        }
+
+        function scrollToSection(id) {
+            if (!document.getElementById('home-page').classList.contains('active')) {
+                showPage('home');
+            }
+            setTimeout(() => {
+                const el = document.getElementById(id);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 200);
         }
 
         function toggleLang() {
             currentLang = currentLang === 'he' ? 'en' : 'he';
             document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
+            document.documentElement.lang = currentLang;
+            document.getElementById('lang-label').innerText = currentLang === 'he' ? 'English' : 'עברית';
+            
             document.querySelectorAll('[data-he]').forEach(el => {
-                el.innerHTML = el.getAttribute('data-' + currentLang);
+                const text = el.getAttribute('data-' + currentLang);
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = text;
+                else el.innerHTML = text;
             });
+
+            document.getElementById('wrapper-he').classList.toggle('hidden', currentLang !== 'he');
+            document.getElementById('wrapper-en').classList.toggle('hidden', currentLang !== 'en');
+            if (document.getElementById('budget-modal').classList.contains('active')) renderBudgetServices();
         }
 
-        function showPage(id) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(id + '-page').classList.add('active');
-            if(id === 'gallery') renderGallery();
+        function filterWorks(cat) {
+            currentFilter = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                const btnCat = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
+                btn.classList.toggle('active', btnCat === cat);
+            });
+            renderGallery();
         }
 
         function renderGallery() {
             const grid = document.getElementById('gallery-grid');
-            grid.innerHTML = works.map(w => `<div class="masonry-item"><img src="${w.url}"></div>`).join('');
+            if (!grid) return;
+            grid.innerHTML = '';
+            const filtered = works.filter(w => currentFilter === 'all' || w.cat === currentFilter);
+            filtered.forEach(w => {
+                const div = document.createElement('div');
+                div.className = 'masonry-item';
+                div.onclick = () => openLightbox(w.url);
+                div.innerHTML = `<img src="${w.url}" alt="Dov Design Work">`;
+                grid.appendChild(div);
+            });
         }
 
-        function scrollToSection(id) {
-            showPage('home');
-            setTimeout(() => document.getElementById(id).scrollIntoView({behavior: 'smooth'}), 100);
+        function openLightbox(url) {
+            document.getElementById('lightbox-img').src = url;
+            document.getElementById('lightbox').classList.add('active');
         }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        window.onload = () => {
+            if (document.getElementById('gallery-page').classList.contains('active')) renderGallery();
+        };
     </script>
 </body>
 </html>
