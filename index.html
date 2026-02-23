@@ -285,4 +285,43 @@
         function toggleLang() {
             currentLang = currentLang === 'he' ? 'en' : 'he';
             document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
-            document.getElementById('lang-l
+            document.getElementById('lang-label').innerText = currentLang === 'he' ? 'English' : 'עברית';
+            document.querySelectorAll('[data-he]').forEach(el => {
+                const text = el.getAttribute('data-' + currentLang);
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = text;
+                else el.innerHTML = text;
+            });
+            document.getElementById('wrapper-he').classList.toggle('hidden', currentLang !== 'he');
+            document.getElementById('wrapper-en').classList.toggle('hidden', currentLang !== 'en');
+            if (document.getElementById('budget-modal').classList.contains('active')) renderBudgetServices();
+        }
+
+        function filterWorks(cat) {
+            currentFilter = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                const btnCat = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
+                btn.classList.toggle('active', btnCat === cat);
+            });
+            renderGallery();
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            const filtered = works.filter(w => currentFilter === 'all' || w.cat === currentFilter);
+            filtered.forEach(w => {
+                const div = document.createElement('div');
+                div.className = 'masonry-item';
+                div.onclick = () => openLightbox(w.url);
+                div.innerHTML = `<img src="${w.url}" loading="lazy" alt="Work">`;
+                grid.appendChild(div);
+            });
+        }
+
+        function openLightbox(url) { document.getElementById('lightbox-img').src = url; document.getElementById('lightbox').classList.add('active'); }
+        function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+        window.onload = () => { if (document.getElementById('gallery-page').classList.contains('active')) renderGallery(); };
+    </script>
+</body>
+</html>
