@@ -49,6 +49,7 @@
         .checkbox-custom { width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.2); border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
         .budget-item.selected .checkbox-custom { background: #f59e0b; border-color: #f59e0b; }
         .budget-item.selected .checkbox-custom::after { content: '✓'; color: #000; font-size: 12px; font-weight: bold; }
+        .location-notice { font-size: 11px; background: rgba(245, 158, 11, 0.1); border-left: 3px solid #f59e0b; padding: 10px; border-radius: 8px; color: #f59e0b; margin-bottom: 20px; }
     </style>
 </head>
 <body class="notranslate" oncontextmenu="return false;">
@@ -59,6 +60,10 @@
             <h2 class="text-3xl font-black text-amber-500 mb-2 serif italic" data-he="מערכת תקציב" data-en="BUDGET SYSTEM">מערכת תקציב</h2>
             <p class="text-zinc-500 text-sm mb-6" data-he="בנה לעצמך את החבילה המושלמת וקבל הצעת מחיר מיידית." data-en="Build your perfect package and get an instant quote.">בנה לעצמך את החבילה המושלמת וקבל הצעת מחיר מיידית.</p>
             
+            <div class="location-notice" data-he="⚠️ שים לב: המחירים הסופיים עשויים להשתנות בהתאם למיקומך הגיאוגרפי והתאמות לשוק המקומי." data-en="⚠️ Please note: Final prices may vary based on your geographical location and local market adjustments.">
+                ⚠️ שים לב: המחירים הסופיים עשויים להשתנות בהתאם למיקומך הגיאוגרפי והתאמות לשוק המקומי.
+            </div>
+
             <div class="budget-scroll">
                 <div id="services-list"></div>
                 
