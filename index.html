@@ -37,6 +37,7 @@
         .btn-shiny { position: relative; overflow: hidden; }
         .btn-shiny::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent); transform: rotate(45deg); animation: shine 4s infinite; }
         @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
+
         #budget-modal, #ad-admin-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(15px); padding: 20px; }
         #budget-modal.active, #ad-admin-modal.active { display: flex; }
         .budget-container, .admin-container { width: 100%; max-width: 650px; background: #0c0c0e; border: 1px solid rgba(255,255,255,0.1); border-radius: 32px; padding: 35px; position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
@@ -49,6 +50,7 @@
         .budget-item.selected .checkbox-custom { background: #f59e0b; border-color: #f59e0b; }
         .budget-item.selected .checkbox-custom::after { content: '✓'; color: #000; font-size: 12px; font-weight: bold; }
         .location-notice { font-size: 11px; background: rgba(245, 158, 11, 0.1); border-left: 3px solid #f59e0b; padding: 10px; border-radius: 8px; color: #f59e0b; margin-bottom: 20px; }
+
         .ad-banner-section { width: 100%; max-width: 1000px; margin: 2rem auto; padding: 0 1.5rem; }
         .ad-card { display: flex; align-items: center; background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.15); border-radius: 20px; padding: 15px; margin-bottom: 1rem; transition: 0.3s; }
         .ad-card:hover { border-color: #f59e0b; background: rgba(245, 158, 11, 0.08); }
@@ -59,10 +61,11 @@
 </head>
 <body class="notranslate" oncontextmenu="return false;">
     <div id="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src=""></div>
+
     <div id="ad-admin-modal">
         <div class="admin-container">
             <button onclick="closeAdAdmin()" class="absolute top-6 right-6 text-zinc-500 hover:text-white text-3xl">&times;</button>
-            <h2 class="text-2xl font-black text-amber-500 mb-6 serif italic">ניהול פרסומות</h2>
+            <h2 class="text-2xl font-black text-amber-500 mb-6 serif italic">ניהול פרסומות עסקיות</h2>
             <div id="admin-login-view">
                 <input type="password" id="admin-pass-code" placeholder="הכנס קוד מורשה" class="w-full bg-zinc-900 border border-white/10 p-4 rounded-xl outline-none focus:border-amber-500 text-white mb-4">
                 <button onclick="verifyAdminCode()" class="w-full py-4 bg-amber-500 text-black font-black rounded-xl">כניסה למערכת</button>
@@ -70,8 +73,8 @@
             <div id="admin-management-view" class="hidden">
                 <div class="space-y-4 mb-8">
                     <input type="text" id="new-ad-text" placeholder="טקסט הפרסומת" class="w-full bg-zinc-900 border border-white/10 p-3 rounded-xl outline-none focus:border-amber-500 text-white text-sm">
-                    <input type="text" id="new-ad-img" placeholder="URL של תמונה" class="w-full bg-zinc-900 border border-white/10 p-3 rounded-xl outline-none focus:border-amber-500 text-white text-sm">
-                    <button onclick="saveNewAd()" class="w-full py-3 bg-green-600 text-white font-black rounded-xl">הוספת פרסומת +</button>
+                    <input type="text" id="new-ad-img" placeholder="URL של תמונת הפרסומת" class="w-full bg-zinc-900 border border-white/10 p-3 rounded-xl outline-none focus:border-amber-500 text-white text-sm">
+                    <button onclick="saveNewAd()" class="w-full py-3 bg-green-600 text-white font-black rounded-xl hover:bg-green-500 transition">הוספת פרסומת חדשה +</button>
                 </div>
                 <div class="admin-scroll" id="admin-ads-list"></div>
             </div>
@@ -81,66 +84,95 @@
         <div class="budget-container">
             <button onclick="closeBudgetModal()" class="absolute top-6 right-6 text-zinc-500 hover:text-white text-3xl">&times;</button>
             <h2 class="text-3xl font-black text-amber-500 mb-2 serif italic" data-he="מערכת תקציב" data-en="BUDGET SYSTEM">מערכת תקציב</h2>
-            <div class="location-notice" data-he="⚠️ המחירים עשויים להשתנות בהתאם למיקומך בברוקלין." data-en="⚠️ Prices may vary based on your location.">⚠️ המחירים עשויים להשתנות בהתאם למיקומך בברוקלין.</div>
-            <div class="budget-scroll"><div id="services-list"></div></div>
+            <p class="text-zinc-500 text-sm mb-6" data-he="בנה לעצמך את החבילה המושלמת וקבל הצעת מחיר מיידית." data-en="Build your perfect package and get an instant quote.">בנה לעצמך את החבילה המושלמת וקבל הצעת מחיר מיידית.</p>
+            <div class="location-notice" data-he="⚠️ שים לב: המחירים הסופיים עשויים להשתנות בהתאם למיקומך הגיאוגרפי והתאמות לשוק המקומי." data-en="⚠️ Please note: Final prices may vary based on your geographical location and local market adjustments.">
+                ⚠️ שים לב: המחירים הסופיים עשויים להשתנות בהתאם למיקומך הגיאוגרפי והתאמות לשוק המקומי.
+            </div>
+            <div class="budget-scroll">
+                <div id="services-list"></div>
+                <div class="mt-8 text-[10px] text-zinc-500 space-y-3 leading-relaxed border-t border-white/5 pt-6" id="terms-content">
+                    <p data-he='<strong>1. אחריות על פיתוח (באגים):</strong> "דוב עיצוב ופיתוח" מעניקה אחריות מלאה על תקינות הקוד והפונקציות שהוגדרו באפיון למשך 30 יום מרגע מסירת האתר.' data-en='<strong>1. Development Warranty (Bugs):</strong> "Dov Design & Development" provides a full warranty on the code and functions defined in the specs for 30 days from delivery.'><strong>1. אחריות על פיתוח (באגים):</strong> "דוב עיצוב ופיתוח" מעניקה אחריות מלאה על תקינות הקוד והפונקציות שהוגדרו באפיון למשך 30 יום מרגע מסירת האתר.</p>
+                    <p data-he='<strong>2. שירותי תחזוקה חודשית (ריטיינר):</strong> השירות יכלול: גיבוי מלא לאתר אחת לשבוע, עדכוני ליבה ותוספים, וניטור אבטחה.' data-en='<strong>2. Monthly Maintenance (Retainer):</strong> Service includes: Weekly full backups, core/plugin updates, and security monitoring.'><strong>2. שירותי תחזוקה חודשית (ריטיינר):</strong> השירות יכלול: גיבוי מלא לאתר אחת לשבוע, עדכוני ליבה ותוספים, וניטור אבטחה.</p>
+                </div>
+            </div>
             <div class="border-t border-white/10 pt-6 mt-4 flex flex-col sm:flex-row items-center justify-between gap-6">
-                <div><span class="text-zinc-400 text-xs block mb-1">סה"כ מוערך</span><span id="total-price-display" class="text-4xl font-black text-white">$0</span></div>
-                <button id="wa-budget-btn" onclick="sendBudgetToWhatsApp()" class="px-10 py-4 bg-green-600 text-white font-black rounded-2xl opacity-30 pointer-events-none transition-all">WhatsApp</button>
+                <div>
+                    <span class="text-zinc-400 text-xs uppercase tracking-widest block mb-1" data-he="סה''כ מוערך" data-en="ESTIMATED TOTAL">סה"כ מוערך</span>
+                    <span id="total-price-display" class="text-4xl font-black text-white">$0</span>
+                </div>
+                <button id="wa-budget-btn" onclick="sendBudgetToWhatsApp()" class="w-full sm:w-auto px-10 py-4 bg-green-600 text-white font-black rounded-2xl flex items-center justify-center gap-3 opacity-30 pointer-events-none transition-all">
+                    <span>WhatsApp</span>
+                </button>
             </div>
         </div>
     </div>
+
     <header class="fixed top-0 inset-x-0 z-50 py-4 px-6 bg-black/80 backdrop-blur-md border-b border-white/5">
         <div class="container mx-auto flex items-center justify-between">
-            <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="brand-logo" onclick="showPage('home')">
+            <div class="flex items-center gap-4">
+                <button onclick="toggleMobileMenu()" class="md:hidden text-white"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg></button>
+                <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="brand-logo" onclick="showPage('home')">
+            </div>
             <nav class="hidden md:flex gap-8 text-[11px] font-black uppercase tracking-widest">
                 <button onclick="showPage('home')" data-he="בית" data-en="HOME">בית</button>
+                <button onclick="scrollToSection('about-section')" data-he="אודות" data-en="ABOUT">אודות</button>
                 <button onclick="showPage('gallery')" data-he="עבודות" data-en="WORKS">עבודות</button>
                 <button onclick="scrollToSection('contact-section')" data-he="צור קשר" data-en="CONTACT">צור קשר</button>
             </nav>
-            <button onclick="toggleLang()" class="bg-white/5 px-4 py-2 rounded-full border border-white/10 text-[10px] font-black uppercase" id="lang-label">English</button>
+            <button onclick="toggleLang()" class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10"><span id="lang-label" class="text-[10px] font-black uppercase">English</span></button>
         </div>
     </header>
+
     <main id="home-page" class="page active">
         <section class="min-h-screen flex flex-col items-center justify-center pt-24 text-center px-6">
-            <h1 class="text-6xl md:text-8xl font-black mb-6 serif italic" data-he='דוב עיצוב ופיתוח<span class="tm-symbol">TM</span>' data-en='DOV DESIGN STUDIO<span class="tm-symbol">TM</span>'>דוב עיצוב ופיתוח<span class="tm-symbol">TM</span></h1>
-            <div class="flex flex-col sm:flex-row gap-4 mb-20">
-                <button onclick="showPage('gallery')" class="btn-shiny bg-amber-500 text-black px-10 py-4 font-black text-xs rounded-xl">צפה בתיק עבודות</button>
-                <button onclick="openBudgetModal()" class="border border-white/20 px-10 py-4 font-black text-xs rounded-xl">🎯 מערכת תקציב</button>
+            <h1 class="text-6xl md:text-8xl font-black mb-6 serif tracking-tighter" data-he='דוב עיצוב ופיתוח<span class="tm-symbol">TM</span>' data-en='DOV DESIGN STUDIO<span class="tm-symbol">TM</span>'>דוב עיצוב ופיתוח<span class="tm-symbol">TM</span></h1>
+            <p class="text-zinc-400 text-lg md:text-xl max-w-2xl mb-12" data-he="סטודיו בוטיק בברוקלין למיתוג פרימיום ובניית אתרי קצה." data-en="Boutique Brooklyn studio for premium branding & high-end web development.">סטודיו בוטיק בברוקלין למיתוג פרימיום ובניית אתרי קצה.</p>
+            <div class="flex flex-col sm:flex-row gap-4 mb-10">
+                <button onclick="showPage('gallery')" class="btn-shiny bg-amber-500 text-black px-10 py-4 font-black text-xs uppercase tracking-widest rounded-xl" data-he="צפה בתיק עבודות" data-en="VIEW PORTFOLIO">צפה בתיק עבודות</button>
+                <button onclick="openBudgetModal()" class="border border-white/20 px-10 py-4 font-black text-xs uppercase tracking-widest rounded-xl flex items-center gap-2 justify-center" data-he="🎯 מערכת תקציב" data-en="🎯 BUDGET SYSTEM">🎯 מערכת תקציב</button>
             </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl mb-20 text-right">
+                <div class="service-card">
+                    <h3 class="text-2xl font-bold mb-3 serif italic text-amber-500">עיצוב ומיתוג</h3>
+                    <p class="text-zinc-400 text-sm">לוגואים וזהות חזותית שמשדרים עוצמה ויוקרה.</p>
+                </div>
+                <div class="service-card">
+                    <h3 class="text-2xl font-bold mb-3 serif italic text-amber-500">פיתוח אתרים</h3>
+                    <p class="text-zinc-400 text-sm">אתרי Custom Code מהירים ומעוצבים אישית.</p>
+                </div>
+            </div>
+
             <div class="ad-banner-section" id="public-ads-area"></div>
-            <div id="wrapper-he" class="banner-wrapper"><div class="scrolling-banner" style="background-image: url('https://i.postimg.cc/SKdWvXvD/Picsart-26-01-15-07-34-38-017.png');"></div></div>
+
+            <div id="wrapper-he" class="banner-wrapper"><span class="banner-hint">לחצו לצפייה מלאה</span><div class="scrolling-banner" style="background-image: url('https://i.postimg.cc/SKdWvXvD/Picsart-26-01-15-07-34-38-017.png');"></div></div>
         </section>
         <section id="contact-section" class="py-24 px-6 bg-black">
             <div class="container mx-auto max-w-2xl text-center">
+                <h2 class="text-4xl font-black mb-12 serif italic">בואו נתחיל פרויקט</h2>
                 <form action="https://formspree.io/f/mvzzqrnz" method="POST" class="space-y-4">
-                    <input type="text" name="name" required placeholder="שם מלא" class="w-full bg-zinc-900 border border-white/10 p-5 rounded-2xl outline-none text-white">
-                    <textarea name="message" rows="4" placeholder="ספר לי על הפרויקט" class="w-full bg-zinc-900 border border-white/10 p-5 rounded-2xl outline-none text-white"></textarea>
-                    <button type="submit" class="w-full py-5 bg-amber-500 text-black font-black uppercase rounded-2xl hover:bg-white transition">שלח הודעה</button>
+                    <input type="text" name="name" required placeholder="שם מלא" class="w-full bg-zinc-900 border border-white/10 p-5 rounded-2xl outline-none focus:border-amber-500 text-white">
+                    <button type="submit" class="w-full py-5 bg-amber-500 text-black font-black uppercase tracking-widest rounded-2xl">שלח הודעה</button>
                 </form>
             </div>
         </section>
     </main>
-    <main id="gallery-page" class="page pt-32 pb-20"><div class="container mx-auto px-6"><div id="gallery-grid" class="masonry-grid"></div></div></main>
     <footer class="py-20 text-center border-t border-white/5">
         <p class="text-amber-500 font-black italic text-2xl mb-6">יחי המלך המשיח!</p>
-        <p class="text-[10px] text-zinc-600 uppercase tracking-[0.5em] mb-4">© 2026 דוב עיצוב ופיתוח | <a href="https://dov-portfolio.vercel.app" class="hover:text-amber-500">כל הזכויות שמורות</a> | BROOKLYN, NY</p>
-        <button onclick="openAdAdmin()" class="text-[9px] text-zinc-800 hover:text-amber-500 uppercase">ניהול</button>
+        <p class="text-[10px] text-zinc-600 uppercase tracking-[0.5em] mb-4">© 2026 DOV DESIGN & DEVELOPMENT™ | ALL RIGHTS RESERVED | BROOKLYN, NY</p>
+        <button onclick="openAdAdmin()" class="text-[9px] text-zinc-800 hover:text-amber-500 transition uppercase tracking-widest">ניהול פרסומים</button>
     </footer>
+
     <script>
-        let currentLang = 'he'; let selectedServices = [];
+        let currentLang = 'he';
+        let currentFilter = 'all';
+        let selectedServices = [];
         const ADMIN_CODE = '358a7e5a-f598-4758-a8b6-7aad9d6fb05f';
-        const services = [
-            { id: 'logo', he: 'חבילת לוגו ומיתוג', en: 'Logo & Branding', price: 500, desc: 'עיצוב לוגו מקורי ומחקר שוק.', desc_en: 'Logo design & research.' },
-            { id: 'website_pro', he: 'אתר עסקי Custom', en: 'Pro Website', price: 2500, desc: 'פיתוח אישי בקוד מלא.', desc_en: 'Custom full-code dev.' }
-        ];
-        const works = [{url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png', cat: 'ads'}];
 
         function openAdAdmin() { document.getElementById('ad-admin-modal').classList.add('active'); }
         function closeAdAdmin() { document.getElementById('ad-admin-modal').classList.remove('active'); }
         
         function verifyAdminCode() {
-            const input = document.getElementById('admin-pass-code').value.trim();
-            if (input === ADMIN_CODE) {
+            if (document.getElementById('admin-pass-code').value === ADMIN_CODE) {
                 document.getElementById('admin-login-view').classList.add('hidden');
                 document.getElementById('admin-management-view').classList.remove('hidden');
                 renderAdminAds();
@@ -150,7 +182,7 @@
         function saveNewAd() {
             const text = document.getElementById('new-ad-text').value;
             const img = document.getElementById('new-ad-img').value;
-            if (!text || !img) return;
+            if (!text || !img) return alert("מלא את כל השדות");
             let ads = JSON.parse(localStorage.getItem('dov_ads') || '[]');
             ads.push({ id: Date.now(), text, img });
             localStorage.setItem('dov_ads', JSON.stringify(ads));
@@ -158,57 +190,38 @@
         }
 
         function deleteAd(id) {
-            let ads = JSON.parse(localStorage.getItem('dov_ads') || '[]');
-            ads = ads.filter(ad => ad.id !== id);
+            let ads = JSON.parse(localStorage.getItem('dov_ads') || '[]').filter(a => a.id !== id);
             localStorage.setItem('dov_ads', JSON.stringify(ads));
             renderAdminAds(); renderPublicAds();
         }
 
         function renderAdminAds() {
-            const list = document.getElementById('admin-ads-list');
             const ads = JSON.parse(localStorage.getItem('dov_ads') || '[]');
-            list.innerHTML = ads.map(ad => `<div class="flex justify-between bg-white/5 p-3 rounded-xl mb-2 text-xs"><span>${ad.text}</span><button onclick="deleteAd(${ad.id})" class="text-red-500">מחק</button></div>`).join('');
+            document.getElementById('admin-ads-list').innerHTML = ads.map(ad => `
+                <div class="flex items-center justify-between bg-white/5 p-3 rounded-xl mb-2">
+                    <span class="text-xs truncate max-w-[150px]">${ad.text}</span>
+                    <button onclick="deleteAd(${ad.id})" class="text-red-500 text-xs">מחק</button>
+                </div>`).join('');
         }
 
         function renderPublicAds() {
-            const area = document.getElementById('public-ads-area');
             const ads = JSON.parse(localStorage.getItem('dov_ads') || '[]');
-            area.innerHTML = ads.map(ad => `<div class="ad-card"><img src="${ad.img}" class="ad-image"><div class="ad-content"><span class="ad-badge">בשיתוף עסקי</span><p class="text-zinc-200 text-sm font-bold">${ad.text}</p></div></div>`).join('');
+            document.getElementById('public-ads-area').innerHTML = ads.map(ad => `
+                <div class="ad-card">
+                    <img src="${ad.img}" class="ad-image">
+                    <div class="ad-content text-right">
+                        <span class="ad-badge">בשיתוף עסקי</span>
+                        <p class="text-zinc-200 text-sm font-bold">${ad.text}</p>
+                    </div>
+                </div>`).join('');
         }
 
-        function openBudgetModal() { document.getElementById('budget-modal').classList.add('active'); renderBudgetServices(); }
+        // Functions from original code
+        function openBudgetModal() { document.getElementById('budget-modal').classList.add('active'); }
         function closeBudgetModal() { document.getElementById('budget-modal').classList.remove('active'); }
-        function renderBudgetServices() {
-            const list = document.getElementById('services-list'); list.innerHTML = '';
-            services.forEach(s => {
-                const item = document.createElement('div');
-                item.className = `budget-item ${selectedServices.includes(s.id) ? 'selected' : ''}`;
-                item.onclick = () => { selectedServices.includes(s.id) ? selectedServices = selectedServices.filter(i => i !== s.id) : selectedServices.push(s.id); renderBudgetServices(); };
-                item.innerHTML = `<div class="flex items-start gap-4"><div class="checkbox-custom mt-1"></div><div><span class="text-sm font-medium">${currentLang === 'he' ? s.he : s.en}</span></div></div><span class="font-black text-amber-500">$${s.price}</span>`;
-                list.appendChild(item);
-            });
-            const total = services.filter(s => selectedServices.includes(s.id)).reduce((a, c) => a + c.price, 0);
-            document.getElementById('total-price-display').innerText = `$${total}`;
-            document.getElementById('wa-budget-btn').className = total > 0 ? 'px-10 py-4 bg-green-600 text-white font-black rounded-2xl' : 'px-10 py-4 bg-green-600 text-white font-black rounded-2xl opacity-30 pointer-events-none';
-        }
+        function toggleLang() { currentLang = currentLang === 'he' ? 'en' : 'he'; document.querySelectorAll('[data-he]').forEach(el => el.innerHTML = el.getAttribute('data-' + currentLang)); renderPublicAds(); }
+        function showPage(p) { document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active')); document.getElementById(p + '-page').classList.add('active'); }
 
-        function showPage(pageId) { 
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId + '-page').classList.add('active'); 
-            if(pageId === 'gallery') renderGallery();
-        }
-
-        function renderGallery() {
-            const grid = document.getElementById('gallery-grid'); grid.innerHTML = '';
-            works.forEach(w => {
-                const div = document.createElement('div'); div.className = 'masonry-item';
-                div.innerHTML = `<img src="${w.url}" onclick="openLightbox('${w.url}')">`;
-                grid.appendChild(div);
-            });
-        }
-
-        function openLightbox(url) { document.getElementById('lightbox-img').src = url; document.getElementById('lightbox').classList.add('active'); }
-        function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
         window.onload = () => { renderPublicAds(); };
     </script>
 </body>
