@@ -164,6 +164,20 @@
                     <p class="text-zinc-400 text-sm" data-he="אתרי Custom Code מהירים ומעוצבים אישית." data-en="Fast, custom-coded and high-end websites.">אתרי Custom Code מהירים ומעוצבים אישית.</p>
                 </div>
             </div>
+            
+            <section id="business-ad-section" class="w-full max-w-5xl mx-auto mb-20 px-4 hidden">
+                <div class="relative overflow-hidden rounded-[32px] border border-amber-500/30 bg-zinc-900/50 flex flex-col md:flex-row items-center transition-all hover:border-amber-500/60 group">
+                    <div class="w-full md:w-2/5 h-64 md:h-80 overflow-hidden">
+                        <img id="ad-image" src="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Promotion">
+                    </div>
+                    <div class="p-8 md:p-12 md:w-3/5 text-right">
+                        <span class="text-amber-500 text-[10px] font-black uppercase tracking-[0.3em] mb-4 block" data-he="בחסות עסקית" data-en="BUSINESS SPONSOR">בחסות עסקית</span>
+                        <h2 id="ad-text" class="text-2xl md:text-4xl font-bold text-white leading-tight serif italic"></h2>
+                        <div class="mt-8 h-px w-20 bg-amber-500/30"></div>
+                    </div>
+                </div>
+            </section>
+
             <div id="wrapper-he" class="banner-wrapper"><span class="banner-hint" data-he="לחצו לצפייה מלאה" data-en="FULL VIEW">לחצו לצפייה מלאה</span><div class="scrolling-banner" style="background-image: url('https://i.postimg.cc/SKdWvXvD/Picsart-26-01-15-07-34-38-017.png');"></div></div>
             <div id="wrapper-en" class="banner-wrapper hidden"><span class="banner-hint">FULL VIEW</span><div class="scrolling-banner" style="background-image: url('https://i.postimg.cc/3wYX1jnw/1768446446562.png');"></div></div>
         </section>
@@ -203,6 +217,7 @@
     <footer class="py-20 text-center border-t border-white/5">
         <p class="text-amber-500 font-black italic text-2xl mb-6">יחי המלך המשיח!</p>
         <p class="text-[10px] text-zinc-600 uppercase tracking-[0.5em]">© 2026 DOV DESIGN & DEVELOPMENT™ | ALL RIGHTS RESERVED | BROOKLYN, NY</p>
+        <button onclick="manageAd()" class="mt-8 text-[8px] text-zinc-800 hover:text-amber-500 transition-colors uppercase tracking-widest">Admin Access</button>
     </footer>
     <script>
         let currentLang = 'he';
@@ -210,7 +225,7 @@
         let selectedServices = [];
 
         const services = [
-            { id: 'logo', he: 'חבילת לוגו ומיתוג', en: 'Logo & Branding Package', price: 500, desc: 'מחקר שוק ואפיון שפה ויזואלית ייחודית לעסק. עיצוב לוגו מקורי (3 סקיצות לבחירה). התאמת פלטת צבעים וגופנים (טיפוגרפיה) למותג. מסירת כל קבצי המקור(Vector, PNG, PDF) לשימוש בכל גודל ללא איבוד איכות.', desc_en: 'Market research and unique visual language. Original logo design (3 sketches). Color palette and typography matching. All source files included (Vector, PNG, PDF).' },
+            { id: 'logo', he: 'חבילת לוגו ומיתוג', en: 'Logo & Branding Package', price: 500, desc: 'מחקר שוק ואפיון שפה ויזואלית ייחודית לעסק. עיצוב לוגו מקורי (3 סקיצות לבחירה). התאמת פלטת צבעים וגופנים (טיפוגרפיה) למותג. מסירת כל קבצי המקור(Vector, PNG, PDF) לשימוש בכל גודל ללא איבוד איכות.', desc_en: 'Market research and unique visual language. Original logo design (3 sketches). Color palette and typography matching. All source files included (Vector, PNG, PDF)' },
             { id: 'card', he: 'חבילת "כרטיס מנצח"', en: 'Winning Card Package', price: 150, desc: 'עיצוב כרטיס ביקור דו-צדדי בקו נקי ומקצועי. התאמה מלאה למיתוג הקיים. הכנה לדפוס (בלידים וסימני חיתוך) לפי דרישות בית הדפוס.', desc_en: 'Professional double-sided business card design. Fully aligned with existing branding. Print-ready files with bleeds and crop marks.' },
             { id: 'allinprint', he: 'חבילת "הכל כלול" פרינט', en: 'All-Inclusive Print', price: 250, desc: 'שילוב מנצח של עיצוב לוגו + כרטיס ביקור + מודעת פרסום. יצירת אחידות ויזואלית בין כל מוצרי הפרסום של העסק. חיסכון משמעותי לעומת הזמנת כל פריט בנפרד.', desc_en: 'The ultimate combo: Logo design + Business Card + Advertisement. Ensures visual consistency across all print assets. Great value.' },
             { id: 'digital', he: 'חבילת "נוכחות דיגיטלית"', en: 'Digital Presence Package', price: 250, desc: 'עיצוב פלייר דיגיטלי לפרסום בוואטסאפ (סטטוסים) וברשתות החברתיות. התאמת תמונות פרופיל וקאברים לפלטפורמות השונות. מיקוד שיווקי להנעה לפעולה ויצירת קשר מהיר.', desc_en: 'Digital flyer for WhatsApp and Social Media. Profile pictures and covers for various platforms. Marketing focused on CTA.' },
@@ -342,7 +357,50 @@
 
         function openLightbox(url) { document.getElementById('lightbox-img').src = url; document.getElementById('lightbox').classList.add('active'); }
         function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
-        window.onload = () => { if (document.getElementById('gallery-page').classList.contains('active')) renderGallery(); };
+
+        // לוגיקת ניהול פרסומות
+        function manageAd() {
+            const auth = prompt("הכנס קוד גישה לניהול פרסומות:");
+            if (auth === "Hello><]Dober770-6_6-7-5&-÷¢π√¢÷=uctbh") {
+                const action = confirm("לחץ 'אישור' להוספה/עדכון פרסומת, או 'ביטול' להסרת הפרסומת הקיימת מהאתר.");
+                if (action) {
+                    const img = prompt("הכנס כתובת URL לתמונת הפרסומת:");
+                    const txt = prompt("הכנס את הטקסט שיוצג בפרסומת:");
+                    if (img && txt) {
+                        localStorage.setItem('dov_ad_img', img);
+                        localStorage.setItem('dov_ad_txt', txt);
+                        alert("הפרסומת עודכנה בהצלחה!");
+                    } else {
+                        alert("חובה להכניס גם תמונה וגם טקסט.");
+                    }
+                } else {
+                    localStorage.removeItem('dov_ad_img');
+                    localStorage.removeItem('dov_ad_txt');
+                    alert("הפרסומת הוסרה מהאתר.");
+                }
+                renderAd();
+            } else {
+                alert("קוד שגוי. הגישה נדחתה.");
+            }
+        }
+
+        function renderAd() {
+            const img = localStorage.getItem('dov_ad_img');
+            const txt = localStorage.getItem('dov_ad_txt');
+            const section = document.getElementById('business-ad-section');
+            if (img && txt) {
+                section.classList.remove('hidden');
+                document.getElementById('ad-image').src = img;
+                document.getElementById('ad-text').innerText = txt;
+            } else {
+                section.classList.add('hidden');
+            }
+        }
+
+        window.onload = () => { 
+            if (document.getElementById('gallery-page').classList.contains('active')) renderGallery(); 
+            renderAd();
+        };
     </script>
 </body>
 </html>
