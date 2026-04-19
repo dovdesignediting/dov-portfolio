@@ -67,7 +67,6 @@
         /* ── GLASS CARDS ── */
         .glass-card { background: var(--glass); border: 1px solid var(--glass-b); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
         .glass-card:hover { background: var(--gold-dim); border-color: rgba(245,158,11,0.38); transform: translateY(-7px); box-shadow: 0 28px 56px rgba(0,0,0,0.45), 0 0 28px rgba(245,158,11,0.1); }
-
         /* ── SERVICE CARDS ── */
         .svc-card { background: var(--glass); border: 1px solid var(--glass-b); padding: 2.2rem 2rem; border-radius: 26px; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); position: relative; overflow: hidden; }
         .svc-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(245,158,11,0.06) 0%, transparent 55%); opacity: 0; transition: opacity 0.4s; }
@@ -167,18 +166,15 @@
 </head>
 <body class="notranslate" oncontextmenu="return false;">
 
-    <!-- LIGHTBOX -->
     <div id="lightbox" onclick="closeLightbox()">
         <img id="lightbox-img" src="" alt="">
         <button onclick="closeLightbox()" style="position:absolute;top:20px;right:24px;font-size:2rem;color:#fff;background:none;border:none;cursor:pointer;z-index:10;">✕</button>
     </div>
 
-    <!-- ADMIN BUTTON -->
     <button onclick="openAdminModal()" class="admin-btn" title="ניהול מודעות">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
     </button>
 
-    <!-- ADMIN ADS MODAL -->
     <div id="admin-ads-modal">
         <div class="budget-container">
             <button onclick="closeAdminModal()" class="absolute top-6 right-6 text-zinc-500 hover:text-white text-3xl leading-none">&times;</button>
@@ -194,7 +190,6 @@
         </div>
     </div>
 
-    <!-- BUDGET MODAL -->
     <div id="budget-modal">
         <div class="budget-container">
             <button onclick="closeBudgetModal()" class="absolute top-6 right-6 text-zinc-500 hover:text-white text-3xl leading-none">&times;</button>
@@ -230,8 +225,6 @@
             </div>
         </div>
     </div>
-
-    <!-- MOBILE MENU -->
     <div id="mobile-menu" class="mob-menu fixed inset-0 z-[60] hidden flex-col items-center justify-center p-8">
         <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-white text-4xl leading-none">&times;</button>
         <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" style="height:40px;margin-bottom:2.5rem;opacity:0.6">
@@ -249,7 +242,6 @@
         <p class="text-zinc-700 text-[9px] uppercase tracking-widest mt-8">Brooklyn, NY</p>
     </div>
 
-    <!-- HEADER -->
     <header class="header-glass fixed top-0 inset-x-0 z-50 py-4 px-6">
         <div class="container mx-auto flex items-center justify-between">
             <div class="flex items-center gap-4">
@@ -269,10 +261,8 @@
             </button>
         </div>
     </header>
-    <!-- HOME PAGE -->
     <main id="home-page" class="page active">
 
-        <!-- HERO -->
         <section class="hero-wrap">
             <div class="hero-bg"></div>
             <div class="hero-orb hero-orb-1"></div>
@@ -291,7 +281,6 @@
                 <button onclick="openBudgetModal()" class="border border-white/20 px-10 py-4 font-black text-xs uppercase tracking-widest rounded-xl flex items-center gap-2 justify-center hover:border-amber-500/50 hover:bg-amber-500/5 transition-all" data-he="🎯 מערכת תקציב" data-en="🎯 BUDGET SYSTEM">🎯 מערכת תקציב</button>
             </div>
 
-            <!-- STATS -->
             <div class="flex gap-10 md:gap-16 mb-16 reveal d5">
                 <div class="text-center">
                     <div class="stat-num">50+</div>
@@ -307,7 +296,6 @@
                 </div>
             </div>
 
-            <!-- SCROLLING BANNERS -->
             <div id="wrapper-he" class="banner-wrapper reveal">
                 <span class="banner-hint" data-he="לחצו לצפייה מלאה" data-en="FULL VIEW">לחצו לצפייה מלאה</span>
                 <div class="scrolling-banner" onclick="openBannerLightbox('he')" style="background-image:url('https://i.postimg.cc/SKdWvXvD/Picsart-26-01-15-07-34-38-017.png');"></div>
@@ -318,7 +306,6 @@
             </div>
         </section>
 
-        <!-- ABOUT -->
         <section id="about-section" class="py-24 px-6 relative overflow-hidden" style="background: linear-gradient(180deg, var(--dark) 0%, #0c0c10 50%, var(--dark) 100%); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
             <div class="container mx-auto max-w-4xl text-center">
                 <span class="s-label reveal">Studio</span>
@@ -327,7 +314,6 @@
             </div>
         </section>
 
-        <!-- SERVICES -->
         <section class="py-24 px-6">
             <div class="container mx-auto max-w-5xl">
                 <div class="text-center mb-14">
@@ -362,7 +348,6 @@
             </div>
         </section>
 
-        <!-- ADS SECTION -->
         <section id="ads-section" class="ad-banner-section hidden">
             <div class="container mx-auto px-6 mb-8 text-center">
                 <h3 class="s-label" data-he="שיתופי פעולה ועסקים" data-en="PARTNERS & BUSINESSES">שיתופי פעולה ועסקים</h3>
@@ -370,7 +355,6 @@
             <div class="ad-track" id="dynamic-ads-container"></div>
         </section>
 
-        <!-- CONTACT -->
         <section id="contact-section" class="py-24 px-6" style="background: linear-gradient(180deg, var(--dark) 0%, #0b0b0e 100%);">
             <div class="container mx-auto max-w-xl text-center">
                 <span class="s-label reveal">Contact</span>
@@ -393,7 +377,6 @@
         </section>
     </main>
 
-    <!-- GALLERY PAGE -->
     <main id="gallery-page" class="page pt-28 pb-20">
         <div class="container mx-auto px-5 text-center">
             <span class="s-label reveal">Portfolio</span>
@@ -408,12 +391,10 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
     <footer class="py-20 text-center relative border-t border-white/5">
         <div class="footer-line"></div>
         <div class="container mx-auto px-6">
             <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" style="height:38px;margin:0 auto 1.5rem;opacity:0.5">
-            <p class="text-amber-500 font-black italic text-2xl mb-3 serif">יחי המלך המשיח!</p>
             <p class="text-zinc-600 text-[10px] uppercase tracking-[0.4em] mb-2">© 2026 DOV DESIGN & DEVELOPMENT™ | ALL RIGHTS RESERVED | BROOKLYN, NY</p>
             <p class="text-zinc-700 text-[9px] mt-3">כל הזכויות שמורות לדוב עיצוב ופיתוח · <a href="https://dov-portfolio.vercel.app" class="hover:text-amber-500 transition-colors underline underline-offset-2" target="_blank">https://dov-portfolio.vercel.app</a></p>
         </div>
