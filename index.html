@@ -67,13 +67,13 @@
         /* ── GLASS CARDS ── */
         .glass-card { background: var(--glass); border: 1px solid var(--glass-b); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
         .glass-card:hover { background: var(--gold-dim); border-color: rgba(245,158,11,0.38); transform: translateY(-7px); box-shadow: 0 28px 56px rgba(0,0,0,0.45), 0 0 28px rgba(245,158,11,0.1); }
+
         /* ── SERVICE CARDS ── */
         .svc-card { background: var(--glass); border: 1px solid var(--glass-b); padding: 2.2rem 2rem; border-radius: 26px; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); position: relative; overflow: hidden; }
         .svc-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(245,158,11,0.06) 0%, transparent 55%); opacity: 0; transition: opacity 0.4s; }
         .svc-card:hover::before { opacity: 1; }
         .svc-card:hover { border-color: rgba(245,158,11,0.45); transform: translateY(-8px) perspective(900px) rotateX(1.5deg); box-shadow: 0 36px 72px rgba(0,0,0,0.5), 0 0 36px rgba(245,158,11,0.1); }
         .svc-icon { width: 54px; height: 54px; background: linear-gradient(135deg, var(--gold), #d97706); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.4rem; box-shadow: 0 8px 24px rgba(245,158,11,0.35); overflow: hidden; }
-        .svc-icon img { width: 65%; height: 65%; object-fit: contain; }
 
         /* ── GALLERY ── */
         .masonry-grid { columns: 2; column-gap: 13px; }
@@ -90,7 +90,6 @@
         #lightbox.active { display: flex; animation: fade-in 0.3s ease; }
         @keyframes fade-in { from{opacity:0} to{opacity:1} }
         #lightbox-img { max-width: 92%; max-height: 86vh; border-radius: 14px; box-shadow: 0 0 80px rgba(245,158,11,0.18); }
-
         /* ── HEADER ── */
         .header-glass { background: rgba(9,9,11,0.82); backdrop-filter: blur(26px); -webkit-backdrop-filter: blur(26px); border-bottom: 1px solid var(--glass-b); }
         .nav-link { position: relative; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.14em; transition: color 0.2s; }
@@ -99,7 +98,8 @@
         .nav-link:hover::after { width: 100%; }
 
         /* ── MOBILE MENU ── */
-        .mob-menu { background: rgba(4,4,6,0.99); backdrop-filter: blur(32px); }
+        .mob-menu { position: fixed; inset: 0; background: rgba(4,4,6,0.99); backdrop-filter: blur(32px); z-index: 1000; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
+        .mob-menu.active { display: flex; }
         .mob-nav-btn { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase; transition: color 0.2s; }
         .mob-nav-btn:hover { color: var(--gold); }
 
@@ -187,32 +187,29 @@
     <div id="budget-modal">
         <div class="budget-container">
             <button onclick="closeBudgetModal()" class="absolute top-6 right-6 text-zinc-500 hover:text-white text-3xl leading-none">&times;</button>
-            <h2 class="text-2xl font-black text-amber-500 mb-1 serif italic" data-he="🎯 מערכת תקציב" data-en="🎯 BUDGET SYSTEM" data-es="🎯 SISTEMA DE PRESUPUESTO">🎯 מערכת תקציב</h2>
-            <p class="text-zinc-500 text-xs" data-he="בחר שירותים וקבל הצעת מחיר מיידית — שלח ישר לוואטסאפ." data-en="Select services and get an instant quote — send directly to WhatsApp." data-es="Seleccione servicios y obtenga una cotización instantánea — envíe directo a WhatsApp.">בחר שירותים וקבל הצעת מחיר מיידית — שלח ישר לוואטסאפ.</p>
-            
+            <h2 class="text-2xl font-black text-amber-500 mb-1 serif italic">🎯 מערכת תקציב</h2>
+            <p class="text-zinc-500 text-xs">בחר שירותים וקבל הצעת מחיר מיידית — שלח ישר לוואטסאפ.</p>
             <div class="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-xl flex items-start gap-3">
                 <span class="text-xl">💡</span>
-                <p class="text-blue-400 text-xs font-bold leading-relaxed" data-he="שים לב: המחיר הסופי משתנה בהתאם למיקום הלקוח." data-en="Note: Final pricing varies based on the client's location." data-es="Nota: El precio final varía según la ubicación del cliente.">שים לב: המחיר הסופי משתנה בהתאם למיקום הלקוח.</p>
+                <p class="text-blue-400 text-xs font-bold leading-relaxed">שים לב: המחיר הסופי משתנה בהתאם למיקום הלקוח.</p>
             </div>
-
             <div class="budget-scroll">
                 <div id="services-list"></div>
-
-                <div class="mt-7 text-[10px] text-zinc-500 space-y-3 leading-relaxed border-t border-white/5 pt-5" id="terms-content">
-                    <p data-he='<strong>1. אחריות פיתוח:</strong> אחריות מלאה לתיקון באגים למשך 30 יום מהמסירה. האחריות בטלה אם בוצעו שינויים על ידי הלקוח או צד ג.' data-en='<strong>1. Dev Warranty:</strong> Full bug-fix warranty for 30 days from delivery. Void if changes made by client or third party.' data-es='<strong>1. Garantía de Desarrollo:</strong> Garantía completa de corrección de errores por 30 días desde la entrega. Se anula si el cliente o terceros realizan cambios.'><strong>1. אחריות פיתוח:</strong> אחריות מלאה לתיקון באגים למשך 30 יום מהמסירה. האחריות בטלה אם בוצעו שינויים על ידי הלקוח או צד ג.</p>
-                    <p data-he='<strong>2. תחזוקה חודשית ($250/חודש):</strong> גיבוי שבועי, עדכוני ליבה ותוספים, ניטור אבטחה, עד שעתיים לשינויי תוכן קלים. השעות אינן נצברות.' data-en='<strong>2. Monthly Maintenance ($250/mo):</strong> Weekly backup, core/plugin updates, security monitoring, up to 2 hours minor content edits. Hours do not roll over.' data-es='<strong>2. Mantenimiento Mensual ($250/mes):</strong> Copia de seguridad semanal, actualizaciones, monitoreo de seguridad, hasta 2 horas para ediciones menores. Las horas no se acumulan.'><strong>2. תחזוקה חודשית ($250/חודש):</strong> גיבוי שבועי, עדכוני ליבה ותוספים, ניטור אבטחה, עד שעתיים לשינויי תוכן קלים. השעות אינן נצברות.</p>
-                    <p data-he='<strong>3. החרגות:</strong> עלויות צד ג (דומיין, אחסון, API) חלות על הלקוח. תוכן מעבר למוגדר יתומחר בנפרד.' data-en='<strong>3. Exclusions:</strong> Third-party costs (Domain, Hosting, API) are the client responsibility. Content beyond specs billed separately.' data-es='<strong>3. Exclusiones:</strong> Los costos de terceros (Dominio, Hosting, API) son responsabilidad del cliente. El contenido adicional se factura por separado.'><strong>3. החרגות:</strong> עלויות צד ג (דומיין, אחסון, API) חלות על הלקוח. תוכן מעבר למוגדר יתומחר בנפרד.</p>
-                    <p data-he='<strong>4. קניין רוחני:</strong> עם גמר התשלום כל הזכויות עוברות ללקוח. הסטודיו שומר זכות להציג הפרויקט בתיק עבודות.' data-en='<strong>4. IP:</strong> Upon full payment all rights transfer to client. Studio retains right to display project in portfolio.' data-es='<strong>4. Propiedad Intelectual:</strong> Al realizar el pago total, todos los derechos pasan al cliente. El estudio se reserva el derecho de mostrar el proyecto en el portafolio.'><strong>4. קניין רוחני:</strong> עם גמר התשלום כל הזכויות עוברות ללקוח. הסטודיו שומר זכות להציג הפרויקט בתיק עבודות.</p>
-                    <p data-he='<strong>5. אחריות עיצוב ועריכה:</strong> הסטודיו מתחייב לספק תוצרים גרפיים ברמה הגבוהה ביותר תוך שקיפות מלאה. השירות כולל הכנה מקצועית מלאה לדפוס. שים לב: ההדפסה בפועל מתבצעת על ידי הלקוח, והאחריות על איכות ההדפסה והתוצאה הסופית הפיזית חלה על הלקוח בלבד.' data-en='<strong>5. Design & Editing Warranty:</strong> The studio commits to delivering premium graphic products with full transparency. The service includes full professional prep for print. Note: The actual printing is executed by the client, and the responsibility for print quality and the final physical result lies solely with the client.' data-es='<strong>5. Garantía de Diseño y Edición:</strong> El estudio se compromete a entregar productos gráficos de primer nivel con total transparencia. El servicio incluye preparación profesional completa para impresión. Nota: La impresión real es realizada por el cliente, y la responsabilidad por la calidad de impresión y el resultado físico final recae únicamente en el cliente.'><strong>5. אחריות עיצוב ועריכה:</strong> הסטודיו מתחייב לספק תוצרים גרפיים ברמה הגבוהה ביותר תוך שקיפות מלאה. השירות כולל הכנה מקצועית מלאה לדפוס. שים לב: ההדפסה בפועל מתבצעת על ידי הלקוח, והאחריות על איכות ההדפסה והתוצאה הסופית הפיזית חלה על הלקוח בלבד.</p>
+                <div class="mt-7 text-[10px] text-zinc-500 space-y-3 leading-relaxed border-t border-white/5 pt-5">
+                    <p><strong>1. אחריות פיתוח:</strong> אחריות מלאה לתיקון באגים למשך 30 יום מהמסירה. האחריות בטלה אם בוצעו שינויים על ידי הלקוח או צד ג.</p>
+                    <p><strong>2. תחזוקה חודשית ($250/חודש):</strong> גיבוי שבועי, עדכוני ליבה ותוספים, ניטור אבטחה, עד שעתיים לשינויי תוכן קלים. השעות אינן נצברות.</p>
+                    <p><strong>3. החרגות:</strong> עלויות צד ג (דומיין, אחסון, API) חלות על הלקוח. תוכן מעבר למוגדר יתומחר בנפרד.</p>
+                    <p><strong>4. קניין רוחני:</strong> עם גמר התשלום כל הזכויות עוברות ללקוח. הסטודיו שומר זכות להציג הפרויקט בתיק עבודות.</p>
+                    <p><strong>5. אחריות עיצוב ועריכה:</strong> הסטודיו מתחייב לספק תוצרים גרפיים ברמה הגבוהה ביותר תוך שקיפות מלאה. השירות כולל הכנה מקצועית מלאה לדפוס. שים לב: ההדפסה בפועל מתבצעת על ידי הלקוח, והאחריות על איכות ההדפסה והתוצאה הסופית הפיזית חלה על הלקוח בלבד.</p>
                 </div>
                 <div class="mt-5 p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-xs text-zinc-300 space-y-2">
-                    <p class="text-amber-500 font-bold" data-he='תודה על האמון ב"דוב עיצוב ופיתוח".' data-en='Thank you for trusting Dov Design & Development.' data-es='Gracias por confiar en "Dov Design & Development".'>תודה על האמון ב"דוב עיצוב ופיתוח".</p>
-                    <p data-he="המטרה שלי: להפוך את החזון שלך למציאות דיגיטלית חזקה, מעוצבת ומתקדמת." data-en="My goal: transform your vision into a powerful, designed, and advanced digital reality." data-es="Mi objetivo: transformar su visión en una realidad digital potente, diseñada y avanzada.">המטרה שלי: להפוך את החזון שלך למציאות דיגיטלית חזקה, מעוצבת ומתקדמת.</p>
+                    <p class="text-amber-500 font-bold">תודה על האמון ב"דוב עיצוב ופיתוח".</p>
+                    <p>המטרה שלי: להפוך את החזון שלך למציאות דיגיטלית חזקה, מעוצבת ומתקדמת.</p>
                 </div>
             </div>
             <div class="total-bar">
                 <div>
-                    <span class="s-label" data-he="סה''כ מוערך" data-en="ESTIMATED TOTAL" data-es="TOTAL ESTIMADO">סה"כ מוערך</span>
+                    <span class="s-label">סה"כ מוערך</span>
                     <span id="total-price-display" class="text-4xl font-black text-white">$0</span>
                 </div>
                 <button id="wa-budget-btn" onclick="sendBudgetToWhatsApp()" class="flex-1 max-w-[220px] py-4 bg-green-600 text-white font-black rounded-xl flex items-center justify-center gap-2 opacity-30 pointer-events-none transition-all text-xs uppercase tracking-widest">WhatsApp</button>
@@ -224,14 +221,22 @@
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="brand-logo" alt="Logo" onclick="showPage('home')">
             <nav class="hidden md:flex gap-10 items-center">
-                <button onclick="showPage('home')" class="nav-link" data-he="בית" data-en="HOME" data-es="INICIO">בית</button>
-                <button onclick="showPage('gallery')" class="nav-link" data-he="עבודות" data-en="WORKS" data-es="TRABAJOS">עבודות</button>
-                <button onclick="scrollToSection('contact-section')" class="nav-link" data-he="צור קשר" data-en="CONTACT" data-es="CONTACTO">צור קשר</button>
+                <button onclick="showPage('home')" class="nav-link">בית</button>
+                <button onclick="showPage('gallery')" class="nav-link">עבודות</button>
+                <button onclick="scrollToSection('contact-section')" class="nav-link">צור קשר</button>
                 <button onclick="openBudgetModal()" class="px-6 py-2.5 bg-amber-500 text-black font-black text-[10px] rounded-full hover:bg-white transition uppercase tracking-widest btn-shiny">קבל הצעת מחיר</button>
             </nav>
             <button onclick="toggleMobileMenu()" class="md:hidden text-white text-3xl">&equiv;</button>
         </div>
     </header>
+
+    <div id="mobile-menu" class="mob-menu">
+        <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-white text-4xl">&times;</button>
+        <button onclick="showPage('home'); toggleMobileMenu();" class="mob-nav-btn text-white serif italic">בית</button>
+        <button onclick="showPage('gallery'); toggleMobileMenu();" class="mob-nav-btn text-white serif italic">עבודות</button>
+        <button onclick="scrollToSection('contact-section'); toggleMobileMenu();" class="mob-nav-btn text-white serif italic">צור קשר</button>
+        <button onclick="openBudgetModal(); toggleMobileMenu();" class="mt-4 px-10 py-4 bg-amber-500 text-black font-black rounded-full uppercase tracking-widest text-sm">הצעת מחיר</button>
+    </div>
 
     <main id="home-page" class="page active">
         <section class="hero-wrap">
@@ -251,40 +256,28 @@
 
         <section class="py-32 px-6 max-w-7xl mx-auto" id="services-section">
             <div class="reveal d1">
-                <span class="s-label" data-he="שירותים" data-en="SERVICES" data-es="SERVICIOS">שירותים</span>
+                <span class="s-label">SERVICES | שירותים</span>
                 <h2 class="text-4xl md:text-5xl font-black mb-12 serif italic"><span class="grad-text">במה אנחנו מתמחים?</span></h2>
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="svc-card reveal d2">
-                    <div class="svc-icon">
-                        <img src="https://i.postimg.cc/XvHX2rcW/Picsart-26-04-28-17-44-32-718.jpg" alt="עיצוב ומיתוג">
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 serif italic" data-he="עיצוב ומיתוג" data-en="DESIGN & BRANDING" data-es="DISEÑO Y MARCA">עיצוב ומיתוג</h3>
+                    <div class="svc-icon"><img src="https://i.postimg.cc/XvHX2rcW/Picsart-26-04-28-17-44-32-718.jpg" alt="עיצוב ומיתוג" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+                    <h3 class="text-xl font-bold mb-3 serif italic">עיצוב ומיתוג</h3>
                     <p class="text-zinc-400 text-sm leading-relaxed">יצירת שפה ויזואלית ייחודית, לוגו מקצועי ומיתוג עסקי מלא.</p>
                 </div>
-
                 <div class="svc-card reveal d3">
-                    <div class="svc-icon">
-                        <img src="https://i.postimg.cc/LsChyJBd/Picsart-26-04-28-17-45-35-605.jpg" alt="פיתוח אתרים">
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 serif italic" data-he="פיתוח אתרים" data-en="WEB DEVELOPMENT" data-es="DESARROLLO WEB">פיתוח אתרים</h3>
+                    <div class="svc-icon"><img src="https://i.postimg.cc/LsChyJBd/Picsart-26-04-28-17-45-35-605.jpg" alt="פיתוח אתרים" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+                    <h3 class="text-xl font-bold mb-3 serif italic">פיתוח אתרים</h3>
                     <p class="text-zinc-400 text-sm leading-relaxed">בניית אתרי תדמית ומערכות ווב מורכבות בטכנולוגיה הכי מתקדמת.</p>
                 </div>
-
                 <div class="svc-card reveal d4">
-                    <div class="svc-icon">
-                        <img src="https://i.postimg.cc/TP7hkKqT/Picsart-26-04-28-17-46-14-905.jpg" alt="נוכחות דיגיטלית">
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 serif italic" data-he="נוכחות דיגיטלית" data-en="DIGITAL PRESENCE" data-es="PRESENCIA DIGITAL">נוכחות דיגיטלית</h3>
+                    <div class="svc-icon"><img src="https://i.postimg.cc/TP7hkKqT/Picsart-26-04-28-17-46-14-905.jpg" alt="נוכחות דיגיטלית" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+                    <h3 class="text-xl font-bold mb-3 serif italic">נוכחות דיגיטלית</h3>
                     <p class="text-zinc-400 text-sm leading-relaxed">שיפור הנראות ברשת, ניהול רשתות חברתיות ואסטרטגיה שיווקית.</p>
                 </div>
-
                 <div class="svc-card reveal d5">
-                    <div class="svc-icon">
-                        <img src="https://i.postimg.cc/8CKsy7Bk/Picsart-26-04-28-17-47-08-814.jpg" alt="חנויות ומערכות">
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 serif italic" data-he="חנויות ומערכות" data-en="E-COMMERCE & SYSTEMS" data-es="TIENDAS Y SISTEMAS">חנויות ומערכות</h3>
+                    <div class="svc-icon"><img src="https://i.postimg.cc/8CKsy7Bk/Picsart-26-04-28-17-47-08-814.jpg" alt="חנויות ומערכות" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+                    <h3 class="text-xl font-bold mb-3 serif italic">חנויות ומערכות</h3>
                     <p class="text-zinc-400 text-sm leading-relaxed">פתרונות איקומרס, חנויות מקוונות ומערכות ניהול בהתאמה.</p>
                 </div>
             </div>
@@ -325,25 +318,21 @@
             <div class="max-w-3xl mx-auto text-center reveal d1">
                 <span class="s-label">LET'S TALK</span>
                 <h2 class="text-4xl md:text-6xl font-black mb-12 serif italic">מוכן להזניק את <br><span class="grad-text">העסק שלך קדימה?</span></h2>
-                <div class="space-y-4 text-right" dir="rtl">
+                <form id="contact-form" class="space-y-4 text-right" dir="rtl">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" placeholder="שם מלא" class="contact-input">
-                        <input type="email" placeholder="אימייל" class="contact-input">
+                        <input type="text" name="user_name" placeholder="שם מלא" class="contact-input" required>
+                        <input type="email" name="user_email" placeholder="אימייל" class="contact-input" required>
                     </div>
-                    <textarea placeholder="ספר לנו על הפרויקט שלך..." class="contact-input h-40"></textarea>
-                    <button class="w-full py-5 bg-amber-500 text-black font-black rounded-2xl hover:bg-white transition-all uppercase tracking-widest text-sm btn-shiny">שלח הודעה</button>
-                </div>
+                    <textarea name="message" placeholder="ספר לנו על הפרויקט שלך..." class="contact-input h-40" required></textarea>
+                    <div class="flex justify-center my-4">
+                        <div class="g-recaptcha" data-sitekey="6LeY8scqAAAAAN6hYn1s6I80V9F9xX0H4x9N0j9"></div>
+                    </div>
+                    <button type="submit" class="w-full py-5 bg-amber-500 text-black font-black rounded-2xl hover:bg-white transition-all uppercase tracking-widest text-sm btn-shiny">שלח הודעה</button>
+                </form>
             </div>
         </section>
     </main>
 
-    <footer class="py-20 relative overflow-hidden border-t border-white/5">
-        <div class="footer-line"></div>
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="h-10 mx-auto mb-8 opacity-40 grayscale" alt="Logo">
-            <p class="text-[9px] text-zinc-600 uppercase tracking-widest">&copy; 2026 דוב עיצוב ופיתוח | Dov Design & Development. כל הזכויות שמורות.</p>
-        </div>
-    </footer>
     <main id="gallery-page" class="page pt-32 pb-32 px-6">
         <div class="max-w-7xl mx-auto">
             <div class="mb-16 text-center">
@@ -360,36 +349,138 @@
         </div>
     </main>
 
+    <footer class="py-20 relative overflow-hidden border-t border-white/5">
+        <div class="footer-line"></div>
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="h-10 mx-auto mb-8 opacity-40 grayscale" alt="Logo">
+            <p class="text-[9px] text-zinc-600 uppercase tracking-widest">&copy; 2026 דוב עיצוב ופיתוח | Dov Design & Development. כל הזכויות שמורות.</p>
+        </div>
+    </footer>
     <script>
-        // ── DATA ──
+        const servicesData = [
+            { id: 'logo', name: 'עיצוב לוגו מקצועי', price: 450 },
+            { id: 'branding', name: 'מיתוג עסקי מלא', price: 1200 },
+            { id: 'landing', name: 'דף נחיתה ממיר', price: 850 },
+            { id: 'business_web', name: 'אתר תדמית לעסק', price: 1800 },
+            { id: 'ecommerce', name: 'חנות אונליין (E-commerce)', price: 3500 },
+            { id: 'maintenance', name: 'תחזוקה חודשית שוטפת', price: 250 },
+            { id: 'social', name: 'עיצוב לרשתות חברתיות', price: 400 },
+            { id: 'seo', name: 'אופטימיזציה למנועי חיפוש', price: 600 }
+        ];
+
+        let selectedServices = [];
         const works = [
             { id: 1, cat: 'branding', url: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png' },
             { id: 2, cat: 'web', url: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png' }
         ];
 
-        // ── NAVIGATION ──
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId + '-page').classList.add('active');
+        function showPage(p) {
+            document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
+            document.getElementById(p + '-page').classList.add('active');
             window.scrollTo(0,0);
+            if(p === 'gallery') renderGallery();
         }
 
+        function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('active'); }
         function scrollToSection(id) {
             showPage('home');
-            setTimeout(() => {
-                document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-            }, 100);
+            setTimeout(() => { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }, 100);
         }
 
-        // ── MODALS ──
-        function openBudgetModal() { document.getElementById('budget-modal').classList.add('active'); }
+        function openBudgetModal() {
+            document.getElementById('budget-modal').classList.add('active');
+            const list = document.getElementById('services-list');
+            list.innerHTML = '';
+            servicesData.forEach(s => {
+                const item = document.createElement('div');
+                item.className = `budget-item ${selectedServices.includes(s.id) ? 'selected' : ''}`;
+                item.onclick = () => toggleService(s.id);
+                item.innerHTML = `<div><div class="text-white font-bold text-sm">${s.name}</div><div class="text-zinc-500 text-xs mt-1">$${s.price}</div></div><div class="checkbox-custom"></div>`;
+                list.appendChild(item);
+            });
+            updateTotal();
+        }
+
+        function toggleService(id) {
+            if(selectedServices.includes(id)) selectedServices = selectedServices.filter(i => i !== id);
+            else selectedServices.push(id);
+            openBudgetModal();
+        }
+
+        function updateTotal() {
+            const total = selectedServices.reduce((sum, id) => sum + servicesData.find(s => s.id === id).price, 0);
+            document.getElementById('total-price-display').innerText = `$${total}`;
+            const btn = document.getElementById('wa-budget-btn');
+            if(total > 0) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
+            else { btn.style.opacity = '0.3'; btn.style.pointerEvents = 'none'; }
+        }
+
+        function sendBudgetToWhatsApp() {
+            const total = selectedServices.reduce((sum, id) => sum + servicesData.find(s => s.id === id).price, 0);
+            const names = selectedServices.map(id => servicesData.find(s => s.id === id).name).join(', ');
+            const msg = encodeURIComponent(`שלום דוב, אני מעוניין בהצעת מחיר עבור: ${names}. סה"כ משוער: $${total}.`);
+            window.open(`https://wa.me/13476408271?text=${msg}`);
+        }
+
         function closeBudgetModal() { document.getElementById('budget-modal').classList.remove('active'); }
-        function openAdminModal() { document.getElementById('admin-ads-modal').classList.add('active'); }
+        function openAdminModal() {
+            document.getElementById('admin-ads-modal').classList.add('active');
+            renderAdminAds();
+        }
         function closeAdminModal() { document.getElementById('admin-ads-modal').classList.remove('active'); }
 
-        // ── GALLERY ──
+        let siteAds = JSON.parse(localStorage.getItem('dov_ads')) || [
+            { img: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png', text: 'הצטרפו לנבחרת העסקים שלנו', link: '#' }
+        ];
+
+        function renderSiteAds() {
+            const track = document.getElementById('ad-track');
+            if(!track) return;
+            track.innerHTML = siteAds.map(ad => `
+                <div class="ad-card" onclick="${ad.link !== '#' ? `window.open('${ad.link}')` : ''}">
+                    <img src="${ad.img}" alt="Ad">
+                    <div class="ad-card-content"><p class="text-white text-xs font-bold">${ad.text}</p></div>
+                </div>
+            `).join('');
+        }
+
+        function renderAdminAds() {
+            const list = document.getElementById('admin-ads-list');
+            list.innerHTML = siteAds.map((ad, i) => `
+                <div class="flex items-center justify-between bg-white/5 p-3 rounded-lg">
+                    <span class="text-xs text-zinc-400 truncate max-w-[200px]">${ad.text}</span>
+                    <button onclick="deleteAd(${i})" class="text-red-500 font-bold text-xs">מחק</button>
+                </div>
+            `).join('');
+        }
+
+        function addNewAd() {
+            const img = document.getElementById('ad-image-input').value;
+            const text = document.getElementById('ad-text-input').value;
+            const link = document.getElementById('ad-link-input').value || '#';
+            if(!img || !text) return alert('נא למלא תמונה וטקסט');
+            siteAds.push({ img, text, link });
+            localStorage.setItem('dov_ads', JSON.stringify(siteAds));
+            renderSiteAds(); renderAdminAds();
+            document.getElementById('ad-image-input').value = '';
+            document.getElementById('ad-text-input').value = '';
+        }
+
+        function deleteAd(i) {
+            siteAds.splice(i, 1);
+            localStorage.setItem('dov_ads', JSON.stringify(siteAds));
+            renderSiteAds(); renderAdminAds();
+        }
+
+        function filterGallery(c) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            renderGallery(c);
+        }
+
         function renderGallery(filter = 'all') {
             const grid = document.getElementById('works-grid');
+            if(!grid) return;
             grid.innerHTML = '';
             const items = filter === 'all' ? works : works.filter(w => w.cat === filter);
             items.forEach((w, i) => {
@@ -400,29 +491,32 @@
                 div.innerHTML = `<img src="${w.url}" loading="lazy" alt="Work ${i+1}">`;
                 grid.appendChild(div);
             });
-            initReveal();
         }
 
-        // ── LIGHTBOX ──
         function openLightbox(url) {
             document.getElementById('lightbox-img').src = url;
             document.getElementById('lightbox').classList.add('active');
         }
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
+            document.getElementById('lightbox-img').src = '';
         }
 
-        // ── REVEAL ──
         function initReveal() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-            }, { threshold: 0.1 });
+            }, { threshold: 0.12 });
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         }
 
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') { closeLightbox(); closeBudgetModal(); closeAdminModal(); }
+        });
+
         window.addEventListener('load', () => {
+            renderSiteAds();
             initReveal();
-            renderGallery();
+            if (document.getElementById('gallery-page').classList.contains('active')) renderGallery();
         });
     </script>
 </body>
