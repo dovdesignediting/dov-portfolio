@@ -14,364 +14,232 @@
         :root {
             --gold: #f59e0b;
             --gold-glow: rgba(245,158,11,0.15);
-            --gold-dim: rgba(245,158,11,0.05);
-            --bg-dark: #0a0a0a;
-            --card-bg: #141414;
+            --gold-dim: rgba(245,158,11,0.08);
+            --glass: rgba(255,255,255,0.035);
+            --glass-b: rgba(255,255,255,0.07);
+            --dark: #09090b;
+            --dark2: #0d0d10;
         }
-        * { font-family: 'Heebo', sans-serif; }
-        h1, h2, .playfair { font-family: 'Playfair Display', serif; }
-        body { background-color: var(--bg-dark); color: #e5e7eb; overflow-x: hidden; }
-        .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #f59e0b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .gold-border { border: 1px solid rgba(245,158,11,0.3); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .gold-border:hover { border-color: var(--gold); box-shadow: 0 0 25px var(--gold-glow); }
-        .nav-blur { background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(245,158,11,0.1); }
-        .hero-pattern { background-image: radial-gradient(circle at 2px 2px, rgba(245,158,11,0.05) 1px, transparent 0); background-size: 40px 40px; }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-        .reveal.vis { opacity: 1; transform: translateY(0); }
-        .service-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s ease; position: relative; overflow: hidden; }
-        .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, transparent 0%, var(--gold-dim) 100%); opacity: 0; transition: 0.4s; }
-        .service-card:hover::before { opacity: 1; }
-        .service-card:hover { transform: translateY(-10px); border-color: rgba(245,158,11,0.3); }
-        .price-card.featured { border: 2px solid var(--gold); transform: scale(1.05); z-index: 10; }
-        .gallery-item { position: relative; overflow: hidden; border-radius: 12px; cursor: pointer; aspect-ratio: 1; }
-        .gallery-item img { transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); width: 100%; height: 100%; object-fit: cover; }
-        .gallery-item:hover img { transform: scale(1.1); }
-        .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); opacity: 0; transition: 0.4s; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-        .gallery-item:hover .gallery-overlay { opacity: 1; }
-        .btn-gold { background: var(--gold); color: black; transition: all 0.3s; position: relative; z-index: 1; overflow: hidden; }
-        .btn-gold::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: 0.5s; z-index: -1; }
-        .btn-gold:hover::after { left: 100%; }
-        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(245,158,11,0.3); }
-        .form-input { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem; width: 100%; transition: 0.3s; color: white; }
-        .form-input:focus { border-color: var(--gold); outline: none; background: rgba(255,255,255,0.05); }
-        .stat-item { border-right: 1px solid rgba(245,158,11,0.2); }
-        .stat-item:last-child { border-right: none; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        .float-anim { animation: float 6s ease-in-out infinite; }
-        #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
-        #lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .mobile-menu { position: fixed; inset: 0; background: var(--bg-dark); z-index: 40; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
-        .mobile-menu.active { display: flex; }
-        .admin-btn { position: fixed; bottom: 20px; left: 20px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; opacity: 0.3; transition: 0.3s; z-index: 50; }
-        .admin-btn:hover { opacity: 1; background: var(--gold); color: black; }
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
-        .modal.active { display: flex; }
-        .modal-content { background: var(--card-bg); border: 1px solid var(--gold); border-radius: 20px; padding: 2rem; max-width: 500px; width: 100%; position: relative; }
-        .budget-btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; border-radius: 50px; background: rgba(245,158,11,0.1); border: 1px solid var(--gold); color: var(--gold); transition: 0.3s; }
-        .budget-btn:hover { background: var(--gold); color: black; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Heebo', sans-serif;
+            background-color: var(--dark);
+            color: #fafafa;
+            overflow-x: hidden;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.4;
+        }
+        .serif { font-family: 'Playfair Display', serif; }
+        .brand-logo { height: 44px; width: auto; object-fit: contain; cursor: pointer; transition: opacity 0.2s; }
+        .brand-logo:hover { opacity: 0.8; }
+        .tm-symbol { font-size: 0.33em; vertical-align: super; margin-right: 2px; opacity: 0.75; }
+
+        /* ── HERO ── */
+        .hero-wrap { position: relative; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 88px; text-align: center; padding-left: 24px; padding-right: 24px; overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 90% 55% at 50% -5%, rgba(245,158,11,0.13) 0%, transparent 65%), radial-gradient(ellipse 55% 40% at 85% 100%, rgba(245,158,11,0.07) 0%, transparent 55%); pointer-events: none; }
+        .hero-orb { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; }
+        .hero-orb-1 { width: 380px; height: 380px; background: rgba(245,158,11,0.09); top: -100px; right: -100px; animation: orb-float 14s ease-in-out infinite; }
+        .hero-orb-2 { width: 260px; height: 260px; background: rgba(245,158,11,0.06); bottom: 5%; left: -80px; animation: orb-float 10s ease-in-out infinite 5s; }
+        @keyframes orb-float { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-28px) scale(1.04)} }
+        .grad-text { background: linear-gradient(135deg, #fff 20%, var(--gold) 55%, #fff 90%); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gshift 7s ease infinite; }
+        @keyframes gshift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+        /* ── PAGE TRANSITIONS ── */
         .page { display: none; }
-        .page.active { display: block; }
-        .work-img { width: 80px; height: 80px; margin: 0 auto 1.5rem auto; object-fit: contain; }
+        .page.active { display: block; animation: pg-in 0.55s cubic-bezier(0.16,1,0.3,1) both; }
+        @keyframes pg-in { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+        /* ── SCROLL REVEAL ── */
+        .reveal { opacity: 0; transform: translateY(38px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
+        .reveal.vis { opacity: 1; transform: translateY(0); }
+        .d1{transition-delay:0.08s} .d2{transition-delay:0.16s} .d3{transition-delay:0.24s} .d4{transition-delay:0.32s} .d5{transition-delay:0.4s}
+
+        /* ── GLASS CARDS ── */
+        .glass-card { background: var(--glass); border: 1px solid var(--glass-b); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .glass-card:hover { background: var(--gold-dim); border-color: rgba(245,158,11,0.38); transform: translateY(-7px); box-shadow: 0 28px 56px rgba(0,0,0,0.45), 0 0 28px rgba(245,158,11,0.1); }
+        /* ── SERVICE CARDS ── */
+        .svc-card { background: var(--glass); border: 1px solid var(--glass-b); padding: 2.2rem 2rem; border-radius: 26px; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); position: relative; overflow: hidden; }
+        .svc-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(245,158,11,0.06) 0%, transparent 55%); opacity: 0; transition: opacity 0.4s; }
+        .svc-card:hover::before { opacity: 1; }
+        .svc-card:hover { border-color: rgba(245,158,11,0.45); transform: translateY(-8px) perspective(900px) rotateX(1.5deg); box-shadow: 0 36px 72px rgba(0,0,0,0.5), 0 0 36px rgba(245,158,11,0.1); }
+        .svc-icon { width: 54px; height: 54px; background: linear-gradient(135deg, var(--gold), #d97706); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.4rem; box-shadow: 0 8px 24px rgba(245,158,11,0.35); }
+        /* ── GALLERY ── */
+        .masonry-grid { columns: 2; column-gap: 13px; }
+        @media(min-width:768px){.masonry-grid{columns:3;column-gap:18px}}
+        .masonry-item { break-inside: avoid; margin-bottom: 13px; position: relative; cursor: pointer; overflow: hidden; border-radius: 15px; border: 1px solid var(--glass-b); background: #111; transition: all 0.42s cubic-bezier(0.16,1,0.3,1); }
+        .masonry-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(245,158,11,0.45) 0%, transparent 55%); opacity: 0; transition: opacity 0.38s; pointer-events: none; }
+        .masonry-item:hover { transform: translateY(-6px) scale(1.015); border-color: var(--gold); box-shadow: 0 18px 48px rgba(0,0,0,0.55); }
+        .masonry-item:hover::after { opacity: 1; }
+        .masonry-item img { width: 100%; height: auto; display: block; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+        .masonry-item:hover img { transform: scale(1.06); }
+
+        /* ── LIGHTBOX ── */
+        #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.97); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(22px); }
+        #lightbox.active { display: flex; animation: fade-in 0.3s ease; }
+        @keyframes fade-in { from{opacity:0} to{opacity:1} }
+        #lightbox-img { max-width: 92%; max-height: 86vh; border-radius: 14px; box-shadow: 0 0 80px rgba(245,158,11,0.18); }
+
+        /* ── HEADER ── */
+        .header-glass { background: rgba(9,9,11,0.82); backdrop-filter: blur(26px); -webkit-backdrop-filter: blur(26px); border-bottom: 1px solid var(--glass-b); }
+        .nav-link { position: relative; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.14em; transition: color 0.2s; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px; background: var(--gold); transition: width 0.3s; }
+        .nav-link:hover { color: var(--gold); }
+        .nav-link:hover::after { width: 100%; }
+
+        /* ── MOBILE MENU ── */
+        .mob-menu { background: rgba(4,4,6,0.99); backdrop-filter: blur(32px); }
+        .mob-nav-btn { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase; transition: color 0.2s; }
+        .mob-nav-btn:hover { color: var(--gold); }
+
+        /* ── CAT BUTTONS ── */
+        .cat-btn { padding: 10px 22px; font-size: 10px; font-weight: 900; border: 1px solid rgba(255,255,255,0.09); color: #71717a; border-radius: 50px; transition: all 0.3s; letter-spacing: 0.1em; }
+        .cat-btn:hover { border-color: rgba(245,158,11,0.45); color: var(--gold); }
+        .cat-btn.active { border-color: var(--gold); color: #000; background: var(--gold); }
+
+        /* ── SHINY BUTTON ── */
+        .btn-shiny { position: relative; overflow: hidden; }
+        .btn-shiny::after { content: ''; position: absolute; top: -50%; left: -75%; width: 50%; height: 200%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); transform: skewX(-20deg); animation: btn-shine 3.5s infinite 1.2s; }
+        @keyframes btn-shine { 0%{left:-75%} 28%{left:125%} 100%{left:125%} }
+
+        /* ── BUDGET MODAL ── */
+        #budget-modal, #admin-ads-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.97); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(22px); padding: 14px; }
+        #budget-modal.active, #admin-ads-modal.active { display: flex; animation: fade-in 0.3s ease; }
+        .budget-container { width: 100%; max-width: 660px; background: #0e0e13; border: 1px solid var(--glass-b); border-radius: 30px; padding: 32px; position: relative; box-shadow: 0 44px 88px rgba(0,0,0,0.7), 0 0 60px rgba(245,158,11,0.05); max-height: 96vh; overflow: hidden; display: flex; flex-direction: column; }
+        .budget-scroll { flex: 1; overflow-y: auto; padding-inline-end: 6px; margin: 14px 0; }
+        .budget-scroll::-webkit-scrollbar { width: 3px; }
+        .budget-scroll::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+        .budget-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 17px; background: rgba(255,255,255,0.023); border: 1px solid transparent; border-radius: 17px; margin-bottom: 10px; cursor: pointer; transition: all 0.22s; }
+        .budget-item:hover { background: rgba(255,255,255,0.05); border-color: rgba(245,158,11,0.18); }
+        .budget-item.selected { border-color: var(--gold); background: rgba(245,158,11,0.08); }
+        .checkbox-custom { width: 22px; height: 22px; border: 2px solid rgba(255,255,255,0.14); border-radius: 7px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
+        .budget-item.selected .checkbox-custom { background: var(--gold); border-color: var(--gold); }
+        .budget-item.selected .checkbox-custom::after { content: '✓'; color: #000; font-size: 13px; font-weight: 900; }
+        .total-bar { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 18px; margin-top: 2px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+        /* ── ADS ── */
+        .ad-banner-section { background: linear-gradient(to right, var(--dark), #0f0f14, var(--dark)); padding: 50px 0; border-top: 1px solid var(--glass-b); border-bottom: 1px solid var(--glass-b); overflow: hidden; }
+        .ad-track { display: flex; gap: 22px; padding: 0 22px; overflow-x: auto; scrollbar-width: none; }
+        .ad-track::-webkit-scrollbar { display: none; }
+        .ad-card { flex: 0 0 275px; background: #141419; border-radius: 20px; overflow: hidden; border: 1px solid var(--glass-b); transition: all 0.3s; }
+        .ad-card:hover { border-color: var(--gold); transform: scale(1.025); box-shadow: 0 12px 40px rgba(0,0,0,0.45); }
+        .ad-card img { width: 100%; height: 152px; object-fit: cover; }
+        .ad-card-content { padding: 13px; }
+
+        /* ── ADMIN BTN ── */
+        .admin-btn { position: fixed; bottom: 20px; left: 20px; z-index: 100; width: 46px; height: 46px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #444; transition: all 0.3s; }
+        .admin-btn:hover { color: var(--gold); border-color: var(--gold); background: var(--gold-dim); }
+
+        /* ── CONTACT ── */
+        .contact-input { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-b); padding: 17px 20px; border-radius: 17px; outline: none; color: white; font-family: 'Heebo', sans-serif; font-size: 14px; transition: all 0.3s; }
+        .contact-input:focus { border-color: var(--gold); background: rgba(245,158,11,0.04); box-shadow: 0 0 0 4px rgba(245,158,11,0.06); }
+        .contact-input::placeholder { color: rgba(255,255,255,0.2); }
+
+        /* ── STATS ── */
+        .stat-num { font-size: 2.4rem; font-weight: 900; background: linear-gradient(135deg, #fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; }
+        .stat-lbl { font-size: 9px; color: #52525b; text-transform: uppercase; letter-spacing: 0.16em; margin-top: 5px; }
+
+        /* ── FOOTER ── */
+        .footer-line { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 320px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+
+        /* ── SECTION LABEL ── */
+        .s-label { font-size: 9px; font-weight: 900; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); opacity: 0.65; display: block; margin-bottom: 0.9rem; }
+
+        @media(max-width:640px) { .budget-container { padding: 22px 18px; border-radius: 22px; } .total-bar { flex-direction: column; align-items: stretch; } }
     </style>
 </head>
-<body>
-    <div id="home-page" class="page active">
-    <nav class="nav-blur fixed w-full z-50 px-6 py-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="h-12 w-12 object-contain" alt="Dov Logo">
-                <span class="text-2xl font-bold playfair tracking-tighter hidden md:block">DOV <span class="gold-gradient">STUDIO</span></span>
-            </div>
-            <div class="hidden md:flex gap-10 items-center font-medium">
-                <a href="#home" class="hover:text-amber-500 transition-colors">בית</a>
-                <a href="#services" class="hover:text-amber-500 transition-colors">שירותים</a>
-                <a href="javascript:void(0)" onclick="goToGallery()" class="hover:text-amber-500 transition-colors">תיק עבודות</a>
-                <a href="#contact" class="hover:text-amber-500 transition-colors">צור קשר</a>
-                <button onclick="openBudgetModal()" class="budget-btn">הצעת מחיר</button>
-            </div>
-            <button class="md:hidden text-2xl" onclick="toggleMenu()">☰</button>
-        </div>
-    </nav>
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="absolute top-8 right-8 text-3xl" onclick="toggleMenu()">✕</button>
-        <a href="#home" class="text-2xl" onclick="toggleMenu()">בית</a>
-        <a href="#services" class="text-2xl" onclick="toggleMenu()">שירותים</a>
-        <a href="javascript:void(0)" onclick="goToGallery(); toggleMenu();" class="text-2xl">תיק עבודות</a>
-        <a href="#contact" class="text-2xl" onclick="toggleMenu()">צור קשר</a>
-        <button onclick="openBudgetModal(); toggleMenu();" class="budget-btn text-xl">הצעת מחיר</button>
-    </div>
-
-    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 hero-pattern px-6 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
-            <div class="reveal">
-                <div class="inline-block px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/5 text-amber-500 text-sm font-bold mb-6 tracking-widest uppercase">Premium Design & Dev</div>
-                <h1 class="text-6xl md:text-8xl font-black mb-8 leading-tight">
-                    יוצרים <span class="gold-gradient">נוכחות</span><br>שאי אפשר להתעלם ממנה
-                </h1>
-                <p class="text-xl text-gray-400 mb-10 leading-relaxed max-w-xl">סטודיו בוטיק המתמחה במיתוג יוקרתי, פיתוח אתרים מתקדמים ופתרונות דיגיטליים שמעבירים את העסק שלך לקדמת הבמה.</p>
-                <div class="flex flex-wrap gap-6">
-                    <a href="#contact" class="btn-gold px-10 py-5 rounded-xl font-bold text-lg shadow-xl">בואו נדבר</a>
-                    <a href="javascript:void(0)" onclick="goToGallery()" class="px-10 py-5 rounded-xl border border-white/10 hover:bg-white/5 transition-all font-bold text-lg">תיק עבודות</a>
-                </div>
-            </div>
-            <div class="relative reveal hidden md:block">
-                <div class="absolute -inset-10 bg-amber-500/20 blur-[120px] rounded-full float-anim"></div>
-                <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" class="relative z-10 w-full max-w-lg mx-auto float-anim drop-shadow-[0_35px_35px_rgba(245,158,11,0.2)]" alt="Visual Branding">
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="py-32 px-6 bg-[#0c0c0c]">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-24 reveal">
-                <h2 class="text-5xl font-bold mb-6">SERVICES<br><span class="gold-gradient">שירותים</span></h2>
-                <div class="w-24 h-1 bg-amber-500 mx-auto rounded-full"></div>
-            </div>
-            <div class="grid md:grid-cols-4 gap-8">
-                <div class="service-card p-8 rounded-2xl reveal">
-                    <img src="https://i.postimg.cc/XvHX2rcW/Picsart-26-04-28-17-44-32-718.jpg" class="work-img" alt="עיצוב ומיתוג">
-                    <h3 class="text-2xl font-bold mb-4 text-white">עיצוב ומיתוג</h3>
-                    <p class="text-gray-400 leading-relaxed">בניית זהות ויזואלית ייחודית, לוגואים ושפה גרפית שמשדרת יוקרה ומקצועיות.</p>
-                </div>
-                <div class="service-card p-8 rounded-2xl reveal">
-                    <img src="https://i.postimg.cc/LsChyJBd/Picsart-26-04-28-17-45-35-605.jpg" class="work-img" alt="פיתוח אתרים">
-                    <h3 class="text-2xl font-bold mb-4 text-white">פיתוח אתרים</h3>
-                    <p class="text-gray-400 leading-relaxed">אתרי תדמית, דפי נחיתה ופורטפוליו שנבנים בטכנולוגיות המתקדמות ביותר בשוק.</p>
-                </div>
-                <div class="service-card p-8 rounded-2xl reveal">
-                    <img src="https://i.postimg.cc/TP7hkKqT/Picsart-26-04-28-17-46-14-905.jpg" class="work-img" alt="נוכחות דיגיטלית">
-                    <h3 class="text-2xl font-bold mb-4 text-white">נוכחות דיגיטלית</h3>
-                    <p class="text-gray-400 leading-relaxed">ניהול ויצירת תוכן לרשתות חברתיות, עיצוב פוסטים וקידום המותג במרחב הדיגיטלי.</p>
-                </div>
-                <div class="service-card p-8 rounded-2xl reveal">
-                    <img src="https://i.postimg.cc/8CKsy7Bk/Picsart-26-04-28-17-47-08-814.jpg" class="work-img" alt="חנויות ומערכות">
-                    <h3 class="text-2xl font-bold mb-4 text-white">חנויות ומערכות</h3>
-                    <p class="text-gray-400 leading-relaxed">פתרונות E-commerce מתקדמים, חנויות אונליין חכמות ומערכות לניהול עסקי.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="py-32 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-20 items-center">
-                <div class="reveal">
-                    <h2 class="text-5xl font-bold mb-10 leading-tight">למה לבחור בסטודיו<br><span class="gold-gradient">שלנו?</span></h2>
-                    <div class="space-y-8">
-                        <div class="flex gap-6 items-start">
-                            <div class="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500 shrink-0">✓</div>
-                            <div>
-                                <h4 class="text-xl font-bold mb-2">דיוק בלתי מתפשר</h4>
-                                <p class="text-gray-400">כל פיקסל וכל שורת קוד נבדקים בקפידה כדי להבטיח תוצאה מושלמת.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-6 items-start">
-                            <div class="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500 shrink-0">✓</div>
-                            <div>
-                                <h4 class="text-xl font-bold mb-2">טכנולוגיה מתקדמת</h4>
-                                <p class="text-gray-400">שימוש בכלים החדשניים ביותר ליצירת ביצועים מהירים וחוויית משתמש חלקה.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-6 items-start">
-                            <div class="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500 shrink-0">✓</div>
-                            <div>
-                                <h4 class="text-xl font-bold mb-2">ליווי אישי</h4>
-                                <p class="text-gray-400">אנחנו שותפים לדרך שלך, מהשלב הראשוני של הרעיון ועד להשקה המוצלחת.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-6 reveal">
-                    <div class="gold-border p-10 rounded-3xl text-center">
-                        <div class="text-4xl font-bold gold-gradient mb-2">50+</div>
-                        <div class="text-sm uppercase tracking-widest text-gray-500">פרויקטים</div>
-                    </div>
-                    <div class="gold-border p-10 rounded-3xl mt-12 text-center">
-                        <div class="text-4xl font-bold gold-gradient mb-2">100%</div>
-                        <div class="text-sm uppercase tracking-widest text-gray-500">שביעות רצון</div>
-                    </div>
-                    <div class="gold-border p-10 rounded-3xl text-center">
-                        <div class="text-4xl font-bold gold-gradient mb-2">24/7</div>
-                        <div class="text-sm uppercase tracking-widest text-gray-500">תמיכה</div>
-                    </div>
-                    <div class="gold-border p-10 rounded-3xl mt-12 text-center">
-                        <div class="text-4xl font-bold gold-gradient mb-2">ללא</div>
-                        <div class="text-sm uppercase tracking-widest text-gray-500">פשרות</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-32 px-6 bg-gradient-to-t from-[#050505] to-transparent">
-        <div class="max-w-4xl mx-auto reveal">
-            <div class="text-center mb-16">
-                <h2 class="text-5xl font-bold mb-6">מוכנים להתחיל?<br><span class="gold-gradient">דברו איתנו</span></h2>
-                <p class="text-gray-400">השאירו פרטים ונחזור אליכם בהקדם לתיאום שיחת ייעוץ חינם.</p>
-            </div>
-            <form id="contact-form" class="space-y-6" onsubmit="return handleFormSubmit(event)">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <input type="text" id="name" placeholder="שם מלא" class="form-input" required>
-                    <input type="email" id="email" placeholder="אימייל" class="form-input" required>
-                </div>
-                <input type="tel" id="phone" placeholder="טלפון" class="form-input" required>
-                <textarea id="message" rows="5" placeholder="ספרו לנו קצת על הפרויקט שלכם..." class="form-input" required></textarea>
-                
-                <div class="flex justify-center mb-6">
-                    <div class="g-recaptcha" data-sitekey="6LctIsMqAAAAAJ0uU_e28v_6I8z9Uay0D-M5p3tN" data-theme="dark"></div>
-                </div>
-
-                <button type="submit" class="btn-gold w-full py-5 rounded-xl font-bold text-xl shadow-2xl">שלח הודעה</button>
-            </form>
-        </div>
-    </section>
-
-    <footer class="py-12 px-6 border-t border-white/5 text-center">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex justify-center gap-8 mb-8 text-2xl">
-                <a href="#" class="hover:text-amber-500 transition-colors">Instagram</a>
-                <a href="#" class="hover:text-amber-500 transition-colors">LinkedIn</a>
-                <a href="https://wa.me/19293149594" class="hover:text-amber-500 transition-colors">WhatsApp</a>
-            </div>
-            <p class="text-gray-500">כל הזכויות שמורות ל... דוב עיצוב ופיתוח https://dov-portfolio.vercel.app © 2025</p>
-        </div>
-    </footer>
-    </div>
-    <div id="gallery-page" class="page min-h-screen px-6 py-32">
-        <div class="max-w-7xl mx-auto">
-            <button onclick="goHome()" class="mb-12 flex items-center gap-2 text-amber-500 hover:gap-4 transition-all">
-                <span>←</span> חזרה לדף הבית
-            </button>
-            <h2 class="text-6xl font-bold mb-16">תיק <span class="gold-gradient">עבודות</span></h2>
-            <div id="gallery-grid" class="grid md:grid-cols-3 gap-8">
-                </div>
-        </div>
-    </div>
-
+<body class="notranslate" oncontextmenu="return false;">
     <div id="lightbox" onclick="closeLightbox()">
-        <img id="lightbox-img" class="max-w-[90%] max-h-[90vh] rounded-xl shadow-2xl" src="" alt="">
+        <img id="lightbox-img" src="" alt="">
+        <button onclick="closeLightbox()" style="position:absolute;top:20px;right:24px;font-size:2rem;color:#fff;background:none;border:none;cursor:pointer;z-index:10;">✕</button>
     </div>
 
-    <div id="budgetModal" class="modal">
-        <div class="modal-content">
-            <button class="absolute top-4 right-4 text-2xl" onclick="closeBudgetModal()">✕</button>
-            <h3 class="text-2xl font-bold mb-6 gold-gradient">בקשת הצעת מחיר</h3>
-            <form onsubmit="handleBudgetSubmit(event)" class="space-y-4">
-                <input type="text" id="b-name" placeholder="שם מלא" class="form-input" required>
-                <select id="b-service" class="form-input" required>
-                    <option value="" disabled selected>בחר שירות</option>
-                    <option value="מיתוג">מיתוג ועיצוב</option>
-                    <option value="אתר">פיתוח אתר</option>
-                    <option value="מערכת">חנות/מערכת</option>
-                    <option value="אחר">אחר</option>
-                </select>
-                <input type="text" id="b-budget" placeholder="תקציב מוערך (₪)" class="form-input">
-                <button type="submit" class="btn-gold w-full py-4 rounded-xl font-bold">שלח בקשה</button>
-            </form>
+    <button onclick="openAdminModal()" class="admin-btn" title="ניהול מודעות">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+    </button>
+    <div id="admin-ads-modal">
+        <div class="budget-container">
+            <button onclick="closeAdminModal()" class="absolute top-6 right-6 text-zinc-500 hover:text-white text-3xl leading-none">&times;</button>
+            <h2 class="text-2xl font-black text-amber-500 mb-6 serif italic">ניהול פרסומות עסקים</h2>
+            <div class="space-y-3">
+                <input type="text" id="ad-image-input" placeholder="לינק לתמונת הפרסומת (URL)" class="contact-input">
+                <input type="text" id="ad-text-input" placeholder="טקסט לפרסומת" class="contact-input">
+                <input type="text" id="ad-link-input" placeholder="לינק לחיצה (אופציונלי)" class="contact-input">
+                <button onclick="addNewAd()" class="w-full py-4 bg-amber-500 text-black font-black rounded-xl hover:bg-amber-400 transition text-sm tracking-widest uppercase">הוסף פרסומת לאתר</button>
+            </div>
+            <div class="h-px bg-white/5 my-5"></div>
+            <div id="admin-ads-list" class="space-y-2 max-h-40 overflow-y-auto"></div>
         </div>
     </div>
 
-    <button class="admin-btn" onclick="openAdminModal()">⚙</button>
-    <div id="adminModal" class="modal">
-        <div class="modal-content">
-            <button class="absolute top-4 right-4 text-2xl" onclick="closeAdminModal()">✕</button>
-            <h3 class="text-2xl font-bold mb-6 gold-gradient">ניהול אתר</h3>
-            <div id="admin-login">
-                <input type="password" id="admin-pass" placeholder="סיסמה" class="form-input mb-4">
-                <button onclick="checkAdmin()" class="btn-gold w-full py-2 rounded-lg font-bold">כניסה</button>
+    <div id="budget-modal">
+        <div class="budget-container">
+            <button onclick="closeBudgetModal()" class="absolute top-6 right-6 text-zinc-500 hover:text-white text-3xl leading-none">&times;</button>
+            <h2 class="text-2xl font-black text-amber-500 mb-1 serif italic">🎯 מערכת תקציב</h2>
+            <p class="text-zinc-500 text-xs">בחר שירותים וקבל הצעת מחיר מיידית — שלח ישר לוואטסאפ.</p>
+            
+            <div class="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-xl flex items-start gap-3">
+                <span class="text-xl">💡</span>
+                <p class="text-blue-400 text-xs font-bold leading-relaxed">שים לב: המחיר הסופי משתנה בהתאם למיקום הלקוח.</p>
             </div>
-            <div id="admin-panel" class="hidden space-y-4">
-                <p class="text-sm text-gray-400">הוספת עבודה חדשה לתיק העבודות</p>
-                <input type="text" id="new-work-url" placeholder="קישור לתמונה (PostImg)" class="form-input">
-                <button onclick="addNewWork()" class="btn-gold w-full py-2 rounded-lg font-bold">הוסף פרויקט</button>
-                <hr class="border-white/10">
-                <button onclick="clearGallery()" class="text-red-500 text-sm hover:underline">נקה את כל הגלריה</button>
+
+            <div class="budget-scroll">
+                <div id="services-list"></div>
+
+                <div class="mt-7 text-[10px] text-zinc-500 space-y-3 leading-relaxed border-t border-white/5 pt-5" id="terms-content">
+                    <p><strong>1. אחריות פיתוח:</strong> אחריות מלאה לתיקון באגים למשך 30 יום מהמסירה. האחריות בטלה אם בוצעו שינויים על ידי הלקוח או צד ג.</p>
+                    <p><strong>2. תחזוקה חודשית ($250/חודש):</strong> גיבוי שבועי, עדכוני ליבה ותוספים, ניטור אבטחה, עד שעתיים לשינויי תוכן קלים. השעות אינן נצברות.</p>
+                    <p><strong>3. החרגות:</strong> עלויות צד ג (דומיין, אחסון, API) חלות על הלקוח. תוכן מעבר למוגדר יתומחר בנפרד.</p>
+                    <p><strong>4. קניין רוחני:</strong> עם גמר התשלום כל הזכויות עוברות ללקוח. הסטודיו שומר זכות להציג הפרויקט בתיק עבודות.</p>
+                    <p><strong>5. אחריות עיצוב ועריכה:</strong> הסטודיו מתחייב לספק תוצרים גרפיים ברמה הגבוהה ביותר תוך שקיפות מלאה. השירות כולל הכנה מקצועית מלאה לדפוס. שים לב: ההדפסה בפועל מתבצעת על ידי הלקוח, והאחריות על איכות ההדפסה והתוצאה הסופית הפיזית חלה על הלקוח בלבד.</p>
+                    <p><strong>6. החרגות לצד העיצוב:</strong> בקשות לשינויים מהותיים לאחר אישור סופי של הסקיצה (Sign-off) יתומחרו בנפרד. הסטודיו אינו אחראי לעיכובים הנובעים מאי-העברת חומרים מצד הלקוח.</p>
+                    <p><strong>7. קניין רוחני (עיצובים):</strong> עם גמר התשלום המלא, זכויות השימוש מועברות ללקוח. הסטודיו שומר לעצמו את הזכות להציג את העבודות בתיק העבודות.</p>
+                </div>
+
+                <div class="mt-5 p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-xs text-zinc-300 space-y-2">
+                    <p class="text-amber-500 font-bold">תודה על האמון ב"דוב עיצוב ופיתוח".</p>
+                    <p>המטרה שלי: להפוך את החזון שלך למציאות דיגיטלית חזקה, מעוצבת ומתקדמת.</p>
+                    <p class="font-bold text-white">השלב הבא: אישור הצעת המחיר + חתימה דיגיטלית = לינק לתיקיית פרויקט ויוצאים לדרך!</p>
+                </div>
+            </div>
+
+            <div class="total-bar">
+                <div>
+                    <span class="s-label">סה"כ מוערך</span>
+                    <span id="total-price-display" class="text-4xl font-black text-white">$0</span>
+                </div>
+                <button id="wa-budget-btn" onclick="sendBudgetToWhatsApp()" class="flex-1 max-w-[220px] py-4 bg-green-600 text-white font-black rounded-xl flex items-center justify-center gap-2 opacity-30 pointer-events-none transition-all text-xs uppercase tracking-widest">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    <span>WhatsApp</span>
+                </button>
             </div>
         </div>
+    </div>
+    <div id="mobile-menu" class="mob-menu fixed inset-0 z-[60] hidden flex-col items-center justify-center p-8">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-white text-4xl leading-none">&times;</button>
+        <img src="https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png" style="height:40px;margin-bottom:2.5rem;opacity:0.6">
+        <nav class="flex flex-col gap-7 text-center">
+            <button onclick="showPage('home');toggleMobileMenu()" class="mob-nav-btn">בית</button>
+            <button onclick="scrollToSection('about-section');toggleMobileMenu()" class="mob-nav-btn">אודות</button>
+            <button onclick="showPage('gallery');toggleMobileMenu()" class="mob-nav-btn">עבודות</button>
+            <button onclick="scrollToSection('contact-section');toggleMobileMenu()" class="mob-nav-btn">צור קשר</button>
+        </nav>
+        <div class="h-px w-20 bg-white/10 my-9"></div>
+        <a href="https://wa.me/972559646422" target="_blank" class="w-full max-w-[260px] py-4 bg-green-600 text-white rounded-2xl font-black flex items-center justify-center gap-3 text-sm uppercase tracking-wider">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span>דברו איתי בוואטסאפ</span>
+        </a>
     </div>
 
     <script>
-        // ── CORE DATA ──
-        let portfolioWorks = JSON.parse(localStorage.getItem('dov_portfolio_v1')) || [
-            {url: "https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png"}
-        ];
-
-        // ── NAVIGATION ──
-        function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('active'); }
-        function goToGallery() {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById('gallery-page').classList.add('active');
-            window.scrollTo(0,0);
-            renderGallery();
-        }
-        function goHome() {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById('home-page').classList.add('active');
-            window.scrollTo(0,0);
-        }
-
-        // ── MODALS ──
-        function openBudgetModal() { document.getElementById('budgetModal').classList.add('active'); }
-        function closeBudgetModal() { document.getElementById('budgetModal').classList.remove('active'); }
-        function openAdminModal() { document.getElementById('adminModal').classList.add('active'); }
-        function closeAdminModal() { 
-            document.getElementById('adminModal').classList.remove('active');
-            document.getElementById('admin-panel').classList.add('hidden');
-            document.getElementById('admin-login').classList.remove('hidden');
-            document.getElementById('admin-pass').value = '';
-        }
-
-        // ── FORMS ──
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            const captcha = grecaptcha.getResponse();
-            if(!captcha) { alert('אנא אמת שאינך רובוט'); return; }
-            const name = document.getElementById('name').value;
-            const msg = `שלום דוב, אני ${name}. רציתי להתעניין לגבי: ${document.getElementById('message').value}`;
-            window.open(`https://wa.me/19293149594?text=${encodeURIComponent(msg)}`);
-        }
-        function handleBudgetSubmit(e) {
-            e.preventDefault();
-            const service = document.getElementById('b-service').value;
-            const budget = document.getElementById('b-budget').value;
-            const msg = `היי, אני מעוניין בהצעת מחיר עבור ${service}. תקציב משוער: ${budget}₪.`;
-            window.open(`https://wa.me/19293149594?text=${encodeURIComponent(msg)}`);
-        }
-
-        // ── ADMIN LOGIC ──
-        function checkAdmin() {
-            if(document.getElementById('admin-pass').value === 'Dov2025') {
-                document.getElementById('admin-login').classList.add('hidden');
-                document.getElementById('admin-panel').classList.remove('hidden');
-            } else { alert('סיסמה שגויה'); }
-        }
-        function addNewWork() {
-            const url = document.getElementById('new-work-url').value;
-            if(!url) return;
-            portfolioWorks.push({url});
-            localStorage.setItem('dov_portfolio_v1', JSON.stringify(portfolioWorks));
-            renderGallery();
-            document.getElementById('new-work-url').value = '';
-            alert('הפרויקט נוסף בהצלחה');
-        }
-        function clearGallery() {
-            if(confirm('למחוק את כל הגלריה?')) {
-                portfolioWorks = [];
-                localStorage.removeItem('dov_portfolio_v1');
-                renderGallery();
-            }
-        }
-
-        // ── GALLERY RENDER ──
-        function renderGallery() {
-            const grid = document.getElementById('gallery-grid');
-            grid.innerHTML = '';
-            portfolioWorks.forEach((w, i) => {
-                const div = document.createElement('div');
-                div.className = 'gallery-item reveal';
-                div.style.transitionDelay = `${i * 0.07}s`;
-                div.onclick = () => openLightbox(w.url);
-                div.innerHTML = `<img src="${w.url}" loading="lazy" alt="Work ${i+1}">`;
-                grid.appendChild(div);
-            });
-            initReveal();
-        }
-
-        function renderSiteAds() {
-            // Placeholder for dynamic site interactions if needed
-        }
-
         // ── LIGHTBOX ──
         function openLightbox(url) {
             document.getElementById('lightbox-img').src = url;
@@ -381,7 +249,6 @@
             document.getElementById('lightbox').classList.remove('active');
             document.getElementById('lightbox-img').src = '';
         }
-
         // ── SCROLL REVEAL ──
         function initReveal() {
             const observer = new IntersectionObserver((entries) => {
