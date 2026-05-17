@@ -106,7 +106,6 @@
         .cat-btn { padding: 10px 22px; font-size: 10px; font-weight: 900; border: 1px solid rgba(255,255,255,0.09); color: #71717a; border-radius: 50px; transition: all 0.3s; letter-spacing: 0.1em; }
         .cat-btn:hover { border-color: rgba(245,158,11,0.45); color: var(--gold); }
         .cat-btn.active { border-color: var(--gold); color: #000; background: var(--gold); }
-
         /* ── SHINY BUTTON ── */
         .btn-shiny { position: relative; overflow: hidden; }
         .btn-shiny::after { content: ''; position: absolute; top: -50%; left: -75%; width: 50%; height: 200%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); transform: skewX(-20deg); animation: btn-shine 3.5s infinite 1.2s; }
@@ -164,24 +163,43 @@
         <button onclick="closeLightbox()" style="position:absolute;top:20px;right:24px;font-size:2rem;color:#fff;background:none;border:none;cursor:pointer;z-index:10;">✕</button>
     </div>
 
-    <button onclick="openAdminModal()" class="admin-btn" title="ניהול מודעות">
+    <button onclick="openAdminModal()" class="admin-btn" title="ניהול אתר">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
     </button>
+
     <div id="admin-ads-modal">
         <div class="budget-container">
-            <button onclick="closeAdminModal()" class="absolute top-6 right-6 text-zinc-500 hover:text-white text-3xl leading-none">&times;</button>
-            <h2 class="text-2xl font-black text-amber-500 mb-6 serif italic">ניהול פרסומות עסקים</h2>
-            <div class="space-y-3">
-                <input type="text" id="ad-image-input" placeholder="לינק לתמונת הפרסומת (URL)" class="contact-input">
-                <input type="text" id="ad-text-input" placeholder="טקסט לפרסומת" class="contact-input">
-                <input type="text" id="ad-link-input" placeholder="לינק לחיצה (אופציונלי)" class="contact-input">
-                <button onclick="addNewAd()" class="w-full py-4 bg-amber-500 text-black font-black rounded-xl hover:bg-amber-400 transition text-sm tracking-widest uppercase">הוסף פרסומת לאתר</button>
+            <button onclick="closeAdminModal()" class="absolute top-6 right-6 text-zinc-500 hover:text-white text-3xl leading-none z-50">&times;</button>
+            <h2 class="text-2xl font-black text-amber-500 mb-6 serif italic">פאנל ניהול מנהל</h2>
+            
+            <div class="budget-scroll">
+                <div class="bg-white/5 rounded-2xl p-4 mb-6 border border-white/10">
+                    <h3 class="text-white font-bold mb-4 text-sm uppercase tracking-widest text-amber-500">ניהול עבודות (גלריה)</h3>
+                    <div class="space-y-3 mb-4">
+                        <input type="text" id="work-image-input" placeholder="לינק לתמונה לגלריה (URL)" class="contact-input">
+                        <select id="work-cat-input" class="contact-input appearance-none bg-[#09090b] text-white">
+                            <option value="branding">מיתוג</option>
+                            <option value="business_cards">כרטיסי ביקור</option>
+                            <option value="ads">מודעות</option>
+                        </select>
+                        <button onclick="addNewWork()" class="w-full py-4 bg-amber-500 text-black font-black rounded-xl hover:bg-amber-400 transition text-sm tracking-widest uppercase">הוסף עבודה לגלריה</button>
+                    </div>
+                    <div id="admin-works-list" class="space-y-2 max-h-40 overflow-y-auto"></div>
+                </div>
+
+                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                    <h3 class="text-white font-bold mb-4 text-sm uppercase tracking-widest text-amber-500">ניהול שותפים עסקיים (באנר)</h3>
+                    <div class="space-y-3 mb-4">
+                        <input type="text" id="ad-image-input" placeholder="לינק לתמונת הפרסומת (URL)" class="contact-input">
+                        <input type="text" id="ad-text-input" placeholder="טקסט לפרסומת" class="contact-input">
+                        <input type="text" id="ad-link-input" placeholder="לינק לחיצה (אופציונלי)" class="contact-input">
+                        <button onclick="addNewAd()" class="w-full py-4 bg-amber-500 text-black font-black rounded-xl hover:bg-amber-400 transition text-sm tracking-widest uppercase">הוסף פרסומת לאתר</button>
+                    </div>
+                    <div id="admin-ads-list" class="space-y-2 max-h-40 overflow-y-auto"></div>
+                </div>
             </div>
-            <div class="h-px bg-white/5 my-5"></div>
-            <div id="admin-ads-list" class="space-y-2 max-h-40 overflow-y-auto"></div>
         </div>
     </div>
-
     <div id="budget-modal">
         <div class="budget-container">
             <button onclick="closeBudgetModal()" class="absolute top-6 right-6 text-zinc-500 hover:text-white text-3xl leading-none">&times;</button>
@@ -312,7 +330,6 @@
                 <p class="text-zinc-300 text-lg md:text-xl leading-relaxed font-light reveal d2" data-he="סטודיו 'דוב עיצוב ופיתוח' ממוקם בברוקלין, ניו יורק. אנו מתמחים ביצירת זהות גרפית יוקרתית ובניית אתרים מתקדמים בסטנדרט חסר פשרות. המטרה שלנו היא להפוך את החזון שלך למותג עוצמתי שמוביל את השוק." data-en="Dov Design & Development Studio is based in Brooklyn, NY. We specialize in creating luxury graphic identities and high-end websites with uncompromising standards. Our goal is to transform your vision into a powerful market-leading brand." data-es="El estudio Dov Design & Development está ubicado en Brooklyn, NY. Nos especializamos en identidades gráficas de lujo y sitios web de vanguardia con estándares intransigentes. Nuestro objetivo es transformar su visión en una marca líder en el mercado.">סטודיו 'דוב עיצוב ופיתוח' ממוקם בברוקלין, ניו יורק. אנו מתמחים ביצירת זהות גרפית יוקרתית ובניית אתרים מתקדמים בסטנדרט חסר פשרות. המטרה שלנו היא להפוך את החזון שלך למותג עוצמתי שמוביל את השוק.</p>
             </div>
         </section>
-
         <section class="py-24 px-6">
             <div class="container mx-auto max-w-5xl">
                 <div class="text-center mb-14">
@@ -321,7 +338,7 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="svc-card reveal d1">
-                        <div ="svc-icon">🎨</div>
+                        <div class="svc-icon">🎨</div>
                         <h3 class="text-xl font-bold mb-2 serif italic text-amber-500" data-he="עיצוב ומיתוג" data-en="Branding & Design" data-es="Diseño y Branding">עיצוב ומיתוג</h3>
                         <p class="text-zinc-400 text-sm leading-relaxed" data-he="לוגואים וזהות חזותית שמשדרים עוצמה ויוקרה. פלטות צבעים, טיפוגרפיה וחומרים שיוצרים מותג בלתי נשכח." data-en="Logos and visual identity that radiate power and prestige. Color palettes, typography, and brand assets that create an unforgettable brand." data-es="Logotipos e identidad visual que irradian poder y prestigio. Paletas de colores, tipografía y recursos que crean una marca inolvidable.">לוגואים וזהות חזותית שמשדרים עוצמה ויוקרה. פלטות צבעים, טיפוגרפיה וחומרים שיוצרים מותג בלתי נשכח.</p>
                     </div>
@@ -375,6 +392,7 @@
             </div>
         </section>
     </main>
+
     <main id="gallery-page" class="page relative pt-28 pb-20">
         <button onclick="showPage('home')" class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors text-5xl leading-none z-10">&times;</button>
         <div class="container mx-auto px-5 text-center">
@@ -400,8 +418,25 @@
         let currentLang = 'he';
         let currentFilter = 'all';
         let selectedServices = [];
-        const ACCESS_CODE = "358a7e5a-f598-4758-a8b6-7aad9d6fb05f";
+        const ACCESS_CODE = "e66de0c1-6349-4078-b73c-2812e6d31b7b";
         let siteAds = JSON.parse(localStorage.getItem('dov_ads')) || [];
+        
+        // טעינת גלריית העבודות מזיכרון הדפדפן, אם ריק - טוען את עבודות ברירת המחדל
+        let siteWorks = JSON.parse(localStorage.getItem('dov_works'));
+        if (!siteWorks) {
+            siteWorks = [
+                {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png', cat: 'ads'},
+                {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png', cat: 'ads'},
+                {url: 'https://i.postimg.cc/QxRKrSXB/1755407066547.png', cat: 'ads'},
+                {url: 'https://i.postimg.cc/wTtRPndv/1756004839008.png', cat: 'branding'},
+                {url: 'https://i.postimg.cc/05XJVPh1/IMG-20251228-WA0014.jpg', cat: 'branding'},
+                {url: 'https://i.postimg.cc/BZ71m4kd/Picsart-26-01-07-17-32-32-551.png', cat: 'branding'},
+                {url: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png', cat: 'branding'},
+                {url: 'https://i.postimg.cc/y8XCnYW8/Picsart-26-01-20-05-54-51-529.jpg', cat: 'business_cards'},
+                {url: 'https://i.postimg.cc/7ZMrXYbY/Picsart-26-01-20-05-51-57-093.png', cat: 'business_cards'}
+            ];
+            localStorage.setItem('dov_works', JSON.stringify(siteWorks));
+        }
 
         const services = [
             { id: 'logo', he: 'חבילת לוגו ומיתוג', en: 'Logo & Branding Package', es: 'Paquete Logo y Branding', price: 500, desc: 'מחקר שוק ואפיון שפה ויזואלית ייחודית לעסק. עיצוב לוגו מקורי (3 סקיצות לבחירה). התאמת פלטת צבעים וגופנים. מסירת כל קבצי המקור (Vector, PNG, PDF).', desc_en: 'Market research & unique visual language. Original logo design (3 sketches). Color palette & typography. All source files included (Vector, PNG, PDF).', desc_es: 'Investigación de mercado y lenguaje visual. Diseño de logo original (3 bocetos). Paleta de colores y tipografía. Archivos fuente.' },
@@ -419,18 +454,6 @@
             { id: 'hourly', he: 'שעת ייעוץ / תיקונים', en: 'Consulting / Fixes (Hourly)', es: 'Consultoría / Por Hora', price: 100, desc: 'פתרון בעיות טכניות באתרים קיימים. ייעוץ אסטרטגי לשיווק דיגיטלי. עבודה לפי שעה על שינויים חורגים.', desc_en: 'Technical fixes for existing sites. Digital marketing consulting. Hourly rate for extra requests.', desc_es: 'Soluciones técnicas y marketing. Tarifa por hora.' }
         ];
 
-        const works = [
-            {url: 'https://i.postimg.cc/fT3SF1hz/Picsart-25-08-30-21-41-32-973.png', cat: 'ads'},
-            {url: 'https://i.postimg.cc/66bGMtFN/1767556230317.png', cat: 'ads'},
-            {url: 'https://i.postimg.cc/QxRKrSXB/1755407066547.png', cat: 'ads'},
-            {url: 'https://i.postimg.cc/wTtRPndv/1756004839008.png', cat: 'branding'},
-            {url: 'https://i.postimg.cc/05XJVPh1/IMG-20251228-WA0014.jpg', cat: 'branding'},
-            {url: 'https://i.postimg.cc/BZ71m4kd/Picsart-26-01-07-17-32-32-551.png', cat: 'branding'},
-            {url: 'https://i.postimg.cc/rsB29YTx/Picsart-26-01-19-19-13-14-199.png', cat: 'branding'},
-            {url: 'https://i.postimg.cc/y8XCnYW8/Picsart-26-01-20-05-54-51-529.jpg', cat: 'business_cards'},
-            {url: 'https://i.postimg.cc/7ZMrXYbY/Picsart-26-01-20-05-51-57-093.png', cat: 'business_cards'}
-        ];
-
         // ── BUDGET MODAL ──
         function openBudgetModal() {
             document.getElementById('budget-modal').classList.add('active');
@@ -440,12 +463,13 @@
             document.getElementById('budget-modal').classList.remove('active');
         }
 
-        // ── ADMIN ──
+        // ── ADMIN MODAL ──
         function openAdminModal() {
-            const code = prompt("נא להזין קוד גישה לניהול פרסומות:");
+            const code = prompt("נא להזין קוד גישה לניהול האתר:");
             if (code === ACCESS_CODE) {
                 document.getElementById('admin-ads-modal').classList.add('active');
                 renderAdminAds();
+                renderAdminWorks();
             } else if (code !== null) {
                 alert("קוד שגוי.");
             }
@@ -454,6 +478,7 @@
             document.getElementById('admin-ads-modal').classList.remove('active');
         }
 
+        // ── ADMIN: ADS ──
         function addNewAd() {
             const img = document.getElementById('ad-image-input').value.trim();
             const text = document.getElementById('ad-text-input').value.trim();
@@ -479,7 +504,7 @@
             const list = document.getElementById('admin-ads-list');
             if (siteAds.length === 0) { list.innerHTML = '<p class="text-zinc-600 text-xs text-center py-3">אין פרסומות עדיין</p>'; return; }
             list.innerHTML = siteAds.map((ad, i) => `
-                <div class="flex items-center justify-between bg-white/4 border border-white/5 p-3 rounded-xl gap-3">
+                <div class="flex items-center justify-between bg-white/4 border border-white/5 p-3 rounded-xl gap-3 mb-2">
                     <img src="${ad.img}" style="width:40px;height:40px;object-fit:cover;border-radius:8px;flex-shrink:0" onerror="this.style.display='none'">
                     <span class="text-xs text-zinc-300 flex-1 truncate">${ad.text}</span>
                     <button onclick="removeAd(${i})" class="text-red-500 hover:text-red-400 text-xs font-black shrink-0">מחק</button>
@@ -502,6 +527,49 @@
                     ? `<a href="${ad.link}" target="_blank" class="ad-card block">${inner}</a>`
                     : `<div class="ad-card">${inner}</div>`;
             }).join('');
+        }
+
+        // ── ADMIN: GALLERY ──
+        function addNewWork() {
+            const url = document.getElementById('work-image-input').value.trim();
+            const cat = document.getElementById('work-cat-input').value;
+            if (!url) return alert("נא להזין לינק לתמונה");
+            
+            siteWorks.unshift({ url, cat }); // מוסיף את התמונה החדשה לראש הרשימה
+            localStorage.setItem('dov_works', JSON.stringify(siteWorks));
+            
+            document.getElementById('work-image-input').value = '';
+            renderAdminWorks();
+            
+            // רענון הגלריה אם אנחנו בעמוד שלה
+            if (document.getElementById('gallery-page').classList.contains('active')) {
+                renderGallery();
+            }
+        }
+
+        function removeWork(index) {
+            siteWorks.splice(index, 1);
+            localStorage.setItem('dov_works', JSON.stringify(siteWorks));
+            renderAdminWorks();
+            
+            if (document.getElementById('gallery-page').classList.contains('active')) {
+                renderGallery();
+            }
+        }
+
+        function renderAdminWorks() {
+            const list = document.getElementById('admin-works-list');
+            if (siteWorks.length === 0) { list.innerHTML = '<p class="text-zinc-600 text-xs text-center py-3">אין עבודות בגלריה</p>'; return; }
+            
+            list.innerHTML = siteWorks.map((work, i) => {
+                const catName = work.cat === 'branding' ? 'מיתוג' : work.cat === 'business_cards' ? 'כרטיסי ביקור' : 'מודעות';
+                return `
+                <div class="flex items-center justify-between bg-white/4 border border-white/5 p-3 rounded-xl gap-3 mb-2">
+                    <img src="${work.url}" style="width:40px;height:40px;object-fit:cover;border-radius:8px;flex-shrink:0" onerror="this.style.display='none'">
+                    <span class="text-xs text-zinc-300 flex-1">${catName}</span>
+                    <button onclick="removeWork(${i})" class="text-red-500 hover:text-red-400 text-xs font-black shrink-0">מחק</button>
+                </div>
+            `}).join('');
         }
 
         // ── BUDGET SERVICES ──
@@ -614,7 +682,7 @@
             const grid = document.getElementById('gallery-grid');
             if (!grid) return;
             grid.innerHTML = '';
-            const filtered = works.filter(w => currentFilter === 'all' || w.cat === currentFilter);
+            const filtered = siteWorks.filter(w => currentFilter === 'all' || w.cat === currentFilter);
             filtered.forEach((w, i) => {
                 const div = document.createElement('div');
                 div.className = 'masonry-item';
