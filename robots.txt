@@ -1,0 +1,6 @@
+# robots.txt for Dov Design Studio
+User-agent: *
+Allow: /
+
+# Sitemap Index
+Sitemap: https://dov-portfolio.vercel.app/sitemap.xml
