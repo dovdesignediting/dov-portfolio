@@ -6,10 +6,6 @@
     <meta name="google-site-verification" content="szG70hq40iku21n_4eIXSeCS-IdLhfkQf_e9V7XjJhU" />
     <meta name="google" content="notranslate">
     <meta name="theme-color" content="#050507">
-    <!-- Security Headers / CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://i.postimg.cc https://placehold.co; frame-src https://www.google.com/recaptcha/; form-action https://formspree.io; connect-src 'self' https://formspree.io; base-uri 'self'; object-src 'none';">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
         <!-- SEO Primary Meta Tags -->
     <title>דוב עיצוב ופיתוח | סטודיו למיתוג יוקרתי ובניית אתרים בברוקלין</title>
     <meta name="title" content="דוב עיצוב ופיתוח | סטודיו למיתוג יוקרתי ובניית אתרים בברוקלין">
@@ -25,7 +21,7 @@
     <link rel="alternate" hreflang="es" href="https://dov-portfolio.vercel.app/">
     <link rel="alternate" hreflang="x-default" href="https://dov-portfolio.vercel.app/">
 
-    <!-- Open Graph / Facebook / WhatsApp Rich Previews -->
+    <!-- Open Graph / WhatsApp Rich Previews -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dov-portfolio.vercel.app/">
     <meta property="og:site_name" content="דוב עיצוב ופיתוח | Dov Design Studio">
@@ -185,7 +181,39 @@
             </a>
         </div>
     </div>
-    
+    <div id="admin-ads-modal" class="overlay sheet-overlay" onclick="if (event.target === this) closeAdminModal()">
+        <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="admin-title">
+            <div class="sheet-head">
+                <h2 id="admin-title" class="sheet-title">פאנל ניהול מנהל</h2>
+                <button onclick="closeAdminModal()" class="icon-btn" aria-label="Close"><svg class="ic"><use href="#i-close"/></svg></button>
+            </div>
+            <div class="sheet-body">
+                <section class="panel">
+                    <h3 class="panel-title">ניהול עבודות (גלריה)</h3>
+                    <div class="stack">
+                        <input type="url" id="work-image-input" placeholder="לינק לתמונה לגלריה (URL)" class="input" inputmode="url" autocomplete="off">
+                        <select id="work-cat-input" class="input">
+                            <option value="branding">מיתוג</option>
+                            <option value="business_cards">כרטיסי ביקור</option>
+                            <option value="ads">מודעות</option>
+                        </select>
+                        <button onclick="addNewWork()" class="btn btn-primary btn-block">הוסף עבודה לגלריה</button>
+                    </div>
+                    <div id="admin-works-list" class="admin-list"></div>
+                </section>
+                <section class="panel">
+                    <h3 class="panel-title">ניהול שותפים עסקיים (באנר)</h3>
+                    <div class="stack">
+                        <input type="url" id="ad-image-input" placeholder="לינק לתמונת הפרסומת (URL)" class="input" inputmode="url" autocomplete="off">
+                        <input type="text" id="ad-text-input" placeholder="טקסט לפרסומת" class="input" autocomplete="off">
+                        <input type="url" id="ad-link-input" placeholder="לינק לחיצה (אופציונלי)" class="input" inputmode="url" autocomplete="off">
+                        <button onclick="addNewAd()" class="btn btn-primary btn-block">הוסף פרסומת לאתר</button>
+                    </div>
+                    <div id="admin-ads-list" class="admin-list"></div>
+                </section>
+            </div>
+        </div>
+    </div>
 
     <div id="budget-modal" class="overlay sheet-overlay" onclick="if (event.target === this) closeBudgetModal()">
         <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="budget-title">
@@ -523,7 +551,7 @@
         <div class="container footer-inner">
             <img class="footer-logo" alt="" width="38" height="38" data-copy-logo>
             <p class="footer-copy">© 2026 DOV DESIGN & DEVELOPMENT™ | ALL RIGHTS RESERVED | BROOKLYN, NY</p>
-            
+            <button onclick="openAdminModal()" class="admin-btn" title="ניהול אתר" aria-label="ניהול אתר"><svg class="ic"><use href="#i-gear"/></svg></button>
         </div>
     </footer>
 
